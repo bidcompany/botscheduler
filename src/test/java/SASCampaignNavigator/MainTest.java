@@ -6,9 +6,9 @@ package SASCampaignNavigator;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class AppTest {
+public class MainTest {
     @Test public void testAppHasAGreeting() {
-        App classUnderTest = new App();
+        Main classUnderTest = new Main();
         assertNotNull("app should have a greeting", classUnderTest.getGreeting());
     }
 }
