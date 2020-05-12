@@ -7,3 +7,11 @@
 
 ### Linux/Unix
 ``` ./gradlew build ```
+
+## How To Run
+
+### Windows
+``` gradlew.bat run ```
+
+### Linux/Unix
+``` ./gradlew run ```
