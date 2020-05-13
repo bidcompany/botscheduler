@@ -39,3 +39,7 @@ application {
     // Define the main class for the application.
     mainClassName = 'SASCampaignNavigator.Main'
 }
+
+apply plugin: 'java'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
