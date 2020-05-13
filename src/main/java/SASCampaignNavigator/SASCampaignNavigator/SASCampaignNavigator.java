@@ -66,7 +66,7 @@ public class SASCampaignNavigator extends CampaignNavigator
         // click on Campaigns Sections
         toFind = "Campaigns";
         logger.debug("Find element with title " + toFind);
-        found = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[title^='"+toFind+"']"));  
+        found = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
         found.click();
         //webDriver.find_element_by_xpath('//*[@title="' + toFind + '"]').click();
 
