@@ -1,4 +1,4 @@
-package SASCampaignNavigator.CampaignNavigator;
+package SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator;
 
 import java.io.File;
 import java.net.URL;
@@ -11,7 +11,6 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-
 /* Navigator bot class. It Should be able to connect to target web page, detect the target html elements
  and perform actions. It has also some data, a list of campaigns */
 
@@ -19,13 +18,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class CampaignNavigator 
 {       
     // log manager 
-    private static final Logger logger = LogManager.getLogger(CampaignNavigator.class);
+    private Logger logger = LogManager.getLogger(CampaignNavigator.class);
     
-    private String driverType;
-    private String driverPath;
+    public String driverType;
+    public String driverPath;
+    public WebDriver webDriver;
 
     // Constructor
-    public CampaignNavigator( /* a list of campaigns */)    /* implements Runnable*/
+    public CampaignNavigator()//Logger logger /* a list of campaigns */)    /* implements Runnable*/
     {
         // allocate stuff 
         // ..
@@ -39,6 +39,7 @@ public class CampaignNavigator
             File jarFile = new File (getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
             String url = jarFile.getParentFile().getPath();
             driverPath = url + "\\chromedriver.exe";
+            logger.debug("driverPath: " + driverPath);
         }
         catch(Exception e)
         {
@@ -59,7 +60,7 @@ public class CampaignNavigator
         
         // using Chrome
         logger.debug("Start the driver");
-        WebDriver webDriver = new ChromeDriver();
+        webDriver = new ChromeDriver();
 
         // Setting the browser size
         Dimension broswerSize = new Dimension(1024, 768);
@@ -94,6 +95,7 @@ public class CampaignNavigator
         {
             Thread.sleep(7000);
         }
+
         catch (Exception e) 
         {
             logger.error("The following exception occurred: " + e.toString());

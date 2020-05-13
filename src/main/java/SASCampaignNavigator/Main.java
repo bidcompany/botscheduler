@@ -1,5 +1,5 @@
 package SASCampaignNavigator;
-import SASCampaignNavigator.CampaignNavigator.CampaignNavigator;
+import SASCampaignNavigator.SASCampaignNavigator.SASCampaignNavigator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,9 +12,8 @@ public class Main
     {
         logger.debug("Started the main");
         logger.debug("Create a navigator task");
-        CampaignNavigator campaignNavigator = new CampaignNavigator();
+        SASCampaignNavigator campaignNavigator = new SASCampaignNavigator();
         logger.debug("Run a navigator task");
         campaignNavigator.run();
-
     }
 }
