@@ -11,7 +11,11 @@
 ## How To Run
 
 ### Windows
-``` gradlew.bat run ```
+Extract the archive `build\distributions\SASCampaignNavigator.zip` to your desired directory. Then do:
+```cd bin```
+```SASCampaignNavigator.bat```
 
 ### Linux/Unix
-``` ./gradlew run ```
+Extract the archive `build\distributions\SASCampaignNavigator.tar` to your desired directory. Then do:
+```cd bin```
+```./SASCampaignNavigator```
