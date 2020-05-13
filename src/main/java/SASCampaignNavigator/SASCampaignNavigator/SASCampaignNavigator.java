@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByClassName;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,8 +19,84 @@ public class SASCampaignNavigator extends CampaignNavigator
     // log manager 
     private Logger logger = LogManager.getLogger(SASCampaignNavigator.class);
     
-    private void SASLogin(){}
-    private void SASApproveCampaign(){}
+    private void SASLogin()
+    {
+        String url = "http://sas-aap.demo.sas.com/SASCIStudio/";
+        String toFind;
+        webDriver.navigate().to(url);
+        logger.debug("Navigate to to " + url);
+        
+        // digit username
+        toFind = "username";
+        logger.debug("Find element with id " + toFind);
+        webDriver.findElement(By.id(toFind)).sendKeys("sasdemo");
+    
+        // digit password
+        toFind = "password";
+        logger.debug("Find element with id " + toFind);
+        webDriver.findElement(By.id(toFind)).sendKeys("Orion123");
+        logger.debug("Navigate to to " + url);
+
+        // submit
+        toFind = "btn-submit";
+        logger.debug("Find element with class " + toFind);
+        webDriver.findElement(By.className(toFind)).submit();
+    }
+
+
+    private void SASApproveCampaign(String campaignToApprove)
+    {
+        String toFind;
+        logger.debug("start: approving campaign " + campaignToApprove);
+        
+        // click the campaign selector button
+        toFind = "sapUiTreeIcon sapUiIcon";
+        logger.debug("Find element with class " + toFind);
+        webDriver.findElement(By.className(toFind)).click();
+
+        // click on Campaigns Sections
+        toFind = "Campaigns";
+        logger.debug("Find element with title " + toFind);
+        webDriver.findElement(By.cssSelector("[title^='"+toFind+"']")).click();
+        //webDriver.find_element_by_xpath('//*[@title="' + toFind + '"]').click();
+
+        /* another solution to check
+        String title="SOME TITLE";
+        driver.findElement(By.cssSelector("[title^='"+title+"']")).click();*/
+
+        // click on OutBound Sections
+        toFind = "Outbound";
+        logger.debug("Find element with title " + toFind);
+        webDriver.findElement(By.cssSelector("[title^='"+toFind+"']")).click();
+        
+        // click on OutBound Sections
+        toFind = "Examples";
+        logger.debug("Find element with title " + toFind);
+        webDriver.findElement(By.cssSelector("[title^='"+toFind+"']")).click();
+        
+        // click by title
+        toFind = campaignToApprove;
+        logger.debug("Find campaign with title " + toFind);
+        webDriver.findElement(By.cssSelector("[title^='"+toFind+"']")).click();
+        
+        // click on Approval by id
+        toFind = "__filter204-text";
+        logger.debug("Find approval tab with id " + toFind);
+        webDriver.findElement(By.id(toFind)).click();
+
+        // click on Approve first Confirm Button
+        toFind = "__button1369";
+        logger.debug("Find approve button with id " + toFind);
+        webDriver.findElement(By.id(toFind)).click();
+
+        // click on Approve second Confirm Button
+        toFind = "__button1498";
+        logger.debug("Find approve button with id " + toFind);
+        webDriver.findElement(By.id(toFind)).click();
+
+        // end
+        logger.debug("end: campaign " + campaignToApprove + " approved correctly");
+    }
 
     @Override
     public void run()
@@ -38,8 +115,13 @@ public class SASCampaignNavigator extends CampaignNavigator
         webDriver.manage().window().setSize(broswerSize);
         logger.debug("Set webdriver window size to " + broswerSize.toString());
 
+        // Task to perform the login to CI
         SASLogin();
-        SASApproveCampaign();
+        logger.debug("Login to CI completed");
+
+        // Task to perform the approve of a campaign
+        String campaignToApprove = "Navigator-01";
+        SASApproveCampaign(campaignToApprove);
 
         // Waiting a little bit before closing
         try 
