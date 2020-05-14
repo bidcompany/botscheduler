@@ -58,7 +58,7 @@ public class SASCampaignNavigator extends CampaignNavigator
         // click the campaign selector button
         toFind = "sapUiTreeIcon sapUiIcon";
         logger.debug("Find element with class " + toFind);
-        found = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(toFind)));  
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.className(toFind)));  
         found.click();
         
         //webDriver.findElement(By.className(toFind)).click();
@@ -66,7 +66,7 @@ public class SASCampaignNavigator extends CampaignNavigator
         // click on Campaigns Sections
         toFind = "Campaigns";
         logger.debug("Find element with title " + toFind);
-        found = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
         found.click();
         //webDriver.find_element_by_xpath('//*[@title="' + toFind + '"]').click();
 
@@ -77,37 +77,37 @@ public class SASCampaignNavigator extends CampaignNavigator
         // click on OutBound Sections
         toFind = "Outbound";
         logger.debug("Find element with title " + toFind);
-        found = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
         found.click();
         
         // click on OutBound Sections
         toFind = "Examples";
         logger.debug("Find element with title " + toFind);
-        found = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
         found.click();
         
         // click by title
         toFind = campaignToApprove;
         logger.debug("Find campaign with title " + toFind);
-        found = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
         found.click();
         
         // click on Approval by id
         toFind = "__filter204-text";
         logger.debug("Find approval tab with id " + toFind);
-        found = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(toFind)));  
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
         found.click();
         
         // click on Approve first Confirm Button
         toFind = "__button1369";
         logger.debug("Find approve button with id " + toFind);
-        found = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(toFind)));  
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
         found.click();
      
         // click on Approve second Confirm Button
         toFind = "__button1498";
         logger.debug("Find approve button with id " + toFind);
-        found = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(toFind)));  
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
         found.click();
      
         // end
