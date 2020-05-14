@@ -49,69 +49,83 @@ public class SASCampaignNavigator extends CampaignNavigator
 
     private void SASApproveCampaign(String campaignToApprove)
     {
-        String toFind;
+        String toFind = "not Initialized";
         WebElement found;
         WebDriverWait wait = new WebDriverWait(webDriver, 60); // timeout 1 min
 
         logger.debug("start: approving campaign " + campaignToApprove);
 
-        // click the campaign selector button
-        toFind = "sapUiTreeIcon sapUiIcon";
-        logger.debug("Find element with class " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.className(toFind)));  
-        found.click();
-        
-        //webDriver.findElement(By.className(toFind)).click();
+        try
+        {
+            // switch to focus on the iframe
+            toFind = "sasci_iframe";
+            logger.debug("Find element with id " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            webDriver.switchTo().frame(found);
 
-        // click on Campaigns Sections
-        toFind = "Campaigns";
-        logger.debug("Find element with title " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
-        found.click();
-        //webDriver.find_element_by_xpath('//*[@title="' + toFind + '"]').click();
+            // click the campaign selector button
+            toFind = "__node0";
+            logger.debug("Find element with id " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            found.click();
 
-        /* another solution to check
-        String title="SOME TITLE";
-        driver.findElement(By.cssSelector("[title^='"+title+"']")).click();*/
+            // click on Campaigns Sections
+            toFind = "Campaigns";
+            logger.debug("Find element with title " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
+            found.click();
 
-        // click on OutBound Sections
-        toFind = "Outbound";
-        logger.debug("Find element with title " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
-        found.click();
+            // click on OutBound Sections
+            toFind = "Outbound";
+            logger.debug("Find element with title " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
+            found.click();
+
+            // click on OutBound Sections
+            toFind = "Examples";
+            logger.debug("Find element with title " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
+            found.click();
+
+            // click by title
+            toFind = campaignToApprove;
+            logger.debug("Find campaign with title " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
+            found.click();
+
+            // click on Approval by id
+            toFind = "__filter204-text";
+            logger.debug("Find approval tab with id " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            found.click();
+
+            // click on Approve first Confirm Button
+            toFind = "__button1369";
+            logger.debug("Find approve button with id " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            found.click();
+
+            // click on Approve second Confirm Button
+            toFind = "__button1498";
+            logger.debug("Find approve button with id " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            found.click();
+
+            // end
+            logger.debug("end: campaign " + campaignToApprove + " approved correctly");
+        }
+        catch(Exception e)
+        {
+            // we come up here if no elements are found in the html dom
+            logger.error("No element with key " + toFind + "is found in the dom");
+
+            logger.error(e.toString());
+
+            // print the source html which selenium is working on
+            String html = webDriver.getPageSource();
+            logger.debug("Source html:\n" + html);
+        }
         
-        // click on OutBound Sections
-        toFind = "Examples";
-        logger.debug("Find element with title " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
-        found.click();
-        
-        // click by title
-        toFind = campaignToApprove;
-        logger.debug("Find campaign with title " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
-        found.click();
-        
-        // click on Approval by id
-        toFind = "__filter204-text";
-        logger.debug("Find approval tab with id " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-        found.click();
-        
-        // click on Approve first Confirm Button
-        toFind = "__button1369";
-        logger.debug("Find approve button with id " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-        found.click();
-     
-        // click on Approve second Confirm Button
-        toFind = "__button1498";
-        logger.debug("Find approve button with id " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-        found.click();
-     
-        // end
-        logger.debug("end: campaign " + campaignToApprove + " approved correctly");
     }
 
     @Override
@@ -138,17 +152,7 @@ public class SASCampaignNavigator extends CampaignNavigator
         // Task to perform the approve of a campaign
         String campaignToApprove = "Navigator-01";
         SASApproveCampaign(campaignToApprove);
-
-        // Waiting a little bit before closing
-        try 
-        {
-            Thread.sleep(7000);
-        }
-        
-        catch (Exception e) 
-        {
-            logger.error("The following exception occurred: " + e.toString());
-        }
+       
         // Closing the browser and webdriver
         logger.debug("Webdriver closing");
         webDriver.close();
