@@ -85,7 +85,10 @@ public class SASCampaignNavigator extends CampaignNavigator
             toFind="__page0-searchField-I";
             logger.debug("Find element with id " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            logger.debug("Writing to input field " + campaignToApprove);
+            found.clear();
             found.sendKeys(campaignToApprove);
+            found.submit();
 
             toFind = "Campaigns";
             logger.debug("Find element with title " + toFind);
