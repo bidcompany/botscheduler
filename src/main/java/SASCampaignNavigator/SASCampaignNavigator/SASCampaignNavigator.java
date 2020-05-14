@@ -50,8 +50,8 @@ public class SASCampaignNavigator extends CampaignNavigator
     private void SASApproveCampaign(String campaignToApprove)
     {
         String toFind = "not Initialized";
-        WebElement found = webDriver.findElement(By.tagName("body"));
-        WebDriverWait wait = new WebDriverWait(webDriver, 120); // timeout 2 min
+        WebElement found;
+        WebDriverWait wait = new WebDriverWait(webDriver, 60); // timeout 1 min
 
         logger.debug("start: approving campaign " + campaignToApprove);
 
@@ -159,8 +159,8 @@ public class SASCampaignNavigator extends CampaignNavigator
             logger.error(e.toString());
 
             // print the source html which selenium is working on
-            String html = found.toString(); //webDriver.getPageSource();
-            logger.debug("Source html:\n" + html);
+            //String html = webDriver.getPageSource(); //webDriver.getPageSource();
+            //logger.debug("Source html:\n" + html);
         }
         
     }
