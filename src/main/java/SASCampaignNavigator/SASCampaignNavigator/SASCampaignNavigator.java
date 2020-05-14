@@ -80,7 +80,6 @@ public class SASCampaignNavigator extends CampaignNavigator
             logger.debug("Find element with id " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
             found.click();
-
             
             toFind = "Campaigns";
             logger.debug("Find element with title " + toFind);
@@ -88,13 +87,6 @@ public class SASCampaignNavigator extends CampaignNavigator
                 By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
             found.click();
 
-            // click on OutBound Sections
-            toFind = "Outbound";
-            logger.debug("Find element with title " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
-            found.click();
-            
             // filter with the target campaign name so the page is always focused on it
             toFind="__page0-searchField-I";
             logger.debug("Find element with id " + toFind);
@@ -104,6 +96,17 @@ public class SASCampaignNavigator extends CampaignNavigator
             found.sendKeys(campaignToApprove);
             found.submit();
 
+            // wait until text field has value campaignToApprove
+            logger.debug("Waiting untill the to input field has value " + campaignToApprove);
+            wait.until(ExpectedConditions.textToBePresentInElement(found, campaignToApprove));
+
+            // click on OutBound Sections
+            toFind = "Outbound";
+            logger.debug("Find element with title " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
+            found.click();
+            
             // click on OutBound Sections
             toFind = "Examples";
             logger.debug("Find element with title " + toFind);
