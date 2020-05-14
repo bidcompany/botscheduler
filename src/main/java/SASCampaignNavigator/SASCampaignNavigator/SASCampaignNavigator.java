@@ -50,7 +50,7 @@ public class SASCampaignNavigator extends CampaignNavigator
     private void SASApproveCampaign(String campaignToApprove)
     {
         String toFind = "not Initialized";
-        WebElement found;
+        WebElement found = webDriver.findElement(By.tagName("body"));
         WebDriverWait wait = new WebDriverWait(webDriver, 120); // timeout 2 min
 
         logger.debug("start: approving campaign " + campaignToApprove);
@@ -82,22 +82,29 @@ public class SASCampaignNavigator extends CampaignNavigator
             found.click();
 
             // click on Campaigns Sections
-            toFind = "__icon84";
+            /*toFind = "__icon84";
             logger.debug("Find element with id " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            found.click();*/
+
+            toFind = "Campaigns";
+            logger.debug("Find element with title " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.cssSelector("[title^='"+toFind+"']/parent")));  
             found.click();
 
             // click on OutBound Sections
-            toFind = "__icon85";
-            logger.debug("Find element with id " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            toFind = "Outbound";
+            logger.debug("Find element with title " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.cssSelector("[title^='"+toFind+"']/parent")));  
             found.click();
 
             // click on OutBound Sections
             toFind = "Examples";
             logger.debug("Find element with title " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.cssSelector("[title^='"+toFind+"']/parent/[0]")));  
+                By.cssSelector("[title^='"+toFind+"']/parent")));  
             found.click();
 
             // click on OutBound Sections
@@ -158,7 +165,7 @@ public class SASCampaignNavigator extends CampaignNavigator
             logger.error(e.toString());
 
             // print the source html which selenium is working on
-            String html = webDriver.getPageSource();
+            String html = found.toString(); //webDriver.getPageSource();
             logger.debug("Source html:\n" + html);
         }
         
