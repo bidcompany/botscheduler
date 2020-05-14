@@ -1,2 +1,2 @@
 #!/bin/sh
-unzip build/distributions/SASCampaignNavigator.zip -d delivery/
+unzip -o build/distributions/SASCampaignNavigator.zip -d delivery/

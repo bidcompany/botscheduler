@@ -101,33 +101,11 @@ public class SASCampaignNavigator extends CampaignNavigator
                 By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
             found.click();
 
-            // click on OutBound Sections
-            /*toFind = "__icon84";
-            logger.debug("Find element with title " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-            found.click();*/
-
-            /*toFind = "Campaigns";
-            logger.debug("Find element with title " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
-            found.click();
-
-            // click on OutBound Sections
-            toFind = "Outbound";
-            logger.debug("Find element with title " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
-            found.click();
-
-            // click on OutBound Sections
-            toFind = "Examples";
-            logger.debug("Find element with title " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
-            found.click();*/
-
             // click by title
             toFind = campaignToApprove;
             logger.debug("Find campaign with title " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//*[@title='"+toFind+"']")));  
             found.click();
 
             // click on Approval by id
@@ -135,6 +113,11 @@ public class SASCampaignNavigator extends CampaignNavigator
             logger.debug("Find approval tab with id " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
             found.click();
+
+            /*logger.debug("Find Approval tab");
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//*[text()='Approval']/parent::div[@role='tab']")));  
+            found.click();*/
 
             // click on Approve first Confirm Button
             toFind = "__button1369";
@@ -187,7 +170,7 @@ public class SASCampaignNavigator extends CampaignNavigator
         logger.debug("Login to CI completed");
 
         // Task to perform the approve of a campaign
-        String campaignToApprove = "Navigator-01";
+        String campaignToApprove = "Navigator01";
         SASApproveCampaign(campaignToApprove);
        
         // Closing the browser and webdriver
