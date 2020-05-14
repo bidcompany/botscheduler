@@ -81,6 +81,12 @@ public class SASCampaignNavigator extends CampaignNavigator
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
             found.click();
 
+            // filter with the target campaign name so the page is always focused on it
+            toFind="__page0-searchField-I";
+            logger.debug("Find element with id " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            found.sendKeys(campaignToApprove);
+
             toFind = "Campaigns";
             logger.debug("Find element with title " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
@@ -109,15 +115,15 @@ public class SASCampaignNavigator extends CampaignNavigator
             found.click();
 
             // click on Approval by id
-            toFind = "__filter204-text";
+            /*toFind = "__filter204-text";
             logger.debug("Find approval tab with id " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-            found.click();
+            found.click();*/
 
-            /*logger.debug("Find Approval tab");
+            logger.debug("Find Approval tab");
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//*[text()='Approval']/parent::div[@role='tab']")));  
-            found.click();*/
+            found.click();
 
             // click on Approve first Confirm Button
             toFind = "__button1369";
