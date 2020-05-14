@@ -90,21 +90,21 @@ public class SASCampaignNavigator extends CampaignNavigator
             toFind = "Campaigns";
             logger.debug("Find element with title " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.cssSelector("[title^='"+toFind+"']/parent")));  
+                By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
             found.click();
 
             // click on OutBound Sections
             toFind = "Outbound";
             logger.debug("Find element with title " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.cssSelector("[title^='"+toFind+"']/parent")));  
+                By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
             found.click();
 
             // click on OutBound Sections
             toFind = "Examples";
             logger.debug("Find element with title " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.cssSelector("[title^='"+toFind+"']/parent")));  
+                By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
             found.click();
 
             // click on OutBound Sections
