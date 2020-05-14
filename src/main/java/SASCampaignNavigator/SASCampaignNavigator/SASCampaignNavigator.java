@@ -51,7 +51,7 @@ public class SASCampaignNavigator extends CampaignNavigator
     {
         String toFind = "not Initialized";
         WebElement found;
-        WebDriverWait wait = new WebDriverWait(webDriver, 60); // timeout 1 min
+        WebDriverWait wait = new WebDriverWait(webDriver, 120); // timeout 2 min
 
         logger.debug("start: approving campaign " + campaignToApprove);
 
