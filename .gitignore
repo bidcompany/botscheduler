@@ -5,6 +5,7 @@
 build
 bin
 external
+delivery
 
 # Ignore VsCode config directory
 .vscode
