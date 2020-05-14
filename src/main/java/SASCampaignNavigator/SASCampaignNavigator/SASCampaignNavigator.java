@@ -81,24 +81,11 @@ public class SASCampaignNavigator extends CampaignNavigator
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
             found.click();
 
-            // click on Campaigns Sections
-            /*toFind = "__icon84";
-            logger.debug("Find element with id " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-            found.click();*/
-
             toFind = "Campaigns";
             logger.debug("Find element with title " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
             found.click();
-
-            Thread.sleep(5000);  // 5 sec
-            logger.debug("Find element with title " + toFind);
-            found = webDriver.findElement(
-                By.xpath("//*[@title='Campaigns']/..//*[@role='button']"));  
-            found.click();
-
 
             // click on OutBound Sections
             toFind = "Outbound";
