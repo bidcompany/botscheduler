@@ -98,7 +98,7 @@ public class SASCampaignNavigator extends CampaignNavigator
 
             // wait until text field has value campaignToApprove
             logger.debug("Waiting untill the to input field has value " + campaignToApprove);
-            wait.until(ExpectedConditions.textToBePresentInElement(found, campaignToApprove));
+            wait.until(ExpectedConditions.textToBePresentInElementValue(found, campaignToApprove));
 
             // click on OutBound Sections
             toFind = "Outbound";
