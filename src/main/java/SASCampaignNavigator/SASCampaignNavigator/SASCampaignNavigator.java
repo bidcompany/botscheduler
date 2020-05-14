@@ -63,6 +63,18 @@ public class SASCampaignNavigator extends CampaignNavigator
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
             webDriver.switchTo().frame(found);
 
+            // click the Designer Tab
+            /*toFind = "sapMITBContentArrow";
+            logger.debug("Find element with class " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            found.click();*/
+
+            // click the hierarchy button
+            /*toFind = "__button54";
+            logger.debug("Find element with id " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            found.click();*/
+
             // click the campaign selector button
             toFind = "__node0";
             logger.debug("Find element with id " + toFind);
@@ -70,7 +82,31 @@ public class SASCampaignNavigator extends CampaignNavigator
             found.click();
 
             // click on Campaigns Sections
-            toFind = "Campaigns";
+            toFind = "__icon84";
+            logger.debug("Find element with id " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            found.click();
+
+            // click on OutBound Sections
+            toFind = "__icon85";
+            logger.debug("Find element with id " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            found.click();
+
+            // click on OutBound Sections
+            toFind = "Examples";
+            logger.debug("Find element with title " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.cssSelector("[title^='"+toFind+"']/parent/[0]")));  
+            found.click();
+
+            // click on OutBound Sections
+            /*toFind = "__icon84";
+            logger.debug("Find element with title " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            found.click();*/
+
+            /*toFind = "Campaigns";
             logger.debug("Find element with title " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
             found.click();
@@ -85,7 +121,7 @@ public class SASCampaignNavigator extends CampaignNavigator
             toFind = "Examples";
             logger.debug("Find element with title " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title^='"+toFind+"']")));  
-            found.click();
+            found.click();*/
 
             // click by title
             toFind = campaignToApprove;
