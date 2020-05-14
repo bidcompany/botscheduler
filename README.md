@@ -12,14 +12,14 @@
 
 ### Windows
 Extract the archive `build\distributions\SASCampaignNavigator.zip` to your desired directory. Then do:
-```cd bin```
-```SASCampaignNavigator.bat```
+``` cd bin ```
+``` SASCampaignNavigator.bat ```
 
 ### Linux/Unix
 Extract the archive `build\distributions\SASCampaignNavigator.tar` to your desired directory. Then do:
-```cd bin```
-```./SASCampaignNavigator```
+``` cd bin ```
+``` ./SASCampaignNavigator ```
 
 If bash is installed in your system, you can also do the following commands:
-`./unpack.sh`
-`./run.sh`
+``` ./unpack.sh ```
+``` ./run.sh ```
