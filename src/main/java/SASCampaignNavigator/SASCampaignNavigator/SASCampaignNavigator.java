@@ -115,27 +115,34 @@ public class SASCampaignNavigator extends CampaignNavigator
                 By.xpath("//*[@title='"+toFind+"']")));  
             found.click();
 
-            // click on Approval by id
-            /*toFind = "__filter204-text";
-            logger.debug("Find approval tab with id " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-            found.click();*/
+            /* here if another connection is open a dialog will spawn asking to open campaign in edit mode*/
 
+            //  click Approval tab
+            toFind = "Approval tab";
             logger.debug("Find Approval tab");
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//*[text()='Approval']/parent::div[@role='tab']")));  
             found.click();
 
             // click on Approve first Confirm Button
-            toFind = "__button1369";
-            logger.debug("Find approve button with id " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            toFind = "Approve section button";
+            logger.debug("Find " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//*[text()='Approve' and ancestor::section]/ancestor::button")));  
             found.click();
 
             // click on Approve second Confirm Button
-            toFind = "__button1498";
-            logger.debug("Find approve button with id " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            toFind = "Approve dialog button";
+            logger.debug("Find " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//*[text()='Approve' and ancestor::div[@role='dialog']]/ancestor::button")));  
+            found.click();
+
+            // click on Close button
+            toFind = "close campaign button";
+            logger.debug("Find " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//button[contains(@id, 'closeButton')]")));  
             found.click();
 
             // end
