@@ -7,8 +7,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class MainTest {
-    /*@Test public void testAppHasAGreeting() {
+    /*@Test public void testAppHasLogger() {
         Main classUnderTest = new Main();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+        assertNotNull("Main should have a logger", classUnderTest.logger);
     }*/
 }

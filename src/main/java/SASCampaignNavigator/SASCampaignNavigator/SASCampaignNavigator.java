@@ -1,15 +1,9 @@
 package SASCampaignNavigator.SASCampaignNavigator;
 
-import java.io.File;
-import java.net.URL;
-import java.nio.file.Paths;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.By.ByClassName;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -151,7 +145,6 @@ public class SASCampaignNavigator extends CampaignNavigator
         {
             // we come up here if no elements are found in the html dom
             logger.error("No element with key " + toFind + "is found in the dom");
-
             logger.error(e.toString());
 
             // print the source html which selenium is working on

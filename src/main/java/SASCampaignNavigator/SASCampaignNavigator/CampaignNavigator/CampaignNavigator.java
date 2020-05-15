@@ -25,7 +25,7 @@ public class CampaignNavigator
     public WebDriver webDriver;
 
     // Constructor
-    public CampaignNavigator()//Logger logger /* a list of campaigns */)    /* implements Runnable*/
+    public CampaignNavigator( /* a list of campaigns */)    /* implements Runnable*/
     {
         // allocate stuff 
         // ..
@@ -50,7 +50,7 @@ public class CampaignNavigator
         }
     }
 
-    // performs target actions
+    // Selenium example: perform a wikipedia search 
     public void run() 
     {
         // Setting the location of the chrome driver in the system properties
