@@ -144,7 +144,7 @@ public class SASCampaignNavigator extends CampaignNavigator
         catch(Exception e)
         {
             // we come up here if no elements are found in the html dom
-            logger.error("No element with key " + toFind + "is found in the dom");
+            logger.error("No element with key " + toFind + " is found in the dom");
             logger.error(e.toString());
 
             // print the source html which selenium is working on
@@ -176,7 +176,7 @@ public class SASCampaignNavigator extends CampaignNavigator
         logger.debug("Login to CI completed");
 
         // Task to perform the approve of a campaign
-        String campaignToApprove = "Navigator01";
+        String campaignToApprove = "Navigator-01";
         SASApproveCampaign(campaignToApprove);
        
         // Closing the browser and webdriver
