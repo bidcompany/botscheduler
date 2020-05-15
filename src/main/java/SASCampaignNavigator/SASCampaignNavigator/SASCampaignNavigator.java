@@ -106,18 +106,19 @@ public class SASCampaignNavigator extends CampaignNavigator
 
             /* here if another connection is open a dialog will spawn asking to open campaign in edit mode*/
 
-            /* here we should keep push next page button untill approval tab is visible */
             //  click Approval tab
             toFind = "//*[text()='Approval']/parent::div[@role='tab']";
             logger.debug("Find Approval tab " + toFind);
-            found = webDriver.findElement(By.xpath(toFind));
+            found = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath(toFind)));  
+            
+            /* here we should keep push next page button untill approval tab is visible */
+            // check if it is visible
             logger.debug("Approval tab is displayed: " + found.isDisplayed());
             logger.debug("Approval tab is enabled: " + found.isEnabled());
             logger.debug("Approval tab is selected: " + found.isSelected());
+            found.click();
             
-            found = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath(toFind)));  
-
             // click on Approve first Confirm Button
             toFind = "//*[text()='Approve' and ancestor::section]/ancestor::button";
             logger.debug("Find " + toFind);
