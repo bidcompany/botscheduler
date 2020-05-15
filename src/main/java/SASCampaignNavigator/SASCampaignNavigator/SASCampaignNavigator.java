@@ -118,31 +118,31 @@ public class SASCampaignNavigator extends CampaignNavigator
             /* here if another connection is open a dialog will spawn asking to open campaign in edit mode*/
 
             //  click Approval tab
-            toFind = "Approval tab";
-            logger.debug("Find Approval tab");
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[text()='Approval']/parent::div[@role='tab']")));  
+            toFind = "//*[text()='Approval']/parent::div[@role='tab']";
+            logger.debug("Find Approval tab " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath(toFind)));  
             found.click();
 
             // click on Approve first Confirm Button
-            toFind = "Approve section button";
+            toFind = "//*[text()='Approve' and ancestor::section]/ancestor::button";
             logger.debug("Find " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[text()='Approve' and ancestor::section]/ancestor::button")));  
+                By.xpath(toFind)));  
             found.click();
 
             // click on Approve second Confirm Button
-            toFind = "Approve dialog button";
+            toFind = "//*[text()='Approve' and ancestor::div[@role='dialog']]/ancestor::button";
             logger.debug("Find " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//*[text()='Approve' and ancestor::div[@role='dialog']]/ancestor::button")));  
+                By.xpath(toFind)));  
             found.click();
 
             // click on Close button
-            toFind = "close campaign button";
+            toFind = "//button[contains(@id, 'closeButton')]";
             logger.debug("Find " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//button[contains(@id, 'closeButton')]")));  
+                By.xpath(toFind)));  
             found.click();
 
             // end
