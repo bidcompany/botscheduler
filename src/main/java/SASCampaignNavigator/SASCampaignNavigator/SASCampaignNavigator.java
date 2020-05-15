@@ -141,7 +141,7 @@ public class SASCampaignNavigator extends CampaignNavigator
             // click on Close button
             toFind = "//button[contains(@id, 'closeButton')]";
             logger.debug("Find " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(
+            found = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath(toFind)));  
             found.click();
 
