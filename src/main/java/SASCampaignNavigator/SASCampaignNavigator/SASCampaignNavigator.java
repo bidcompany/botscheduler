@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -57,18 +58,6 @@ public class SASCampaignNavigator extends CampaignNavigator
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
             webDriver.switchTo().frame(found);
 
-            // click the Designer Tab
-            /*toFind = "sapMITBContentArrow";
-            logger.debug("Find element with class " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-            found.click();*/
-
-            // click the hierarchy button
-            /*toFind = "__button54";
-            logger.debug("Find element with id " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-            found.click();*/
-
             // click the campaign selector button
             toFind = "__node0";
             logger.debug("Find element with id " + toFind);
@@ -117,12 +106,17 @@ public class SASCampaignNavigator extends CampaignNavigator
 
             /* here if another connection is open a dialog will spawn asking to open campaign in edit mode*/
 
+            /* here we should keep push next page button untill approval tab is visible */
             //  click Approval tab
             toFind = "//*[text()='Approval']/parent::div[@role='tab']";
             logger.debug("Find Approval tab " + toFind);
+            found = webDriver.findElement(By.xpath(toFind));
+            logger.debug("Approval tab is displayed: " + found.isDisplayed());
+            logger.debug("Approval tab is enabled: " + found.isEnabled());
+            logger.debug("Approval tab is selected: " + found.isSelected());
+            
             found = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath(toFind)));  
-            found.click();
 
             // click on Approve first Confirm Button
             toFind = "//*[text()='Approve' and ancestor::section]/ancestor::button";
