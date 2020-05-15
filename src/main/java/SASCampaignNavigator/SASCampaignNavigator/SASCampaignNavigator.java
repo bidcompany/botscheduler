@@ -138,6 +138,12 @@ public class SASCampaignNavigator extends CampaignNavigator
                 By.xpath(toFind)));  
             found.click();
 
+            // wait untill busy page is invisible, otherwise it will intercept the click
+            toFind = "//*[@title='Please wait']";
+            logger.debug("Find " + toFind);
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(
+                By.xpath(toFind)));  
+
             // click on Close button
             toFind = "//button[contains(@id, 'closeButton')]";
             logger.debug("Find " + toFind);
