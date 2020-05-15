@@ -109,14 +109,18 @@ public class SASCampaignNavigator extends CampaignNavigator
             //  click Approval tab
             toFind = "//*[text()='Approval']/parent::div[@role='tab']";
             logger.debug("Find Approval tab " + toFind);
-            found = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath(toFind)));  
-            
+            /*found = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath(toFind)));*/  
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath(toFind)));
+
             /* here we should keep push next page button untill approval tab is visible */
             // check if it is visible
             logger.debug("Approval tab is displayed: " + found.isDisplayed());
             logger.debug("Approval tab is enabled: " + found.isEnabled());
             logger.debug("Approval tab is selected: " + found.isSelected());
+            found = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath(toFind)));
             found.click();
             
             // click on Approve first Confirm Button
