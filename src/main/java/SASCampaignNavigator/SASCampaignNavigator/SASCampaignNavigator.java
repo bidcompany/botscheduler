@@ -22,64 +22,70 @@ public class SASCampaignNavigator extends CampaignNavigator
         String url = "http://sas-aap.demo.sas.com/SASCIStudio/";
         String toFind;
         webDriver.navigate().to(url);
-        logger.debug("Navigate to to " + url);
+        logger.debug("Navigate to " + url);
         
         // digit username
         toFind = "username";
-        logger.debug("Find element with id " + toFind);
+        logger.debug("Find id " + toFind);
         webDriver.findElement(By.id(toFind)).sendKeys("sasdemo");
     
         // digit password
         toFind = "password";
-        logger.debug("Find element with id " + toFind);
+        logger.debug("Find id " + toFind);
         webDriver.findElement(By.id(toFind)).sendKeys("Orion123");
         logger.debug("Navigate to to " + url);
 
         // submit
         toFind = "btn-submit";
-        logger.debug("Find element with class " + toFind);
+        logger.debug("Find class " + toFind);
         webDriver.findElement(By.className(toFind)).submit();
     }
 
 
     private void SASApproveCampaign(String campaignToApprove)
     {
+        String msg = "";
         String toFind = "not Initialized";
         WebElement found;
         WebDriverWait wait = new WebDriverWait(webDriver, 60); // timeout 1 min
 
-        logger.debug("start: approving campaign " + campaignToApprove);
+        logger.debug("START OK\n\t approving campaign " + campaignToApprove + "...");
 
         try
         {
             // switch to focus on the iframe
             toFind = "sasci_iframe";
-            logger.debug("Find element with id " + toFind);
+            msg = "Switch to iframe";
+            logger.debug( msg +  "\n\tid]:" + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
             webDriver.switchTo().frame(found);
 
             // click Designer Button
             //*[text()='Designer' and ancestor::div[@role='tab']]/ancestor::div[@role='tab']
             toFind = "//*[text()='Designer' and ancestor::div[@role='tab']]/ancestor::div[@role='tab']";
-            logger.debug("Find element with id " + toFind);
+            msg = "Click on Designer menu button";
+            logger.debug(msg + "\n\txpath]: " + toFind);
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
             
             // wait untill busy page is invisible, otherwise it will intercept the click
             toFind = "//*[@title='Please wait']";
-            logger.debug("Find " + toFind);
+            msg = "Wait untill the busy overlay is invisible";
+            logger.debug(msg + "\n\txpath]: " + toFind);
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));  
 
             // click Hierarchy view button 
             //*[@title='Hierarchy view' and @role="radio"]
             toFind = "//*[@title='Hierarchy view' and @role='radio']";
-            logger.debug("Find element with id " + toFind);
+            msg = "Click on Hierarchy View button";
+            logger.debug(msg + "\n\txpath]: " + toFind);
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
 
             // click the campaign selector button
             toFind = "__node0";
-            logger.debug("Find element with id " + toFind);
+            msg = "Click on Campaign expand button";
+            logger.debug(msg + "\n\tid]: " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
             found.click();
             
@@ -109,80 +115,68 @@ public class SASCampaignNavigator extends CampaignNavigator
                 By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
             found.click();
             
-            // click on OutBound Sections
+            // click on Examples Sections
             toFind = "Examples";
             logger.debug("Find element with title " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
             found.click();
 
-            // click by title
+            // click on Title
             toFind = campaignToApprove;
             logger.debug("Find campaign with title " + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//*[@title='"+toFind+"']")));  
             found.click();
 
-            /* here if another connection is open a dialog will spawn asking to open campaign in edit mode*/
-            // list of tabs buttons
+            /* 
+                here it may spawn a dialog will asking to open the campaign in edit mode.
+                It happens only if a bot crashed in the previous execution.
+            */
+
+            // click on List of tabs buttons
             toFind = "//button[@title='List of tabs']";
-            logger.debug("Find " + toFind);
+            msg = "Click on List of Tabs button";
+            logger.debug(msg + "\n\txpath]: " + toFind);
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
 
-            // approval menuradio
-            //*[text()='Approval' and ancestor::li[@role="menuitemradio"]]/ancestor::li
+            // click on Approval menuradio
             toFind = "//*[text()='Approval' and ancestor::li[@role='menuitemradio']]/ancestor::li";
-            logger.debug("Find " + toFind);
+            msg = "Click on Approval menu section";
+            logger.debug(msg + "\n\txpath]: " + toFind);
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
-
-            //  click Approval tab
-            // toFind = "//*[text()='Approval']/parent::div[@role='tab']";
-            // logger.debug("Find Approval tab " + toFind);
-            // /*found = wait.until(ExpectedConditions.elementToBeClickable(
-            //     By.xpath(toFind)));*/  
-            // found = wait.until(ExpectedConditions.presenceOfElementLocated(
-            //         By.xpath(toFind)));
-
-            // /* here we should keep push next page button untill approval tab is visible */
-            // // check if it is visible
-            // logger.debug("Approval tab is displayed: " + found.isDisplayed());
-            // logger.debug("Approval tab is enabled: " + found.isEnabled());
-            // logger.debug("Approval tab is selected: " + found.isSelected());
-            // found = wait.until(ExpectedConditions.elementToBeClickable(
-            //         By.xpath(toFind)));
-            // found.click();
             
-            // click on Approve first Confirm Button
+            // click on Approve fst Confirm Button
             toFind = "//*[text()='Approve' and ancestor::section]/ancestor::button";
-            logger.debug("Find " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath(toFind)));  
+            msg = "Click on Approve button";
+            logger.debug(msg + "\n\txpath]: " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
             found.click();
 
             // click on Approve second Confirm Button
             toFind = "//*[text()='Approve' and ancestor::div[@role='dialog']]/ancestor::button";
-            logger.debug("Find " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath(toFind)));  
+            msg = "Click again on Approve button";
+            logger.debug(msg + "\n\txpath]: " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
             found.click();
 
             // wait untill busy page is invisible, otherwise it will intercept the click
             toFind = "//*[@title='Please wait']";
-            logger.debug("Find " + toFind);
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(
-                By.xpath(toFind)));  
+            msg = "Wait untill the busy overlay is invisible";
+            logger.debug(msg + "\n\txpath]: " + toFind);
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
 
             // click on Close button
             toFind = "//button[contains(@id, 'closeButton')]";
-            logger.debug("Find " + toFind);
-            found = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath(toFind)));  
+            msg = "Click on close campaign button";
+            logger.debug(msg + "\n\txpath]: " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
 
             // end
-            logger.debug("end: campaign " + campaignToApprove + " approved correctly");
+            logger.debug("END OK\n\t" + campaignToApprove + " approved correctly!");
         }
         catch(Exception e)
         {
