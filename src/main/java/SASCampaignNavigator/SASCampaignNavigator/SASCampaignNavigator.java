@@ -58,6 +58,26 @@ public class SASCampaignNavigator extends CampaignNavigator
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
             webDriver.switchTo().frame(found);
 
+            // click Designer Button
+            //*[text()='Designer' and ancestor::div[@role='tab']]/ancestor::div[@role='tab']
+            toFind = "//*[text()='Designer' and ancestor::div[@role='tab']]/ancestor::div[@role='tab']";
+            logger.debug("Find element with id " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+            found.click();
+            
+            // click Hierarchy view button 
+            //*[@title='Hierarchy view' and @role="radio"]
+            toFind = "//*[@title='Hierarchy view' and @role='radio']";
+            logger.debug("Find element with id " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+            found.click();
+
+            // list of tabs buttons
+            //button[@title='List of tabs']
+
+            // approval menuradio
+            //*[text()='Approval' and ancestor::li[@role="menuitemradio"]]/ancestor::li
+
             // click the campaign selector button
             toFind = "__node0";
             logger.debug("Find element with id " + toFind);
