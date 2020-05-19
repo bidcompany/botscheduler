@@ -65,6 +65,12 @@ public class SASCampaignNavigator extends CampaignNavigator
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
             
+            // wait untill busy page is invisible, otherwise it will intercept the click
+            toFind = "//*[@title='Please wait']";
+            logger.debug("Find " + toFind);
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));  
+
+
             // click Hierarchy view button 
             //*[@title='Hierarchy view' and @role="radio"]
             toFind = "//*[@title='Hierarchy view' and @role='radio']";
