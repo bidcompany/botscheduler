@@ -70,19 +70,12 @@ public class SASCampaignNavigator extends CampaignNavigator
             logger.debug("Find " + toFind);
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));  
 
-
             // click Hierarchy view button 
             //*[@title='Hierarchy view' and @role="radio"]
             toFind = "//*[@title='Hierarchy view' and @role='radio']";
             logger.debug("Find element with id " + toFind);
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
-
-            // list of tabs buttons
-            //button[@title='List of tabs']
-
-            // approval menuradio
-            //*[text()='Approval' and ancestor::li[@role="menuitemradio"]]/ancestor::li
 
             // click the campaign selector button
             toFind = "__node0";
@@ -131,23 +124,35 @@ public class SASCampaignNavigator extends CampaignNavigator
             found.click();
 
             /* here if another connection is open a dialog will spawn asking to open campaign in edit mode*/
+            // list of tabs buttons
+            toFind = "//button[@title='List of tabs']";
+            logger.debug("Find " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+            found.click();
+
+            // approval menuradio
+            //*[text()='Approval' and ancestor::li[@role="menuitemradio"]]/ancestor::li
+            toFind = "//*[text()='Approval' and ancestor::li[@role='menuitemradio']]/ancestor::li";
+            logger.debug("Find " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+            found.click();
 
             //  click Approval tab
-            toFind = "//*[text()='Approval']/parent::div[@role='tab']";
-            logger.debug("Find Approval tab " + toFind);
-            /*found = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath(toFind)));*/  
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath(toFind)));
+            // toFind = "//*[text()='Approval']/parent::div[@role='tab']";
+            // logger.debug("Find Approval tab " + toFind);
+            // /*found = wait.until(ExpectedConditions.elementToBeClickable(
+            //     By.xpath(toFind)));*/  
+            // found = wait.until(ExpectedConditions.presenceOfElementLocated(
+            //         By.xpath(toFind)));
 
-            /* here we should keep push next page button untill approval tab is visible */
-            // check if it is visible
-            logger.debug("Approval tab is displayed: " + found.isDisplayed());
-            logger.debug("Approval tab is enabled: " + found.isEnabled());
-            logger.debug("Approval tab is selected: " + found.isSelected());
-            found = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath(toFind)));
-            found.click();
+            // /* here we should keep push next page button untill approval tab is visible */
+            // // check if it is visible
+            // logger.debug("Approval tab is displayed: " + found.isDisplayed());
+            // logger.debug("Approval tab is enabled: " + found.isEnabled());
+            // logger.debug("Approval tab is selected: " + found.isSelected());
+            // found = wait.until(ExpectedConditions.elementToBeClickable(
+            //         By.xpath(toFind)));
+            // found.click();
             
             // click on Approve first Confirm Button
             toFind = "//*[text()='Approve' and ancestor::section]/ancestor::button";
