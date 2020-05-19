@@ -44,19 +44,21 @@ public class SASCampaignNavigator extends CampaignNavigator
 
     private void SASApproveCampaign(String campaignToApprove)
     {
-        String msg = "";
+        String msg = "START OK";
         String toFind = "not Initialized";
         WebElement found;
         WebDriverWait wait = new WebDriverWait(webDriver, 60); // timeout 1 min
 
-        logger.debug("START OK\n\t approving campaign " + campaignToApprove + "...");
+        logger.debug(msg);
+        logger.debug("approving campaign " + campaignToApprove + "...");
 
         try
         {
             // switch to focus on the iframe
             toFind = "sasci_iframe";
             msg = "Switch to iframe";
-            logger.debug( msg +  "\n\tid]:" + toFind);
+            logger.debug(msg);
+            logger.debug("id:" + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
             webDriver.switchTo().frame(found);
 
@@ -64,28 +66,32 @@ public class SASCampaignNavigator extends CampaignNavigator
             //*[text()='Designer' and ancestor::div[@role='tab']]/ancestor::div[@role='tab']
             toFind = "//*[text()='Designer' and ancestor::div[@role='tab']]/ancestor::div[@role='tab']";
             msg = "Click on Designer menu button";
-            logger.debug(msg + "\n\txpath]: " + toFind);
+            logger.debug(msg);
+            logger.debug("xpath:" + toFind);
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
             
             // wait untill busy page is invisible, otherwise it will intercept the click
             toFind = "//*[@title='Please wait']";
             msg = "Wait untill the busy overlay is invisible";
-            logger.debug(msg + "\n\txpath]: " + toFind);
+            logger.debug(msg);
+            logger.debug("xpath:" + toFind);
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));  
 
             // click Hierarchy view button 
             //*[@title='Hierarchy view' and @role="radio"]
             toFind = "//*[@title='Hierarchy view' and @role='radio']";
             msg = "Click on Hierarchy View button";
-            logger.debug(msg + "\n\txpath]: " + toFind);
+            logger.debug(msg);
+            logger.debug("xpath:" + toFind);
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
 
             // click the campaign selector button
             toFind = "__node0";
             msg = "Click on Campaign expand button";
-            logger.debug(msg + "\n\tid]: " + toFind);
+            logger.debug(msg);
+            logger.debug("id:" + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
             found.click();
             
@@ -137,56 +143,60 @@ public class SASCampaignNavigator extends CampaignNavigator
             // click on List of tabs buttons
             toFind = "//button[@title='List of tabs']";
             msg = "Click on List of Tabs button";
-            logger.debug(msg + "\n\txpath]: " + toFind);
+            logger.debug(msg);
+            logger.debug("xpath:" + toFind);
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
 
             // click on Approval menuradio
             toFind = "//*[text()='Approval' and ancestor::li[@role='menuitemradio']]/ancestor::li";
             msg = "Click on Approval menu section";
-            logger.debug(msg + "\n\txpath]: " + toFind);
+            logger.debug(msg);
+            logger.debug("xpath:" + toFind);
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
             
             // click on Approve fst Confirm Button
             toFind = "//*[text()='Approve' and ancestor::section]/ancestor::button";
             msg = "Click on Approve button";
-            logger.debug(msg + "\n\txpath]: " + toFind);
+            logger.debug(msg);
+            logger.debug("xpath:" + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
             found.click();
 
             // click on Approve second Confirm Button
             toFind = "//*[text()='Approve' and ancestor::div[@role='dialog']]/ancestor::button";
             msg = "Click again on Approve button";
-            logger.debug(msg + "\n\txpath]: " + toFind);
+            logger.debug(msg);
+            logger.debug("xpath:" + toFind);
             found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
             found.click();
 
             // wait untill busy page is invisible, otherwise it will intercept the click
             toFind = "//*[@title='Please wait']";
             msg = "Wait untill the busy overlay is invisible";
-            logger.debug(msg + "\n\txpath]: " + toFind);
+            logger.debug(msg);
+            logger.debug("xpath:" + toFind);
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
 
             // click on Close button
             toFind = "//button[contains(@id, 'closeButton')]";
             msg = "Click on close campaign button";
-            logger.debug(msg + "\n\txpath]: " + toFind);
+            logger.debug(msg);
+            logger.debug("xpath:" + toFind);
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
 
             // end
-            logger.debug("END OK\n\t" + campaignToApprove + " approved correctly!");
+            msg = "END OK";
+            logger.debug(msg);
+            logger.debug(campaignToApprove + " approved correctly!");
         }
         catch(Exception e)
         {
             // we come up here if no elements are found in the html dom
             logger.error("No element with key " + toFind + " is found in the dom");
             logger.error(e.toString());
-
-            // print the source html which selenium is working on
-            //String html = webDriver.getPageSource(); //webDriver.getPageSource();
-            //logger.debug("Source html:\n" + html);
         }
         
     }
