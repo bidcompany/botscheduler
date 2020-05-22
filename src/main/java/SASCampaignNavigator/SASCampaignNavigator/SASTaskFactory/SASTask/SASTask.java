@@ -1,0 +1,158 @@
+package SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+// Abstract class of a SASTask.
+// the bot will do for all task the following operation: openCampaign, runTask, closeCampaign 
+public abstract class SASTask
+{
+    private Logger logger = LogManager.getLogger(SASTask.class);
+    
+    // data fetched from config file
+    protected String campaign;
+    protected String campaignDir;
+    protected String campaignCategory;
+    protected String taskType;
+    protected int timeout;
+
+    // WebDriver instance from SASCampaignNavigator
+    protected WebDriver webDriver;
+
+    // implemented in childern class
+    public abstract void exec();
+
+    public SASTask(WebDriver webDriver, String config)
+    {
+        // bind webDriver
+        this.webDriver = webDriver;
+
+        // parse config string ...
+        // ...
+        
+        this.campaign = "Navigator-01";
+        this.campaignDir = "Outbound";
+        this.campaignCategory = "Examples";
+
+        this.timeout = 60;
+    }
+    
+    protected void openCampaign()
+    {
+        String msg = "START OK";
+        String toFind = "not Initialized";
+        WebElement found;
+        WebDriverWait wait = new WebDriverWait(webDriver, timeout); // timeout 1 min
+
+        logger.debug(msg);
+        logger.debug("open campaign " + campaign + "...");
+
+        // Focus on the iframe
+        toFind = "sasci_iframe";
+        msg = "Switch to iframe";
+        logger.debug(msg);
+        logger.debug("id]: " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+        webDriver.switchTo().frame(found);
+
+        // Click Designer Button
+        toFind = "//*[text()='Designer' and ancestor::div[@role='tab']]/ancestor::div[@role='tab']";
+        msg = "Click on Designer menu button";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+        found.click();
+        
+        // Wait untill busy page is invisible, otherwise it will intercept the click
+        toFind = "//*[@title='Please wait']";
+        msg = "Wait untill the busy overlay is invisible";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));  
+
+        // Click Hierarchy view button 
+        toFind = "//*[@title='Hierarchy view' and @role='radio']";
+        msg = "Click on Hierarchy View button";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+        found.click();
+
+        // Click campaign selector button
+        toFind = "__node0";
+        msg = "Click on Campaign expand button";
+        logger.debug(msg);
+        logger.debug("id]: " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+        found.click();
+        
+        // Expand Campaign folder
+        toFind = "Campaigns";
+        logger.debug("Find element with title " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(
+            By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
+        found.click();
+
+        // filter with the target campaign name so the page is always focused on it
+        toFind="__page0-searchField-I";
+        logger.debug("Find element with id " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+        logger.debug("Writing to input field " + campaign);
+        found.clear();
+        found.sendKeys(campaign);
+        found.submit();
+
+        // wait until text field has value campaignToApprove
+        logger.debug("Waiting untill the to input field has value " + campaign);
+        wait.until(ExpectedConditions.textToBePresentInElementValue(found, campaign));
+
+        // Expand OutBound folder
+        toFind = campaignDir;
+        logger.debug("Find element with title " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(
+            By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
+        found.click();
+        
+        // Expanf Examples folder
+        toFind = campaignCategory;
+        logger.debug("Find element with title " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(
+            By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
+        found.click();
+
+        // click on Title
+        toFind = campaign;
+        logger.debug("Find campaign with title " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(
+            By.xpath("//*[@title='"+toFind+"']")));  
+        found.click();
+
+    }
+
+    protected void closeCampaign()
+    {
+        String msg = "closing campaign: ";
+        String toFind = campaign;
+        WebElement found;
+        WebDriverWait wait = new WebDriverWait(webDriver, timeout); // timeout 1 min
+
+        logger.debug(msg + toFind);
+        
+        // click on Close button for a cleaner ending.
+        toFind = "//button[contains(@id, 'closeButton')]";
+        msg = "Click on close campaign button";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+        found.click();
+
+        // end
+        msg = "END OK";
+        logger.debug(msg);
+    }
+}
