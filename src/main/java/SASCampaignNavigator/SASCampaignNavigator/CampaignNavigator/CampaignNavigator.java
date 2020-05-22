@@ -1,6 +1,8 @@
 package SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Paths;
 
@@ -10,6 +12,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.XMLOutputter;
 
 /* Navigator bot class. It Should be able to connect to target web page, detect the target html elements
  and perform actions. It has also some data, a list of campaigns */
@@ -27,8 +34,38 @@ public class CampaignNavigator
     // Constructor
     public CampaignNavigator( /* a list of campaigns */)    /* implements Runnable*/
     {
-        // allocate stuff 
-        // ..
+        // parse config file
+        try
+        {
+            // production: bin\SASCampaignNavigator.cfg
+            File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()) ;
+            File libDir = jarFile.getParentFile();
+            String configXMLPath = libDir.getParentFile().getPath() + "\\bin\\SASCampaignNavigator.cfg";
+            logger.debug("config file path: " + configXMLPath);
+            
+            // parser
+            File configXML = new File (configXMLPath);
+            SAXBuilder builder = new SAXBuilder();
+            Document document =  (Document) builder.build(configXML);
+            String timeout = document.getRootElement().getChild("timeout").getValue();
+            logger.debug("timeout read: " + timeout);
+
+            // try ELEMENT -> String; 
+            String str = new XMLOutputter().outputString(document);
+            logger.debug("xml: " + str);
+
+            // try String -> Element
+            InputStream stream = new ByteArrayInputStream(str.getBytes("UTF-8"));
+            document = builder.build(stream);
+            timeout = document.getRootElement().getChild("timeout").getValue();
+            logger.debug("timeout read: " + timeout);
+
+        }
+        catch(Exception e)
+        {
+            logger.error("impossible to parse the config file due to following reason: ");
+            logger.error(e.toString());
+        }
 
         driverType = "webdriver.chrome.driver";
 
