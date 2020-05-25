@@ -329,7 +329,7 @@ public class SASCampaignNavigator extends CampaignNavigator
             {
                 // convert campaign dom element to string to pass it to the task factory
                 String campaignConfig = XML2String.toString(campaign);
-                logger.debug("create a task from xml: " + campaignConfig);
+                logger.debug("create a task from following xml:\n\t" + campaignConfig);
 
                 // get task type from campaign dom element
                 String taskType = campaign.getChild("taskType").getValue();
@@ -339,7 +339,7 @@ public class SASCampaignNavigator extends CampaignNavigator
                 SASTask task = taskFactory.fetchTask(this, taskType, campaignConfig);
 
                 // execute the task
-                //task.exec();
+                task.exec();
             }            
             
         }  
@@ -349,8 +349,7 @@ public class SASCampaignNavigator extends CampaignNavigator
             // config file is not formatted as expected
             // task is null due to not implemented taskType
             logger.error( "Stop execution of task due to the following exception " + e.toString());
-            logger.error(e.getMessage());
-            logger.error(e.getStackTrace());
+            e.printStackTrace();
         }
 
 

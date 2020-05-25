@@ -73,8 +73,7 @@ public abstract class SASTask
             //  - Integer parsing for the timeout 
 
             logger.error( "Impossible to create the task due to the following exception " + e.toString());
-            logger.error(e.getMessage());
-            logger.error(e.getStackTrace());
+            e.printStackTrace();
         }
     }
     

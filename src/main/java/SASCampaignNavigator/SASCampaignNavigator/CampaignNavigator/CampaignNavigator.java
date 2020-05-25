@@ -61,9 +61,8 @@ public class CampaignNavigator
         }
         catch(Exception e)
         {
-            logger.error("impossible to parse the config file due to following reason: " + e.toString());
-            logger.error(e.getMessage());
-            logger.error(e.getStackTrace());
+            logger.error("impossible to parse the config file due to following reason: " + e.toString());           
+            e.printStackTrace();
 
             xmlConfig = null;   // lets handle this after
         }
@@ -83,8 +82,7 @@ public class CampaignNavigator
         {
             logger.warn("Impossible to get relative path of webdriver due to" + 
                 "the following exception: " + e.toString());
-            logger.warn(e.getMessage());
-            logger.warn(e.getStackTrace());
+            e.printStackTrace();
             logger.warn("Webdriver test relative path will be used");
             driverPath = "\\external\\chromedriver.exe";
         }

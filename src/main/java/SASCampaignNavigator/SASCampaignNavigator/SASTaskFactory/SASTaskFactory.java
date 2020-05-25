@@ -41,7 +41,7 @@ public class SASTaskFactory
             }
             default:
             {
-                logger.warn("Impossible to fetch the input taskType: " + taskType);
+                logger.error("Impossible to fetch the input taskType: " + taskType);
                 return null;
             }
         }
