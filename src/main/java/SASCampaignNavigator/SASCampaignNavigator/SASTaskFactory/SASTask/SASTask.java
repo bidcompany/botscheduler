@@ -65,8 +65,7 @@ public abstract class SASTask
             // collect exception coming from 
             //  - the xml2string parsing 
             //  - Null values 
-            //  - Integer parsing for the timeout 
-
+    
             logger.error( "Impossible to create the task due to the following exception " + e.toString());
             e.printStackTrace();
         }
@@ -127,7 +126,11 @@ public abstract class SASTask
         logger.debug("Find element with title " + toFind);
         found = wait.until(ExpectedConditions.presenceOfElementLocated(
             By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
-        found.click();
+        
+        // clicks three times to be sure an Older submitted job does not lead to problems 
+        found.click();  // 1st time
+        found.click();  // 2nd time
+        found.click();  // 3rd time
 
         // filter with the target campaign name so the page is always focused on it
         toFind="__page0-searchField-I";
