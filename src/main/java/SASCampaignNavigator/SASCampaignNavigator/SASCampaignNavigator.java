@@ -1,7 +1,10 @@
 package SASCampaignNavigator.SASCampaignNavigator;
 
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdom2.Document;
+import org.jdom2.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -12,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator.CampaignNavigator;
 import SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.*;
 import SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask.*;
+import SASCampaignNavigator.SASCampaignNavigator.Utils.XML2String;
 
 public class SASCampaignNavigator extends CampaignNavigator
 {           
@@ -312,14 +316,49 @@ public class SASCampaignNavigator extends CampaignNavigator
         //   campaignlist.pop()
         // }
 
+        // for each campaign in config file execute the task
+        try 
+        {
+            // convert xml string config in tree document
+            Element root = XML2String.toXML(xmlConfig);
+            List<Element> campaignList = root.getChildren("campaignList");
+
+            // for each campaign create a task
+            for (Element campaign : campaignList)
+            {
+                // get task type from campaign dom element
+                String taskType = campaign.getChild("taskType").getValue();
+                
+                // convert campaign dom element to string to pass it to the task factory
+                String campaignConfig = XML2String.toString(campaign);
+                logger.debug("create a task " + taskType + " from xml: " + campaignConfig);
+                
+                // get the task factory
+                SASTaskFactory taskFactory = SASTaskFactory.getFactory();
+                SASTask task = taskFactory.fetchTask(this, taskType, campaignConfig);
+
+                // execute the task
+                //task.exec();
+            }            
+            
+        }  
+        catch(Exception e)
+        {
+            // config file is empty
+            // config file is not formatted as expected
+            // task is null due to not implemented taskType
+            logger.error( "Stop execution of task due to the following exception " + e.toString());
+        }
+
+
         // get the task factory
-        SASTaskFactory taskFactory = SASTaskFactory.getFactory();
+        //SASTaskFactory taskFactory = SASTaskFactory.getFactory();
 
         // Get campaign 
-        SASTask task = taskFactory.fetchTask(this, "Approve", "");
+        //SASTask task = taskFactory.fetchTask(this, "Approve", "");
         
         // execute the task
-        task.exec();
+        //task.exec();
 
         // Task to perform the approve of a campaign
         //String campaignToApprove = "Navigator-01";

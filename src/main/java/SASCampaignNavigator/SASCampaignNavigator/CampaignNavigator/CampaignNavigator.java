@@ -1,11 +1,6 @@
 package SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Paths;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -17,6 +12,7 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
+import SASCampaignNavigator.SASCampaignNavigator.Utils.XML2String;
 
 /* Navigator bot class. It Should be able to connect to target web page, detect the target html elements
  and perform actions. It has also some data, a list of campaigns */
@@ -27,8 +23,9 @@ public class CampaignNavigator
     // log manager 
     private Logger logger = LogManager.getLogger(CampaignNavigator.class);
     
-    public String driverType;
-    public String driverPath;
+    protected String driverType;
+    protected String driverPath;
+    protected String xmlConfig;
     public WebDriver webDriver;
 
     // Constructor
@@ -43,28 +40,30 @@ public class CampaignNavigator
             String configXMLPath = libDir.getParentFile().getPath() + "\\bin\\SASCampaignNavigator.cfg";
             logger.debug("config file path: " + configXMLPath);
             
-            // parser
+            // parse the config file and save it as a string
             File configXML = new File (configXMLPath);
             SAXBuilder builder = new SAXBuilder();
             Document document =  (Document) builder.build(configXML);
-            String timeout = document.getRootElement().getChild("timeout").getValue();
-            logger.debug("timeout read: " + timeout);
+            //String timeout = document.getRootElement().getChild("timeout").getValue();
+            //logger.debug("timeout read: " + timeout);
 
             // try ELEMENT -> String; 
-            String str = new XMLOutputter().outputString(document);
-            logger.debug("xml: " + str);
+            //String str = new XMLOutputter().outputString(document);
+            xmlConfig = XML2String.toString(document);
+            logger.debug("xml: " + xmlConfig);
 
             // try String -> Element
-            InputStream stream = new ByteArrayInputStream(str.getBytes("UTF-8"));
+            /*InputStream stream = new ByteArrayInputStream(str.getBytes("UTF-8"));
             document = builder.build(stream);
             timeout = document.getRootElement().getChild("timeout").getValue();
             logger.debug("timeout read: " + timeout);
-
+            */
         }
         catch(Exception e)
         {
             logger.error("impossible to parse the config file due to following reason: ");
             logger.error(e.toString());
+            xmlConfig = null;   // lets handle this after
         }
 
         driverType = "webdriver.chrome.driver";

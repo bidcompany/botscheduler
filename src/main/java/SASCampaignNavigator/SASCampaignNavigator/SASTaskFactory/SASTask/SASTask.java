@@ -2,11 +2,14 @@ package SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdom2.Element;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import SASCampaignNavigator.SASCampaignNavigator.Utils.XML2String;
 
 // Abstract class of a SASTask.
 // the bot will do for all task the following operation: openCampaign, runTask, closeCampaign 
@@ -32,14 +35,45 @@ public abstract class SASTask
         // bind webDriver
         this.webDriver = webDriver;
 
-        // parse config string ...
-        // ...
-        
-        this.campaign = "Navigator-01";
-        this.campaignDir = "Outbound";
-        this.campaignCategory = "Examples";
+        // this.campaign = "Navigator-01";
+        // this.campaignDir = "Outbound";
+        // this.campaignCategory = "Examples";
 
-        this.timeout = 60;
+        // this.timeout = 60;
+
+        // parse config string
+        try
+        {
+            // get xml 
+            Element root = XML2String.toXML(config);
+            this.campaign = root.getChild("name").getValue();
+            logger.debug("set target campaign name: " + campaign);
+
+            this.campaignDir = root.getChild("directory").getValue();
+            logger.debug("set target campaign directory: " + campaignDir);
+
+            this.campaignCategory = root.getChild("category").getValue();
+            logger.debug("set target campaign category: " + campaignCategory);
+            
+            this.timeout = Integer.parseInt(root.getChild("timeout").getValue());            
+            logger.debug("set target campaign timeout: " + timeout);
+            
+            if (campaign == null)
+                throw new NullPointerException("campaign name is null");
+            if (campaignDir == null)
+                throw new NullPointerException("campaign directory is null");
+            if (campaignCategory == null)
+                throw new NullPointerException("campaign category is null");
+        }
+        catch (Exception e)
+        {   
+            // collect exception coming from 
+            //  - the xml2string parsing 
+            //  - Null values 
+            //  - Integer parsing for the timeout 
+
+            logger.error( "Impossible to create the task due to the following exception " + e.toString());
+        }
     }
     
     protected void openCampaign()
