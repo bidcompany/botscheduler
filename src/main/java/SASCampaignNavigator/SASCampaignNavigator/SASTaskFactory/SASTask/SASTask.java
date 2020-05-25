@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator.CampaignNavigator;
 import SASCampaignNavigator.SASCampaignNavigator.Utils.XML2String;
 
 // Abstract class of a SASTask.
@@ -22,24 +23,18 @@ public abstract class SASTask
     protected String campaignDir;
     protected String campaignCategory;
     protected String taskType;
-    protected int timeout;
-
+    
     // WebDriver instance from SASCampaignNavigator
-    protected WebDriver webDriver;
+    //protected WebDriver webDriver;
+    protected CampaignNavigator campaignNavigator; 
 
     // implemented in childern class
     public abstract void exec();
 
-    public SASTask(WebDriver webDriver, String config)
+    public SASTask(CampaignNavigator campaignNavigator, String config)
     {
         // bind webDriver
-        this.webDriver = webDriver;
-
-        // this.campaign = "Navigator-01";
-        // this.campaignDir = "Outbound";
-        // this.campaignCategory = "Examples";
-
-        // this.timeout = 60;
+        this.campaignNavigator = campaignNavigator;
 
         // parse config string
         try
@@ -55,8 +50,8 @@ public abstract class SASTask
             this.campaignCategory = root.getChild("category").getValue();
             logger.debug("set target campaign category: " + campaignCategory);
             
-            this.timeout = Integer.parseInt(root.getChild("timeout").getValue());            
-            logger.debug("set target campaign timeout: " + timeout);
+            //this.timeout = Integer.parseInt(root.getChild("timeout").getValue());            
+            //logger.debug("set target campaign timeout: " + timeout);
             
             if (campaign == null)
                 throw new NullPointerException("campaign name is null");
@@ -82,18 +77,19 @@ public abstract class SASTask
         String msg = "START OK";
         String toFind = "not Initialized";
         WebElement found;
-        WebDriverWait wait = new WebDriverWait(webDriver, timeout); // timeout 1 min
+        WebDriverWait wait = new WebDriverWait(
+            campaignNavigator.webDriver, campaignNavigator.timeout);
 
         logger.debug(msg);
         logger.debug("open campaign " + campaign + "...");
 
-        // Focus on the iframe
-        toFind = "sasci_iframe";
-        msg = "Switch to iframe";
-        logger.debug(msg);
-        logger.debug("id]: " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-        webDriver.switchTo().frame(found);
+        // // Focus on the iframe
+        // toFind = "sasci_iframe";
+        // msg = "Switch to iframe";
+        // logger.debug(msg);
+        // logger.debug("id]: " + toFind);
+        // found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+        // webDriver.switchTo().frame(found);
 
         // Click Designer Button
         toFind = "//*[text()='Designer' and ancestor::div[@role='tab']]/ancestor::div[@role='tab']";
@@ -174,7 +170,8 @@ public abstract class SASTask
         String msg = "closing campaign: ";
         String toFind = campaign;
         WebElement found;
-        WebDriverWait wait = new WebDriverWait(webDriver, timeout); // timeout 1 min
+        WebDriverWait wait = new WebDriverWait(
+            campaignNavigator.webDriver, campaignNavigator.timeout); 
 
         logger.debug(msg + toFind);
         

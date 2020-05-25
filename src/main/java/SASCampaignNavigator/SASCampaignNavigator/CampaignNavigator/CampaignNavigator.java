@@ -8,10 +8,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.XMLOutputter;
 import SASCampaignNavigator.SASCampaignNavigator.Utils.XML2String;
 
 /* Navigator bot class. It Should be able to connect to target web page, detect the target html elements
@@ -23,13 +20,17 @@ public class CampaignNavigator
     // log manager 
     private Logger logger = LogManager.getLogger(CampaignNavigator.class);
     
+    // selenium data used to init the bot
     protected String driverType;
     protected String driverPath;
-    protected String xmlConfig;
     public WebDriver webDriver;
 
+    // xml data from the config file
+    protected String xmlConfig;
+    public int timeout;
+
     // Constructor
-    public CampaignNavigator( /* a list of campaigns */)    /* implements Runnable*/
+    public CampaignNavigator()    /* implements Runnable*/
     {
         // parse config file
         try
@@ -44,20 +45,16 @@ public class CampaignNavigator
             File configXML = new File (configXMLPath);
             SAXBuilder builder = new SAXBuilder();
             Document document =  (Document) builder.build(configXML);
-            //String timeout = document.getRootElement().getChild("timeout").getValue();
-            //logger.debug("timeout read: " + timeout);
+            
+            // get global config
+            String strTimeout = document.getRootElement().getChild("timeout").getValue();
+            timeout = Integer.parseInt(strTimeout);
+            logger.debug("set timeout of the tasks to " + timeout);
 
-            // try ELEMENT -> String; 
-            //String str = new XMLOutputter().outputString(document);
+            // save the config file as a string
             xmlConfig = XML2String.toString(document);
             logger.debug("xml: " + xmlConfig);
 
-            // try String -> Element
-            /*InputStream stream = new ByteArrayInputStream(str.getBytes("UTF-8"));
-            document = builder.build(stream);
-            timeout = document.getRootElement().getChild("timeout").getValue();
-            logger.debug("timeout read: " + timeout);
-            */
         }
         catch(Exception e)
         {

@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
+import SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator.CampaignNavigator;
 import SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask.SASTask;
 
 public class SASTaskApprove extends SASTask
@@ -13,9 +14,9 @@ public class SASTaskApprove extends SASTask
     private Logger logger = LogManager.getLogger(SASTaskApprove.class);
         
     // lets set the taskType directly here
-    public SASTaskApprove(WebDriver webDriver, String config)
+    public SASTaskApprove(CampaignNavigator campaignNavigator, String config)
     {
-        super(webDriver, config);
+        super(campaignNavigator, config);
         taskType = "Approval";
     }
 
@@ -24,7 +25,8 @@ public class SASTaskApprove extends SASTask
         String msg = "START OK";
         String toFind = "not Initialized";
         WebElement found;
-        WebDriverWait wait = new WebDriverWait(webDriver, timeout); // timeout 1 min
+        WebDriverWait wait = new WebDriverWait(
+            campaignNavigator.webDriver, campaignNavigator.timeout);
 
         logger.debug(msg);
         logger.debug("approving campaign " + campaign + "...");

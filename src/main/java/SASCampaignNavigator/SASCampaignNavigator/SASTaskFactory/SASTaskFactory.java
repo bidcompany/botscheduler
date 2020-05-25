@@ -30,14 +30,14 @@ public class SASTaskFactory
     }
 
     // this should fetch the task from input data
-    public SASTask fetchTask(CampaignNavigator bot, String taskType, String config )  /* simple string or a xml config row of the job ? */
+    public SASTask fetchTask(CampaignNavigator campaignNavigator, String taskType, String config )  /* simple string or a xml config row of the job ? */
     {
         switch(taskType)
         {
             case("Approval"):
             {
                 logger.debug("Create an 'Approval' task");
-                return new SASTaskApprove(bot.webDriver, config);
+                return new SASTaskApprove(campaignNavigator, config);
             }
             default:
             {

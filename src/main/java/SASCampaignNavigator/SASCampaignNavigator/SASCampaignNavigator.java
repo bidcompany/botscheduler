@@ -44,80 +44,19 @@ public class SASCampaignNavigator extends CampaignNavigator
         toFind = "btn-submit";
         logger.debug("Find class " + toFind);
         webDriver.findElement(By.className(toFind)).submit();
-    }
 
-    // open campaign page
-    private void SASOpenCampaign(String campaignToApprove, String dir, String category)
-    {
-
-    }
-
-    // approve campaign
-    private void SASApproveCampaign()
-    {
-
-    }
-
-    // close campaign page
-    private void SASCloseCampaign() {}
-
-    // schedule campaign
-    private void SASScheduleCampaign(String cfgCampaign)
-    {
-        // if campaign con\fig is not empty, Edit Scheduler
-    
-        // Approve Campaign
-
-        // Send Schedule
-    }
-
-    private void SASTaskApproveCampaign()
-    {
-        // open campaign
-
-        // go to campaign page
-
-        // approve campaign
-
-        // close campaign
-    }
-
-    private void SASTaskScheduleCampaign()
-    {
-        // open campaign
-
-        // go to campaign page
-
-        // schedule campaign
-
-        // approve campaign
-
-        // close campaign
+        // Focus on the iframe
+        WebDriverWait wait = new WebDriverWait(webDriver, timeout);
+        
+        toFind = "sasci_iframe";
+        String msg = "Switch to iframe";
+        logger.debug(msg);
+        logger.debug("id]: " + toFind);
+        WebElement found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+        webDriver.switchTo().frame(found);
 
     }
 
-    /*
-    
-    // parse config file
-    // perform a SASTask for each campaign in <campaign list>
-    // SASTask  type inside the <task>, ex: APPROVE, SCHEDULE
-    // 
-
-    public class SASTask()
-    {
-        String campaign;
-        String campaignDir;
-        String campaignCategory;
-
-        void openCampaign();
-        void closeCampaign();
-        void exec();
-
-    }
-    
-    */
-
-    private void parseConfigFile(){} // -> SasCampaign Navigator
 
     private void SASApproveCampaign(String campaignToApprove)
     {
@@ -305,16 +244,8 @@ public class SASCampaignNavigator extends CampaignNavigator
         logger.debug("Set webdriver window size to " + broswerSize.toString());
 
         // Task to perform the login to CI
-        //SASLogin();
+        SASLogin();
         logger.debug("Login to CI completed");
-
-        // for each campaign in list execute the task
-        // while(!campaignList.empty())
-        // {
-        //   SASTask = new SASTask(); // we need to bind webdriver here
-        //   SASTask.exec(webdriver) throws an exeption that we can catch
-        //   campaignlist.pop()
-        // }
 
         // for each campaign in config file execute the task
         try 
@@ -351,20 +282,6 @@ public class SASCampaignNavigator extends CampaignNavigator
             logger.error( "Stop execution of task due to the following exception " + e.toString());
             e.printStackTrace();
         }
-
-
-        // get the task factory
-        //SASTaskFactory taskFactory = SASTaskFactory.getFactory();
-
-        // Get campaign 
-        //SASTask task = taskFactory.fetchTask(this, "Approve", "");
-        
-        // execute the task
-        //task.exec();
-
-        // Task to perform the approve of a campaign
-        //String campaignToApprove = "Navigator-01";
-        //SASApproveCampaign(campaignToApprove);
         
         // Closing the browser and webdriver
         logger.debug("Webdriver closing");
