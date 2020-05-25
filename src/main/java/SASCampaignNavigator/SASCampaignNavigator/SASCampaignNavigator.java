@@ -305,7 +305,7 @@ public class SASCampaignNavigator extends CampaignNavigator
         logger.debug("Set webdriver window size to " + broswerSize.toString());
 
         // Task to perform the login to CI
-        SASLogin();
+        //SASLogin();
         logger.debug("Login to CI completed");
 
         // for each campaign in list execute the task
@@ -321,17 +321,18 @@ public class SASCampaignNavigator extends CampaignNavigator
         {
             // convert xml string config in tree document
             Element root = XML2String.toXML(xmlConfig);
-            List<Element> campaignList = root.getChildren("campaignList");
-
+            List<Element> campaignList = root.getChild("campaignList").getChildren("campaign");
+            logger.debug("Num of task to perform " + campaignList.size());
+            
             // for each campaign create a task
             for (Element campaign : campaignList)
             {
-                // get task type from campaign dom element
-                String taskType = campaign.getChild("taskType").getValue();
-                
                 // convert campaign dom element to string to pass it to the task factory
                 String campaignConfig = XML2String.toString(campaign);
-                logger.debug("create a task " + taskType + " from xml: " + campaignConfig);
+                logger.debug("create a task from xml: " + campaignConfig);
+
+                // get task type from campaign dom element
+                String taskType = campaign.getChild("taskType").getValue();
                 
                 // get the task factory
                 SASTaskFactory taskFactory = SASTaskFactory.getFactory();
@@ -348,6 +349,8 @@ public class SASCampaignNavigator extends CampaignNavigator
             // config file is not formatted as expected
             // task is null due to not implemented taskType
             logger.error( "Stop execution of task due to the following exception " + e.toString());
+            logger.error(e.getMessage());
+            logger.error(e.getStackTrace());
         }
 
 

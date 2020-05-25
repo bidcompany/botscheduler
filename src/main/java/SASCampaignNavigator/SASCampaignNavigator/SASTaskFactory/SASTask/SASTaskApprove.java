@@ -81,9 +81,9 @@ public class SASTaskApprove extends SASTask
         }
         catch (Exception e)
         {
-            String msg = "The bot crashed due to the following exception.";
-            logger.error(msg);
-            logger.error(e.toString());
+            logger.error("The bot crashed due to the following exception. " + e.toString());
+            logger.error(e.getMessage());
+            logger.error(e.getStackTrace());
         }
 
         closeCampaign();

@@ -20,7 +20,8 @@ public class SASTaskFactory
         if (instance == null)
         {
             logger.debug("Instanciate the Task factory");
-            return new SASTaskFactory();
+            instance = new SASTaskFactory(); 
+            return instance;
         }
         else
         {
@@ -33,7 +34,7 @@ public class SASTaskFactory
     {
         switch(taskType)
         {
-            case("Approve"):
+            case("Approval"):
             {
                 logger.debug("Create an 'Approval' task");
                 return new SASTaskApprove(bot.webDriver, config);

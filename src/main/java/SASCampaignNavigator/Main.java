@@ -14,6 +14,6 @@ public class Main
         logger.debug("Create a navigator task");
         SASCampaignNavigator campaignNavigator = new SASCampaignNavigator();
         logger.debug("Run a navigator task");
-        //campaignNavigator.run();
+        campaignNavigator.run();
     }
 }
