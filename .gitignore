@@ -6,6 +6,7 @@ build
 bin
 external
 delivery
+!/src/main/dist/bin
 
 # Ignore VsCode config directory
 .vscode
