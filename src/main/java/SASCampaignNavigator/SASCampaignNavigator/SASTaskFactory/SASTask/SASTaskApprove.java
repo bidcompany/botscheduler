@@ -45,6 +45,19 @@ public class SASTaskApprove extends SASTask
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+        
+        // check if the already approved button is present 
+        toFind = "//button[ancestor::div[@role='alertdialog']//*[contains(text(), 'approved')]]";
+        if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() != 0)
+        {   
+            // catch the button
+            campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
+            logger.warn("Camapaign " + campaign + " is already approved");
+            
+            // end approval task
+            return;
+        }
+        
         found.click();
 
         // click on Approval menu section
