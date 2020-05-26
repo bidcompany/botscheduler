@@ -29,6 +29,9 @@ public class CampaignNavigator
     protected String xmlConfig;
     public int timeout;
 
+    // navigator history
+    public CampaignNavigatorHistory history;
+
     // Constructor
     public CampaignNavigator()    /* implements Runnable*/
     {

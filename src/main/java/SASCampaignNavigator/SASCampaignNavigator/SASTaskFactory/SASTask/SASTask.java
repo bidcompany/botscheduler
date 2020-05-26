@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator.CampaignNavigator;
 import SASCampaignNavigator.SASCampaignNavigator.Utils.XML2String;
+import SASCampaignNavigator.SASCampaignNavigator.Utils.SASHistory;
 
 // Abstract class of a SASTask.
 // the bot will do for all task the following operation: openCampaign, runTask, closeCampaign 
@@ -126,12 +127,14 @@ public abstract class SASTask
         logger.debug("Find element with title " + toFind);
         found = wait.until(ExpectedConditions.presenceOfElementLocated(
             By.xpath("//*[@title='"+toFind+"']/..//*[@role='button']")));  
-        
-        // clicks three times to be sure an Older submitted job does not lead to problems 
         found.click();  // 1st time
-        found.click();  // 2nd time
-        found.click();  // 3rd time
 
+        // if campaign section is already open we need to click 2 times. 
+        if( campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN))
+        {
+            found.click();  // 2nd time
+        }
+        
         // filter with the target campaign name so the page is always focused on it
         toFind="__page0-searchField-I";
         logger.debug("Find element with id " + toFind);
@@ -166,6 +169,8 @@ public abstract class SASTask
             By.xpath("//*[@title='"+toFind+"']")));  
         found.click();
 
+        // next task will find the campaign task already opened
+        campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN, true);
     }
 
     protected void closeCampaign()
