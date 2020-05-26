@@ -23,11 +23,11 @@ public class CampaignNavigator
     // selenium data used to init the bot
     protected String driverType;
     protected String driverPath;
-    public WebDriver webDriver;
+    public WebDriver webDriver; // it will be used by SASTask
 
     // xml data from the config file
     protected String xmlConfig;
-    public int timeout;
+    public int timeout; // it will be used by SASTask
 
     // navigator history
     public CampaignNavigatorHistory history = new CampaignNavigatorHistory();
@@ -38,7 +38,7 @@ public class CampaignNavigator
         // parse config file
         try
         {
-            // production: bin\SASCampaignNavigator.cfg
+            // production path: bin\SASCampaignNavigator.cfg
             File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()) ;
             File libDir = jarFile.getParentFile();
             String configXMLPath = libDir.getParentFile().getPath() + "\\bin\\SASCampaignNavigator.cfg";
@@ -56,8 +56,7 @@ public class CampaignNavigator
 
             // save the config file as a string
             xmlConfig = XML2String.toString(document);
-            logger.debug("xml: " + xmlConfig);
-
+            logger.debug("xml read from config file: " + xmlConfig);
         }
         catch(Exception e)
         {
@@ -69,10 +68,10 @@ public class CampaignNavigator
 
         driverType = "webdriver.chrome.driver";
 
-        // get current working path
+        // link with webdriverchrome.exe
         try
         {
-            // production: lib\chromedriver.exe
+            // production path: lib\chromedriver.exe
             File jarFile = new File (getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
             String url = jarFile.getParentFile().getPath();
             driverPath = url + "\\chromedriver.exe";
@@ -80,11 +79,12 @@ public class CampaignNavigator
         }
         catch(Exception e)
         {
-            logger.warn("Impossible to get relative path of webdriver due to" + 
-                "the following exception: " + e.toString());
+            logger.warn("Impossible to get relative path of webdriver due to the following reason: " 
+                + e.toString());
             e.printStackTrace();
-            logger.warn("Webdriver test relative path will be used");
-            driverPath = "\\external\\chromedriver.exe";
+
+            driverPath = "\\external\\chromedriver.exe";            
+            logger.warn("a Webdriver test relative path will be used: " + driverPath);
         }
     }
 

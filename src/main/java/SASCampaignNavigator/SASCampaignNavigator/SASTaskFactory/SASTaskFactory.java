@@ -19,7 +19,7 @@ public class SASTaskFactory
     {
         if (instance == null)
         {
-            logger.debug("Instanciate the Task factory");
+            logger.debug("Create the Task factory");
             instance = new SASTaskFactory(); 
             return instance;
         }

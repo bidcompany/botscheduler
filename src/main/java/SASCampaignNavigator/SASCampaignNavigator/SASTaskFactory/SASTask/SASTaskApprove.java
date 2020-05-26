@@ -28,7 +28,7 @@ public class SASTaskApprove extends SASTask
         WebDriverWait wait = new WebDriverWait(
             campaignNavigator.webDriver, campaignNavigator.timeout);
 
-        logger.debug(msg);
+        //logger.debug(msg);
         logger.debug("approving campaign " + campaign + "...");
 
         // click on List of tabs buttons
@@ -74,19 +74,21 @@ public class SASTaskApprove extends SASTask
 
     public void exec()
     {
-        openCampaign();
- 
-        /* we put the code here */
         try
         {
+            // open the campaign
+            openCampaign();
+
+            /* we put the code here */
             approveCampaign();
+
+            // close the campaign
+            closeCampaign();
         }
         catch (Exception e)
         {
-            logger.error("The bot crashed due to the following exception. " + e.toString());           
+            logger.error( "Stop execution of task due to the following exception " + e.toString());           
             e.printStackTrace();
         }
-
-        closeCampaign();
     }
 }

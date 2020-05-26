@@ -11,9 +11,9 @@ public class Main
     public static void main(String[] args) 
     {
         logger.debug("Started the main");
-        logger.debug("Create a navigator task");
+        logger.debug("Create SAS Campaign Navigator");
         SASCampaignNavigator campaignNavigator = new SASCampaignNavigator();
-        logger.debug("Run a navigator task");
+        logger.debug("Run SAS Campaign Navigator");
         campaignNavigator.run();
     }
 }
