@@ -130,7 +130,7 @@ public abstract class SASTask
         found.click();  // 1st time
 
         // if campaign section is already open we need to click 2 times. 
-        if( campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN))
+        if(campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN))
         {
             found.click();  // 2nd time
         }

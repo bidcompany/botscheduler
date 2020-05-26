@@ -4,6 +4,7 @@ import SASCampaignNavigator.SASCampaignNavigator.Utils.SASHistory;
 /* here we store the particular flags used to fix problems for multiple execution tasks */
 public class CampaignNavigatorHistory
 {
+
     // flags
     private boolean campaignSectionAlreadyOpen = false;
     

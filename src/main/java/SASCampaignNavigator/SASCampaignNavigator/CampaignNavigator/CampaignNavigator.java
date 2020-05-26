@@ -30,7 +30,7 @@ public class CampaignNavigator
     public int timeout;
 
     // navigator history
-    public CampaignNavigatorHistory history;
+    public CampaignNavigatorHistory history = new CampaignNavigatorHistory();
 
     // Constructor
     public CampaignNavigator()    /* implements Runnable*/
