@@ -1,7 +1,5 @@
 package SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask;
 
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Element;
@@ -84,16 +82,19 @@ public abstract class SASTask
         logger.debug(msg);
         logger.debug("open campaign " + campaign + "...");
 
-        // if iframe is present focus on it -> it happens if page is refreshed
-        toFind = "sasci_iframe";
-        msg = "Switch to iframe";
-        logger.debug(msg);
-        logger.debug("id]: " + toFind);
-        List<WebElement> check = campaignNavigator.webDriver.findElements(By.id(toFind));
-        if(check.size()>0)
+        // if it is refreshed we need to focus on the iframe again
+        if(campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SECTION_REFRESHED))
         {
-            logger.debug("found an iframe. Focus on it");
-            campaignNavigator.webDriver.switchTo().frame(check.get(0));
+            toFind = "sasci_iframe";
+            msg = "Switch to iframe";
+            logger.debug("This page has been refreshed. we need to focus on the iframe again");
+            logger.debug(msg);
+            logger.debug("id]: " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            campaignNavigator.webDriver.switchTo().frame(found);
+
+            // reset the flag
+            campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SECTION_REFRESHED, false);
         }
         
         // Click Designer Button

@@ -7,7 +7,8 @@ public class CampaignNavigatorHistory
 
     // flags
     private boolean campaignSectionAlreadyOpen = false;
-    
+    private boolean campaignSectionRefreshed = false;
+
     public boolean getValue(String flag)
     {
         switch (flag)
@@ -15,6 +16,10 @@ public class CampaignNavigatorHistory
             case SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN:
             {
                 return campaignSectionAlreadyOpen;
+            }
+            case SASHistory.CAMPAIGN_SECTION_REFRESHED:
+            {
+                return campaignSectionRefreshed;
             }
             default:
             {
@@ -33,6 +38,12 @@ public class CampaignNavigatorHistory
                 break;
             }
 
+            case SASHistory.CAMPAIGN_SECTION_REFRESHED:
+            {
+                campaignSectionRefreshed = value;
+                break;
+            }
+
             default:
             {
                 break;
@@ -41,8 +52,9 @@ public class CampaignNavigatorHistory
     }
 
     /* to use when bot refreshes the page or it crashes */
-    public void refreshHistory()
+    public void resetHistory()
     {
         campaignSectionAlreadyOpen = false;
+        campaignSectionRefreshed = false;
     } 
 }

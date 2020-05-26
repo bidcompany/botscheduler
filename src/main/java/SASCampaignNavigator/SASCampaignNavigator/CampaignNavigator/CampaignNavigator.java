@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.jdom2.Document;
 import org.jdom2.input.SAXBuilder;
+
+import SASCampaignNavigator.SASCampaignNavigator.Utils.SASHistory;
 import SASCampaignNavigator.SASCampaignNavigator.Utils.XML2String;
 
 /* Navigator bot class. It Should be able to connect to target web page, detect the target html elements
@@ -91,10 +93,14 @@ public class CampaignNavigator
     // refresh the page
     public void refresh()
     {
-        // refresh the page
-        history.refreshHistory();
-        webDriver.navigate().refresh();
+        // reset the history flags of the bot
+        history.resetHistory();
 
+        // set the refreshed flag
+        history.updateHistory(SASHistory.CAMPAIGN_SECTION_REFRESHED, true);
+        
+        // refresh the broswer
+        webDriver.navigate().refresh();
     }
 
 
