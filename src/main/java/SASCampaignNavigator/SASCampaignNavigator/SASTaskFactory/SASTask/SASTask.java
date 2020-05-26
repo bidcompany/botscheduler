@@ -195,7 +195,8 @@ public abstract class SASTask
         logger.debug(msg + toFind);
         
         // click on Close button for a cleaner ending.
-        toFind = "//button[contains(@id, 'closeButton')]";
+        toFind = "//*[contains(text(), 'Close')]/ancestor::button[ancestor::header[//div[@role='toolbar']]]";
+        //toFind = "//button[contains(@id, 'closeButton')]";
         msg = "Click on close campaign button";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);

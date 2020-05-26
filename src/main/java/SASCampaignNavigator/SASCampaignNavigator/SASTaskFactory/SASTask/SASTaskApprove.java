@@ -48,6 +48,9 @@ public class SASTaskApprove extends SASTask
         
         // check if the already approved button is present 
         toFind = "//button[ancestor::div[@role='alertdialog']//*[contains(text(), 'approved')]]";
+        msg = "Check if there is an already approved button";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
         if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() != 0)
         {   
             // catch the button
