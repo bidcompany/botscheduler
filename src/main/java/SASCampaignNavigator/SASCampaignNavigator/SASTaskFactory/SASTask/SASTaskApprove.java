@@ -22,6 +22,14 @@ public class SASTaskApprove extends SASTask
 
     private void approveCampaign()
     {
+        /* 
+            here it may spawn a dialog will asking to open the campaign in edit mode.
+            It happens only if a bot crashed in the previous execution. => the bot will crash
+
+            here it may spawn a dialog saying the campaign is approved and no changes may be applied.
+            It happens only if the campaign is in Apporved state. => the bot will crash
+        */
+
         String msg = "START OK";
         String toFind = "not Initialized";
         WebElement found;
@@ -89,6 +97,8 @@ public class SASTaskApprove extends SASTask
         {
             logger.error( "Stop execution of task due to the following exception " + e.toString());           
             e.printStackTrace();
+            
+            campaignNavigator.refresh();
         }
     }
 }

@@ -88,6 +88,16 @@ public class CampaignNavigator
         }
     }
 
+    // refresh the page
+    public void refresh()
+    {
+        // refresh the page
+        history.refreshHistory();
+        webDriver.navigate().refresh();
+
+    }
+
+
     // Selenium example: perform a wikipedia search 
     public void run() 
     {

@@ -38,5 +38,11 @@ public class CampaignNavigatorHistory
                 break;
             }
         }
+    }
+
+    /* to use when bot refreshes the page or it crashes */
+    public void refreshHistory()
+    {
+        campaignSectionAlreadyOpen = false;
     } 
 }
