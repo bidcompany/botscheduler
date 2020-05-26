@@ -20,7 +20,7 @@ public class SASTaskApprove extends SASTask
         taskType = "Approval";
     }
 
-    private void approveCampaign()
+    protected void approveCampaign()
     {
         /* 
             here it may spawn a dialog will asking to open the campaign in edit mode.
@@ -30,13 +30,12 @@ public class SASTaskApprove extends SASTask
             It happens only if the campaign is in Apporved state. => the bot will crash
         */
 
-        String msg = "START OK";
+        String msg = "not Initialized";
         String toFind = "not Initialized";
         WebElement found;
         WebDriverWait wait = new WebDriverWait(
             campaignNavigator.webDriver, campaignNavigator.timeout);
 
-        //logger.debug(msg);
         logger.debug("approving campaign " + campaign + "...");
 
         // click on List of tabs buttons

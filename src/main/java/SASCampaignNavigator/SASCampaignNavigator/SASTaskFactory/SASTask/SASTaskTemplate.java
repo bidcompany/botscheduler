@@ -2,6 +2,8 @@ package SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
 
 import SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator.CampaignNavigator;
 import SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask.SASTask;
@@ -20,10 +22,22 @@ public class SASTaskTemplate extends SASTask
 
     public void exec()
     {
-        openCampaign();
+        try
+        {
+            // open the campaign
+            openCampaign();
 
-        /* we put the code here */
-        
-        closeCampaign();
-    }
+            /* we put the code here */
+ 
+            // close the campaign
+            closeCampaign();
+        }
+        catch (Exception e)
+        {
+            logger.error( "Stop execution of task due to the following exception " + e.toString());           
+            e.printStackTrace();
+            
+            campaignNavigator.refresh();
+        }
+     }
 }
