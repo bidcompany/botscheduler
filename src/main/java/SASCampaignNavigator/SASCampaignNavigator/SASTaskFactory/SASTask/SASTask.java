@@ -96,7 +96,7 @@ public abstract class SASTask
             // reset the flag
             campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SECTION_REFRESHED, false);
         }
-        
+
         // Click Designer Button
         toFind = "//*[text()='Designer' and ancestor::div[@role='tab']]/ancestor::div[@role='tab']";
         msg = "Click on Designer menu button";
@@ -202,6 +202,19 @@ public abstract class SASTask
         logger.debug("xpath]: " + toFind);
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
+
+        // check if the sending schedule to administrator has failed. 
+        toFind = "//*[text()='Close']/ancestor::button[ancestor::*[@role='alertdialog']]";
+        msg = "Check if a send to administrator error dialog is shown ";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() != 0)
+        {   
+            // click cancel and continue
+            campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
+            logger.warn("Camapaign " + campaign + " send schedule to administrator failed");
+            
+        }
 
         // end
         msg = "END OK";

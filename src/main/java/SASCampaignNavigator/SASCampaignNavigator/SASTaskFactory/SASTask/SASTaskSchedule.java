@@ -45,6 +45,13 @@ public class SASTaskSchedule extends SASTaskApprove
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
+        // wait until the page has loaded the schedule settings otherwise clicking on send schedule does nothing 
+        toFind = "//*[text()='" + campaign + "'  and ancestor::ul[@role='listbox']]";
+        msg = "Waiting that the schedule settings are loaded";
+        logger.debug(msg);
+        logger.debug("xpath:] " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));
+
         // click on send Schedule button
         toFind = "//*[text()='Send Schedule']/ancestor::button";
         msg = "Click on Send Schedule button";
