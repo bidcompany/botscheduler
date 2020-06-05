@@ -210,6 +210,16 @@ public abstract class SASTask
         logger.debug("xpath]: " + toFind);
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         
+        try 
+        {
+            Thread.sleep(5000); // wait 5 sec
+        }
+
+        catch (Exception e) 
+        {
+            logger.error("The following exception occurred: " + e.toString());
+        }
+
         // check if the sending schedule to administrator has failed. 
         toFind = "//*[text()='Close']/ancestor::button[ancestor::*[@role='alertdialog']]";
         msg = "Check if a send to administrator error dialog is shown ";
