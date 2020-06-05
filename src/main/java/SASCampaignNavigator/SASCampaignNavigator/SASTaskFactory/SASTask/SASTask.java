@@ -196,7 +196,6 @@ public abstract class SASTask
         
         // click on Close button for a cleaner ending.
         toFind = "//*[contains(text(), 'Close')]/ancestor::button[ancestor::header[//div[@role='toolbar']]]";
-        //toFind = "//button[contains(@id, 'closeButton')]";
         msg = "Click on close campaign button";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
@@ -217,37 +216,6 @@ public abstract class SASTask
             campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN, false);
         }
 
-/*        // wait until we return to selection campaigns view
-        toFind = "//*[@title='"+ campaign +"']";
-        msg = "Wait until we return to campaign selections page";
-        logger.debug(msg);
-        logger.debug("xpath]: " + toFind);
-        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
-
-        try 
-        {
-            Thread.sleep(5000); // wait 5 sec
-        }
-
-        catch (Exception e) 
-        {
-            logger.error("The following exception occurred: " + e.toString());
-        }
-
-
-        // check if the sending schedule to administrator has failed. 
-        toFind = "//*[text()='Close']/ancestor::button[ancestor::*[@role='alertdialog']]";
-        msg = "Check if a send to administrator error dialog is shown ";
-        logger.debug(msg);
-        logger.debug("xpath]: " + toFind);
-        if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() != 0)
-        {   
-            // click cancel and continue
-            campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
-            logger.warn("Camapaign " + campaign + " send schedule to administrator failed");
-            
-        }
-*/
         // end
         msg = "END OK";
         logger.debug(msg);
