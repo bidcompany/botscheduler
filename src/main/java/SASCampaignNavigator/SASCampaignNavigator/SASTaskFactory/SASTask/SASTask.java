@@ -203,6 +203,13 @@ public abstract class SASTask
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
+        // wait until we return to selection campaigns view
+        toFind = "//*[@title='"+ campaign +"']";
+        msg = "Wait until we return to campaign selections page";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+        
         // check if the sending schedule to administrator has failed. 
         toFind = "//*[text()='Close']/ancestor::button[ancestor::*[@role='alertdialog']]";
         msg = "Check if a send to administrator error dialog is shown ";
