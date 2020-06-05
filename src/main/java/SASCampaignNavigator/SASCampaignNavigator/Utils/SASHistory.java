@@ -9,5 +9,6 @@ public class SASHistory
     // String keys  (... we could also use int or other stuff ... we don't care )
     public final static String CAMPAIGN_SECTION_ALREADY_OPEN = "campaignSectionAlreadyOpen";
     public final static String CAMPAIGN_SECTION_REFRESHED = "campaignSectionRefreshed";
+    public final static String CAMPAIGN_SEND_SCHEDULE_ADMIN = "campaignSendScheduleAdmin";
 
 }

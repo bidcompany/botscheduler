@@ -203,13 +203,27 @@ public abstract class SASTask
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
-        // wait until we return to selection campaigns view
+        // if send schedule was sent to admin it will spawn an error dialog
+        if(campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN))
+        {   
+            toFind = "//*[text()='Close']/ancestor::button[ancestor::*[@role='alertdialog']]";
+            msg = "Check if a send to administrator error dialog is shown ";
+            logger.debug(msg);
+            logger.debug("xpath]: " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+            found.click();
+            
+            // update history to false
+            campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN, false);
+        }
+
+/*        // wait until we return to selection campaigns view
         toFind = "//*[@title='"+ campaign +"']";
         msg = "Wait until we return to campaign selections page";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
-        
+
         try 
         {
             Thread.sleep(5000); // wait 5 sec
@@ -219,6 +233,7 @@ public abstract class SASTask
         {
             logger.error("The following exception occurred: " + e.toString());
         }
+
 
         // check if the sending schedule to administrator has failed. 
         toFind = "//*[text()='Close']/ancestor::button[ancestor::*[@role='alertdialog']]";
@@ -232,7 +247,7 @@ public abstract class SASTask
             logger.warn("Camapaign " + campaign + " send schedule to administrator failed");
             
         }
-
+*/
         // end
         msg = "END OK";
         logger.debug(msg);

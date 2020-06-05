@@ -8,6 +8,8 @@ public class CampaignNavigatorHistory
     // flags
     private boolean campaignSectionAlreadyOpen = false;
     private boolean campaignSectionRefreshed = false;
+    private boolean campaignSendScheduleAdmin = false;
+
 
     public boolean getValue(String flag)
     {
@@ -21,6 +23,11 @@ public class CampaignNavigatorHistory
             {
                 return campaignSectionRefreshed;
             }
+            case SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN:
+            {
+                return campaignSendScheduleAdmin;
+            }
+
             default:
             {
                 return false;
@@ -43,6 +50,11 @@ public class CampaignNavigatorHistory
                 campaignSectionRefreshed = value;
                 break;
             }
+            
+            case SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN:
+            {
+                campaignSendScheduleAdmin = value;
+            }
 
             default:
             {
@@ -56,5 +68,6 @@ public class CampaignNavigatorHistory
     {
         campaignSectionAlreadyOpen = false;
         campaignSectionRefreshed = false;
+        campaignSendScheduleAdmin = false;
     } 
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
 import SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator.CampaignNavigator;
+import SASCampaignNavigator.SASCampaignNavigator.Utils.SASHistory;
 
 public class SASTaskSchedule extends SASTaskApprove
 {
@@ -68,6 +69,9 @@ public class SASTaskSchedule extends SASTaskApprove
         logger.debug("xpath]: " + toFind);
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
+
+        // update history if send to admin
+        campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN, true);
 
         // click again to send Schedule button
         toFind = "//*[text()='Send' and ancestor::div[@role='dialog']]/ancestor::button";
