@@ -3,6 +3,7 @@ package SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator;
 import java.io.File;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.LoggerContext;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -46,7 +47,9 @@ public class CampaignNavigator
             
             // set logger filepath
             System.setProperty("logPath", libDir.getParentFile().getPath());
-            
+            LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+            ctx.reconfigure();
+
             String configXMLPath = libDir.getParentFile().getPath() + "\\bin\\SASCampaignNavigator.cfg";
             logger.debug("config file path: " + configXMLPath);
             
