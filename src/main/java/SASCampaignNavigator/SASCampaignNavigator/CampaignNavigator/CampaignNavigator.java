@@ -20,8 +20,8 @@ import SASCampaignNavigator.SASCampaignNavigator.Utils.XML2String;
 /* it should be cool to be multithread */
 public class CampaignNavigator 
 {       
-    // log manager 
-    private Logger logger = LogManager.getLogger(CampaignNavigator.class);
+    // log manager
+    private Logger logger; //= LogManager.getLogger(CampaignNavigator.class);
     
     // selenium data used to init the bot
     protected String driverType;
@@ -51,6 +51,7 @@ public class CampaignNavigator
             //{
                 LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
                 ctx.reconfigure();
+                logger = LogManager.getLogger(CampaignNavigator.class);
             //} 
             //catch (Exception e) {}; // exception thrown because it is a windows path. Actually it works.
 
