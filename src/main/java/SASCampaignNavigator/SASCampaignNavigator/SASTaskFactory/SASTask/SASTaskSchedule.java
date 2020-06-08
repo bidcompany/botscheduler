@@ -11,7 +11,7 @@ import SASCampaignNavigator.SASCampaignNavigator.Utils.SASHistory;
 public class SASTaskSchedule extends SASTaskApprove
 {
     // logger
-    private Logger logger = LogManager.getLogger(SASTaskTemplate.class);
+    private Logger logger = LogManager.getLogger(SASTaskSchedule.class);
         
     // lets set the taskType directly here
     public SASTaskSchedule(CampaignNavigator campaignNavigator, String config)
@@ -99,7 +99,7 @@ public class SASTaskSchedule extends SASTaskApprove
             /* we put the code here */
             
             // approve campaign
-            approveCampaign();
+            //approveCampaign();
 
             // schedule campaign
             scheduleCampaign();

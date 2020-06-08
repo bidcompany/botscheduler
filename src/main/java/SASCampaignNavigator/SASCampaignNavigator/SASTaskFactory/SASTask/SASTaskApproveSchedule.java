@@ -8,13 +8,13 @@ import SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator.CampaignNavig
 public class SASTaskApproveSchedule extends SASTaskSchedule
 {
     // logger
-    private Logger logger = LogManager.getLogger(SASTaskTemplate.class);
+    private Logger logger = LogManager.getLogger(SASTaskApproveSchedule.class);
         
     // lets set the taskType directly here
     public SASTaskApproveSchedule(CampaignNavigator campaignNavigator, String config)
     {
         super(campaignNavigator, config);
-        taskType = "ApproveSchedule";
+        taskType = "ApprovalSchedule";
     }
 
     public void exec()
