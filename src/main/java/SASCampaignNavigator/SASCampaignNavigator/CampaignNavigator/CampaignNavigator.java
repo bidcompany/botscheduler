@@ -46,7 +46,7 @@ public class CampaignNavigator
             File libDir = jarFile.getParentFile();
             
             // set logger filepath
-            System.setProperty("logPath", libDir.getParentFile().getPath());
+            System.setProperty("logPath", libDir.getParentFile().getCanonicalPath());
             LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
             ctx.reconfigure();
 
