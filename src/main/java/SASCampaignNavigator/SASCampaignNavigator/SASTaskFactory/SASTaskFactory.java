@@ -47,7 +47,7 @@ public class SASTaskFactory
             case ("ApprovalSchedule"):
             {
                 logger.debug("Create an 'Approval' and 'Schedule' task");
-                return new SASTaskSchedule(campaignNavigator, config);
+                return new SASTaskApproveSchedule(campaignNavigator, config);
             }
             default:
             {
