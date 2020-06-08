@@ -71,7 +71,7 @@ public class SASTaskSchedule extends SASTaskApprove
         found.click();
 
         // update history if send to admin
-        //campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN, true);
+        campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN, true);
 
         // click again to send Schedule button
         toFind = "//*[text()='Send' and ancestor::div[@role='dialog']]/ancestor::button";
