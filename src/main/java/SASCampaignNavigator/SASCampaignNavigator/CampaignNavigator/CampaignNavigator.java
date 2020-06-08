@@ -43,6 +43,10 @@ public class CampaignNavigator
             // production path: bin\SASCampaignNavigator.cfg
             File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()) ;
             File libDir = jarFile.getParentFile();
+            
+            // set logger filepath
+            System.setProperty("logPath", libDir.getParentFile().getPath());
+            
             String configXMLPath = libDir.getParentFile().getPath() + "\\bin\\SASCampaignNavigator.cfg";
             logger.debug("config file path: " + configXMLPath);
             
