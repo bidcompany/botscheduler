@@ -47,14 +47,10 @@ public class CampaignNavigator
             
             // set logger filepath
             System.setProperty("logPath", libDir.getParentFile().getPath());
-            //try 
-            //{
-                LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
-                ctx.reconfigure();
-                logger = LogManager.getLogger(CampaignNavigator.class);
-            //} 
-            //catch (Exception e) {}; // exception thrown because it is a windows path. Actually it works.
-
+            LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+            ctx.reconfigure();
+            logger = LogManager.getLogger(CampaignNavigator.class);
+            
             String configXMLPath = libDir.getParentFile().getPath() + "\\bin\\SASCampaignNavigator.cfg";
             logger.debug("config file path: " + configXMLPath);
             
