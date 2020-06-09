@@ -31,6 +31,29 @@ public abstract class SASTask
     // implemented in childern class
     public abstract void exec();
 
+    // put in the html report info about this sas task 
+    public void report(String msg)
+    {
+        System.setProperty("campaign", campaignDir + "/" + campaignCategory + "/" + campaign);
+        System.setProperty("taskType", taskType);
+            
+        switch(msg)
+        {
+            case "SUCCESS":
+            {
+                logger.info("</td><td bgcolor='#ABEFD0'>" + msg);
+                break;
+            }
+            case "FAILED":
+            {
+                logger.info("</td><td bgcolor='#EFABB1'>" + msg);
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
     public SASTask(CampaignNavigator campaignNavigator, String config)
     {
         // bind webDriver

@@ -9,15 +9,16 @@
         </File>
         <File name="LogToReport" filename="${sys:logPath}\report\SASCampaignNavigator.html">
             <PatternHtmlLayout
-                    pattern="%p %td %d{HH:mm:ss.SSS} %td %c{1} %td %m"
-                    header="Priority,Time,Sender,Message"/>
+                    pattern="%d{HH:mm:ss.SSS} %td ${sys:campaign} %td ${sys:taskType} %msg%n"
+                    header="Time, Campaign, Task Type,  Message"/>
         </File>
     </Appenders>
     <Loggers>
         <Root level="debug" additivity="false">
             <AppenderRef ref="LogToConsole"/>
             <AppenderRef ref="LogToFile"/>
-            <AppenderRef ref="LogToReport"/>
+            <AppenderRef ref="LogToReport" level="info"/>
         </Root>
+
     </Loggers>
 </Configuration>

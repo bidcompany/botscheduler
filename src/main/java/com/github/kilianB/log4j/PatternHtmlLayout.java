@@ -163,7 +163,8 @@ public class PatternHtmlLayout extends AbstractStringLayout {
 			formatters[i].format(event, newSb);
 
 			if (!lineBreakFormater[i]) {
-				sbuf.append(Transform.escapeHtmlTags(newSb.toString()));
+				//sbuf.append(Transform.escapeHtmlTags(newSb.toString()));
+				sbuf.append(newSb.toString());
 			} else {
 				sbuf.append(newSb.toString());
 			}

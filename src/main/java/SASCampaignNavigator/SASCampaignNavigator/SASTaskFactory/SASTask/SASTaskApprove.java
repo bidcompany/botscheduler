@@ -107,12 +107,19 @@ public class SASTaskApprove extends SASTask
 
             // close the campaign
             closeCampaign();
+
+            // report the task success
+            report("SUCCESS");
+
         }
         catch (Exception e)
         {
             logger.error( "Stop execution of task due to the following exception " + e.toString());           
             e.printStackTrace();
             
+            // report the task failure
+            report("FAILED");
+
             campaignNavigator.refresh();
         }
     }

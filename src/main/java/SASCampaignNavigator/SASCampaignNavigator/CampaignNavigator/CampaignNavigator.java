@@ -53,7 +53,14 @@ public class CampaignNavigator
             
             String configXMLPath = libDir.getParentFile().getPath() + "\\bin\\SASCampaignNavigator.cfg";
             logger.debug("config file path: " + configXMLPath);
-            
+
+            // example logger
+            // System.setProperty("campaign", "CAMPAGNA 1");
+            // logger.info("</td><td bgcolor='#ABEFD0'>questo e' un messaggio");
+
+            // System.setProperty("campaign", "CAMPAGNA 2");
+            // logger.error("</td><td bgcolor='#EFABB1'>questo e' un messaggio");
+
             // parse the config file and save it as a string
             File configXML = new File (configXMLPath);
             SAXBuilder builder = new SAXBuilder();
