@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration packages="com.github.kilianB.log4j" status="WARN">
     <Appenders>
         <Console name="LogToConsole" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
         <File name="LogToFile" filename="${sys:logPath}\logs\SASCampaignNavigator.log">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%-5level] %logger{36} - %msg%n"/>
+        </File>
+        <File name="LogToReport" filename="${sys:logPath}\report\SASCampaignNavigator.html">
+            <PatternHtmlLayout
+                    pattern="%p %td %d{HH:mm:ss.SSS} %td %c{1} %td %m"
+                    header="Priority,Time,Sender,Message"/>
         </File>
     </Appenders>
     <Loggers>
         <Root level="debug" additivity="false">
             <AppenderRef ref="LogToConsole"/>
             <AppenderRef ref="LogToFile"/>
+            <AppenderRef ref="LogToReport"/>
         </Root>
     </Loggers>
 </Configuration>
