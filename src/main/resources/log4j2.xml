@@ -9,8 +9,8 @@
         </File>
         <File name="LogToReport" filename="${sys:logPath}\report\SASCampaignNavigator.html">
             <PatternHtmlLayout
-                    pattern="%d{HH:mm:ss.SSS} %td ${sys:campaign} %td ${sys:taskType} %msg%n"
-                    header="Time, Campaign, Task Type,  Message"/>
+                    pattern="%d{DEFAULT} %td ${sys:campaign} %td ${sys:taskType} %msg%n"
+                    header="Time, Campaign, Task Type, Status"/>
             <Filters>
                 <ThresholdFilter level="warn"  onMatch="DENY"   onMismatch="NEUTRAL"/>
                 <ThresholdFilter level="error" onMatch="DENY"   onMismatch="NEUTRAL"/>
