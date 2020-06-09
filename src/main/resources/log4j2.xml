@@ -11,6 +11,12 @@
             <PatternHtmlLayout
                     pattern="%d{HH:mm:ss.SSS} %td ${sys:campaign} %td ${sys:taskType} %msg%n"
                     header="Time, Campaign, Task Type,  Message"/>
+            <Filters>
+                <ThresholdFilter level="warn"  onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="error" onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="fatal" onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info"  onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
         </File>
     </Appenders>
     <Loggers>
