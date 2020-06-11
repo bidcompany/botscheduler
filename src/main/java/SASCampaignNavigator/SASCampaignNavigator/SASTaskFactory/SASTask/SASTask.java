@@ -23,7 +23,8 @@ public abstract class SASTask
     protected String campaignDir;
     protected String campaignCategory;
     protected String taskType;
-    
+    protected String campaignPath;
+
     // WebDriver instance from SASCampaignNavigator
     //protected WebDriver webDriver;
     protected CampaignNavigator campaignNavigator; 
@@ -76,12 +77,15 @@ public abstract class SASTask
             //this.timeout = Integer.parseInt(root.getChild("timeout").getValue());            
             //logger.debug("set target campaign timeout: " + timeout);
             
+            this.campaignPath = root.getChild("path").getValue();
+            logger.debug("set target campaign path: " + campaignPath);
+
             if (campaign == null)
                 throw new NullPointerException("campaign name is null");
-            if (campaignDir == null)
-                throw new NullPointerException("campaign directory is null");
-            if (campaignCategory == null)
-                throw new NullPointerException("campaign category is null");
+            // if (campaignDir == null)
+            //     throw new NullPointerException("campaign directory is null");
+            // if (campaignCategory == null)
+            //     throw new NullPointerException("campaign category is null");
         }
         catch (Exception e)
         {   
@@ -180,6 +184,26 @@ public abstract class SASTask
         logger.debug("Wait until the to input field has value " + campaign);
         wait.until(ExpectedConditions.textToBePresentInElementValue(found, campaign));
 
+        // parse the campaign path
+        // if it is empty it means it is in the root folder ("Campaigns/name_campaign")
+        // if(!campaignPath.isEmpty())
+        // {
+        //     for (String dir : campaignPath.split("\\"))
+        //     {
+        //         // skip Campaigns. Already did it in the hardcoded code above
+        //         if(dir.equals("Campaigns"))
+        //             continue;
+
+        //         // Expand the path folder
+        //         toFind = "//*[@title='"+ dir +"']/..//*[@role='button']";
+        //         msg = "Expand " + dir + " directory tree";
+        //         logger.debug(msg);
+        //         logger.debug("xpath] " + toFind);
+        //         found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+        //         found.click();                
+        //     }
+        // }
+
         // Expand OutBound folder
         toFind = "//*[@title='"+ campaignDir +"']/..//*[@role='button']";
         msg = "Expand " + campaignDir + " directory tree";
@@ -217,6 +241,21 @@ public abstract class SASTask
             campaignNavigator.webDriver, campaignNavigator.timeout); 
         logger.debug(msg + toFind);
         
+        // publish campaign
+        toFind = "//button[@title='Options' and ancestor::div[contains(@id, 'jsview')]]";
+        msg = "Click on Options menu button";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+        found.click();
+
+        toFind = "//*[text()='Publish Campaign']/ancestor::*[@role='menuitem']";
+        msg = "Click on publish campaign";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+        found.click();
+
         // click on Close button for a cleaner ending.
         toFind = "//*[contains(text(), 'Close')]/ancestor::button[ancestor::header[//div[@role='toolbar']]]";
         msg = "Click on close campaign button";
