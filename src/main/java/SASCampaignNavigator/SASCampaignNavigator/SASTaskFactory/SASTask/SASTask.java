@@ -38,6 +38,8 @@ public abstract class SASTask
     public void report(String msg)
     {
         //System.setProperty("campaign", campaignDir + "/" + campaignCategory + "/" + campaign);
+        Integer num = Integer.parseInt(System.getProperty("num")) + 1;
+        System.setProperty("num", num.toString());
         System.setProperty("campaign", campaignPath + "\\" + campaign);
         System.setProperty("taskType", taskType);
             

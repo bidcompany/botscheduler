@@ -54,6 +54,9 @@ public class CampaignNavigator
             String configXMLPath = libDir.getParentFile().getPath() + "\\bin\\SASCampaignNavigator.cfg";
             logger.debug("config file path: " + configXMLPath);
 
+            // set num campaigns
+            System.setProperty("num", "0");
+
             // example logger
             // System.setProperty("campaign", "CAMPAGNA 1");
             // logger.info("</td><td bgcolor='#ABEFD0'>questo e' un messaggio");
@@ -126,7 +129,7 @@ public class CampaignNavigator
         logger.debug("Set webdriver to " + driverType);
         logger.debug("looking for webdriver bin to " + driverPath);
         System.setProperty(driverType, driverPath);
-        
+
         // using Chrome
         logger.debug("Start the driver");
         webDriver = new ChromeDriver();
