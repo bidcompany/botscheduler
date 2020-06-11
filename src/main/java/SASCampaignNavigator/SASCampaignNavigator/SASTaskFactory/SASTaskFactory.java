@@ -49,6 +49,11 @@ public class SASTaskFactory
                 logger.debug("Create an 'Approval' and 'Schedule' task");
                 return new SASTaskApproveSchedule(campaignNavigator, config);
             }
+            case ("Publish"):
+            {
+                logger.debug("Create a 'Publish' task");
+                return new SASTaskPublish(campaignNavigator, config);
+            }
             default:
             {
                 logger.error("Impossible to fetch the input taskType: " + taskType);
