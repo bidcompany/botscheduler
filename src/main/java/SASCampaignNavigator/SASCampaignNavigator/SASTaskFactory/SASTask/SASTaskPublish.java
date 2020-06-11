@@ -28,18 +28,36 @@ public class SASTaskPublish extends SASTask
         WebDriverWait wait = new WebDriverWait(
             campaignNavigator.webDriver, campaignNavigator.timeout);
 
-        logger.debug("approving campaign " + campaign + "...");
+        logger.debug("publish campaign " + campaign + "...");
 
-
-        // click on List of tabs buttons
-        toFind = "//button[@title='List of tabs']";
-        msg = "Click on List of Tabs button";
+        // wait to appear the close campaign button
+        toFind = "//*[contains(text(), 'Close')]/ancestor::button[ancestor::header[//div[@role='toolbar']]]";
+        msg = "Wait that the header of the campaign is loaded";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
-        
-        // skip any generic alert dialog
-        toFind = "//button[ancestor::div[@role='alertdialog']";
+    
+        // skip the crash alertdialog: "Open Campaign in Edit Mode"
+        toFind = "//*[text()='Yes']/ancestor::button[ancestor::div[@role='alertdialog']]";
+        msg = "Check if there is the Edit Mode alert dialog";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() != 0)
+        {   
+            // catch the button
+            campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
+            logger.warn("Campaign " + campaign + " has shown the Edit Mode alert dialog");
+        }
+
+        // Wait to appear the list of tabs buttons
+        toFind = "//button[@title='List of tabs']";
+        msg = "Wait the List of Tabs button";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+
+        // skip any generic alert dialog: Already Approved Campaign, Optimization applied ...
+        toFind = "//button[ancestor::div[@role='alertdialog']]";
         msg = "Check if there is an alert dialog";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
@@ -53,6 +71,7 @@ public class SASTaskPublish extends SASTask
             return;
         }
 
+        // end
         return;
     }
 
