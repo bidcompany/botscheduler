@@ -31,8 +31,8 @@ public class SASTaskPublish extends SASTask
         logger.debug("publish campaign " + campaign + "...");
 
         // wait to appear the close campaign button
-        toFind = "//*[contains(text(), 'Close')]/ancestor::button[ancestor::header[//div[@role='toolbar']]]";
-        msg = "Wait that the header of the campaign is loaded";
+        toFind = "//button[@title='View all items' and not(contains(@class, 'sapMBtnDisabled'))]";
+        msg = "Wait that the view all items is not disabled";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
