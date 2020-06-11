@@ -20,8 +20,8 @@ public abstract class SASTask
     
     // data fetched from config file
     protected String campaign;
-    protected String campaignDir;
-    protected String campaignCategory;
+    // protected String campaignDir;
+    // protected String campaignCategory;
     protected String taskType;
     protected String campaignPath;
 
@@ -35,7 +35,8 @@ public abstract class SASTask
     // put in the html report info about this sas task 
     public void report(String msg)
     {
-        System.setProperty("campaign", campaignDir + "/" + campaignCategory + "/" + campaign);
+        //System.setProperty("campaign", campaignDir + "/" + campaignCategory + "/" + campaign);
+        System.setProperty("campaign", campaignPath + "\\" + campaign);
         System.setProperty("taskType", taskType);
             
         switch(msg)
@@ -68,11 +69,11 @@ public abstract class SASTask
             this.campaign = root.getChild("name").getValue();
             logger.debug("set target campaign name: " + campaign);
 
-            this.campaignDir = root.getChild("directory").getValue();
-            logger.debug("set target campaign directory: " + campaignDir);
+            // this.campaignDir = root.getChild("directory").getValue();
+            // logger.debug("set target campaign directory: " + campaignDir);
 
-            this.campaignCategory = root.getChild("category").getValue();
-            logger.debug("set target campaign category: " + campaignCategory);
+            // this.campaignCategory = root.getChild("category").getValue();
+            // logger.debug("set target campaign category: " + campaignCategory);
             
             //this.timeout = Integer.parseInt(root.getChild("timeout").getValue());            
             //logger.debug("set target campaign timeout: " + timeout);
@@ -186,39 +187,39 @@ public abstract class SASTask
 
         // parse the campaign path
         // if it is empty it means it is in the root folder ("Campaigns/name_campaign")
-        // if(!campaignPath.isEmpty())
-        // {
-        //     for (String dir : campaignPath.split("\\"))
-        //     {
-        //         // skip Campaigns. Already did it in the hardcoded code above
-        //         if(dir.equals("Campaigns"))
-        //             continue;
+        if(!campaignPath.isEmpty())
+        {
+            for (String dir : campaignPath.split("\\"))
+            {
+                // skip Campaigns. Already did it in the hardcoded code above
+                if(dir.equals("Campaigns"))
+                    continue;
 
-        //         // Expand the path folder
-        //         toFind = "//*[@title='"+ dir +"']/..//*[@role='button']";
-        //         msg = "Expand " + dir + " directory tree";
-        //         logger.debug(msg);
-        //         logger.debug("xpath] " + toFind);
-        //         found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
-        //         found.click();                
-        //     }
-        // }
+                // Expand the path folder
+                toFind = "//*[@title='"+ dir +"']/..//*[@role='button']";
+                msg = "Expand " + dir + " directory tree";
+                logger.debug(msg);
+                logger.debug("xpath] " + toFind);
+                found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+                found.click();                
+            }
+        }
 
-        // Expand OutBound folder
-        toFind = "//*[@title='"+ campaignDir +"']/..//*[@role='button']";
-        msg = "Expand " + campaignDir + " directory tree";
-        logger.debug(msg);
-        logger.debug("xpath] " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
-        found.click();
+        // // Expand OutBound folder
+        // toFind = "//*[@title='"+ campaignDir +"']/..//*[@role='button']";
+        // msg = "Expand " + campaignDir + " directory tree";
+        // logger.debug(msg);
+        // logger.debug("xpath] " + toFind);
+        // found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+        // found.click();
         
-        // Expand Examples folder
-        toFind = "//*[@title='"+ campaignCategory +"']/..//*[@role='button']";
-        msg = "Expand " + campaignCategory + " directory tree";
-        logger.debug(msg);
-        logger.debug("xpath] " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
-        found.click();
+        // // Expand Examples folder
+        // toFind = "//*[@title='"+ campaignCategory +"']/..//*[@role='button']";
+        // msg = "Expand " + campaignCategory + " directory tree";
+        // logger.debug(msg);
+        // logger.debug("xpath] " + toFind);
+        // found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+        // found.click();
 
         // click on Title
         toFind = "//*[@title='"+ campaign +"']";
