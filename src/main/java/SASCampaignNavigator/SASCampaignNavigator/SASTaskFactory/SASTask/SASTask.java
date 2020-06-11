@@ -1,5 +1,7 @@
 package SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask;
 
+import java.util.regex.Pattern;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jdom2.Element;
@@ -189,7 +191,7 @@ public abstract class SASTask
         // if it is empty it means it is in the root folder ("Campaigns/name_campaign")
         if(!campaignPath.isEmpty())
         {
-            for (String dir : campaignPath.split("\\"))
+            for (String dir : campaignPath.split(Pattern.quote("\\")))
             {
                 // skip Campaigns. Already did it in the hardcoded code above
                 if(dir.equals("Campaigns"))
