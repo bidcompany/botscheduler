@@ -263,6 +263,14 @@ public abstract class SASTask
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
+        toFind = "//*[text()='Close']/ancestor::button[ancestor::*[@role='alertdialog']]";
+        msg = "Click on Close in the publish dialog";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+        found.click();
+
+
         // click on Close button for a cleaner ending.
         toFind = "//*[contains(text(), 'Close')]/ancestor::button[ancestor::header[//div[@role='toolbar']]]";
         msg = "Click on close campaign button";
