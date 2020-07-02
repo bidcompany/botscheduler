@@ -1,5 +1,9 @@
 package SASCampaignNavigator.SASCampaignNavigator.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -106,18 +110,50 @@ public class Json2Xml
 
             // convert it to xml
             String xml = XML.toString(jsonParsed);
-            //logger.debug(xml);
-
+            
             // add xml of the bot
             try
             {
-                Element el = XML2String.toXML(xml);
-                //String xmlPretty = new XMLOutputter(Format.getPrettyFormat()).outputString(el);
-                //logger.debug(xmlPretty);
+                Element root = XML2String.toXML(xml);
+                final String regex = "Campaigns[\\s\\S]+"; // remove from the path the BusinessContext
+                
+                // remove all the elements with owner different from sasdemo
+                List<Element> campaignList = root.getChild("campaignList").getChildren("campaign");
+                ArrayList<Element> campaignListToRemove = new ArrayList<Element>();
+             
+                for (Element c : campaignList)
+                {
+                    if(!(c.getChild("owner").getValue()).equals("sasdemo"))
+                    {
+                        // save this campaign as one to be deleted
+                        campaignListToRemove.add(c);
+                        continue;
+                    }
+
+                    // adjust the path
+                    String strPath = c.getChild("path").getValue();
+                    final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+                    final Matcher matcher = pattern.matcher(strPath);
+
+                    while (matcher.find()) 
+                    {
+                        String cleanPath = matcher.group(0);
+                        c.getChild("path").setText(cleanPath.replace("/", "\\"));
+                    }
+                }
+
+                // now delete the campaigns
+                campaignListToRemove.forEach(item -> 
+                {
+                    item.getParent().removeContent(item);
+                });
+
+                // print
+                //logger.debug(XML2String.toString(root));
 
                 // write in the SASCampaignNavigator.cfg
                 String cfgPath = libDir.getParentFile().getPath() + "\\bin\\SASCampaignNavigator.cfg";
-                new XMLOutputter(Format.getPrettyFormat()).output(el, new FileWriter(cfgPath)); 
+                new XMLOutputter(Format.getPrettyFormat()).output(root, new FileWriter(cfgPath)); 
                 
                 logger.info("created successfully a new SASCampaignNavigator.cfg from the campaign.json");  
                 return;
