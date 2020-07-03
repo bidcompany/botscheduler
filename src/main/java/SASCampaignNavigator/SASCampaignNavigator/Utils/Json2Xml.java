@@ -69,17 +69,21 @@ public class Json2Xml
             jsonArray.forEach( item -> 
             {
                 JSONObject o = (JSONObject) item;
-                // o.remove("owner");   keep it
-                // o.remove("folder");  keep it
-                o.remove("modifiedDt");
-                o.remove("campCode");
+                
                 o.remove("metaURI");
                 // o.remove("name");    keep it
                 o.remove("sk");
+                o.remove("campCode");
+                // o.remove("fillOmaPath");   keep it
+                o.remove("ciPath");
+                o.remove("parentTree");
                 o.remove("lastSavedDate");
+                o.remove("modifiedDt");
+                // o.remove("owner");   keep it
                 o.remove("lastModifiedUser");
                 o.remove("desc");
-
+                // o.remove("sched");    keep it
+                
                 // add taskType
                 if(o.getString("sched").isEmpty())
                 {
@@ -87,12 +91,13 @@ public class Json2Xml
                 }
                 else
                 {
-                    o.put("taskType", "ApprovalSchedule");
+                    // lets use always publish for this demo
+                    o.put("taskType", "Publish");
                 }
 
                 // change attrib name
-                o.put("path", o.getString("folder"));
-                o.remove("folder");
+                o.put("path", o.getString("fullOmaPath"));
+                o.remove("fullOmaPath");
             });
 
             // config of xml
@@ -124,6 +129,14 @@ public class Json2Xml
                 for (Element c : campaignList)
                 {
                     if(!(c.getChild("owner").getValue()).equals("sasdemo"))
+                    {
+                        // save this campaign as one to be deleted
+                        campaignListToRemove.add(c);
+                        continue;
+                    }
+
+                    // Filter only on Financial Service BC
+                    if(!(c.getChild("path").getValue()).contains("/CI/Financial Services"))
                     {
                         // save this campaign as one to be deleted
                         campaignListToRemove.add(c);
@@ -182,6 +195,7 @@ public class Json2Xml
         catch (JSONException e) 
         {
             // if json is broken, we skip this operation
+            e.printStackTrace();
             logger.warn("parsing failed. Check json file is valid at: " + jsonPath);
             logger.warn("The SASCampaignNavigator.cfg will not be re-created and it will be used the one already present.");
             return;

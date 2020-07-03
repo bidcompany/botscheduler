@@ -14,6 +14,6 @@ public class Main
         json2Xml.createSASCampaignNavigatorCFG();
 
         SASCampaignNavigator campaignNavigator = new SASCampaignNavigator();
-        //campaignNavigator.run();
+        campaignNavigator.run();
     }
 }
