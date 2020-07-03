@@ -1,6 +1,7 @@
 package SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask;
 
 import java.util.regex.Pattern;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -182,8 +183,11 @@ public abstract class SASTask
         // if it is empty it means it is in the root folder ("Campaigns/name_campaign")
         if(!campaignPath.isEmpty())
         {
-            for (String dir : campaignPath.split(Pattern.quote("\\")))
+            String[] dirs = campaignPath.split(Pattern.quote("\\")); 
+            for (int i = 0; i < dirs.length - 1; i++)
             {
+                String dir = dirs[i];
+
                 // skip Campaigns. Already did it in the hardcoded code above
                 if(dir.equals("Campaigns"))
                     continue;
@@ -198,14 +202,13 @@ public abstract class SASTask
             }
         }
 
-        // already inside the campaign path
-        // // click on Title
-        // toFind = "//*[@title='"+ campaign +"']";
-        // msg = "Open the campaign " + campaign + " in the directory tree";
-        // logger.debug(msg);
-        // logger.debug("xpath] " + toFind);
-        // found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
-        // found.click();
+        // click on Title
+        toFind = "//*[@title='"+ campaign +"']";
+        msg = "Open the campaign " + campaign + " in the directory tree";
+        logger.debug(msg);
+        logger.debug("xpath] " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+        found.click();
         
         // next task will find the campaign task already opened
         campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN, true);
