@@ -128,12 +128,12 @@ public class Json2Xml
              
                 for (Element c : campaignList)
                 {
-                    if(!(c.getChild("owner").getValue()).equals("sasdemo"))
+                    /*if(!(c.getChild("owner").getValue()).equals("sasdemo"))
                     {
                         // save this campaign as one to be deleted
                         campaignListToRemove.add(c);
                         continue;
-                    }
+                    }*/
 
                     // Filter only on Financial Service BC
                     if(!(c.getChild("path").getValue()).contains("/CI/Financial Services"))
@@ -168,7 +168,7 @@ public class Json2Xml
                 String cfgPath = libDir.getParentFile().getPath() + "\\bin\\SASCampaignNavigator.cfg";
                 new XMLOutputter(Format.getPrettyFormat()).output(root, new FileWriter(cfgPath)); 
                 
-                logger.info("created successfully a new SASCampaignNavigator.cfg from the campaign.json");  
+                logger.debug("created successfully a new SASCampaignNavigator.cfg from the campaign.json");  
                 return;
             }
             catch (JDOMException e)
