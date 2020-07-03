@@ -22,8 +22,6 @@ public abstract class SASTask
     
     // data fetched from config file
     protected String campaign;
-    // protected String campaignDir;
-    // protected String campaignCategory;
     protected String taskType;
     protected String campaignPath;
 
@@ -37,10 +35,10 @@ public abstract class SASTask
     // put in the html report info about this sas task 
     public void report(String msg)
     {
-        //System.setProperty("campaign", campaignDir + "/" + campaignCategory + "/" + campaign);
         Integer num = Integer.parseInt(System.getProperty("num")) + 1;
         System.setProperty("num", num.toString());
-        System.setProperty("campaign", campaignPath + "\\" + campaign);
+        //System.setProperty("campaign", campaignPath + "\\" + campaign);
+        System.setProperty("campaign", campaignPath);
         System.setProperty("taskType", taskType);
             
         switch(msg)
@@ -73,15 +71,6 @@ public abstract class SASTask
             this.campaign = root.getChild("name").getValue();
             logger.debug("set target campaign name: " + campaign);
 
-            // this.campaignDir = root.getChild("directory").getValue();
-            // logger.debug("set target campaign directory: " + campaignDir);
-
-            // this.campaignCategory = root.getChild("category").getValue();
-            // logger.debug("set target campaign category: " + campaignCategory);
-            
-            //this.timeout = Integer.parseInt(root.getChild("timeout").getValue());            
-            //logger.debug("set target campaign timeout: " + timeout);
-            
             this.campaignPath = root.getChild("path").getValue();
             logger.debug("set target campaign path: " + campaignPath);
 
@@ -209,30 +198,15 @@ public abstract class SASTask
             }
         }
 
-        // // Expand OutBound folder
-        // toFind = "//*[@title='"+ campaignDir +"']/..//*[@role='button']";
-        // msg = "Expand " + campaignDir + " directory tree";
+        // already inside the campaign path
+        // // click on Title
+        // toFind = "//*[@title='"+ campaign +"']";
+        // msg = "Open the campaign " + campaign + " in the directory tree";
         // logger.debug(msg);
         // logger.debug("xpath] " + toFind);
         // found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
         // found.click();
         
-        // // Expand Examples folder
-        // toFind = "//*[@title='"+ campaignCategory +"']/..//*[@role='button']";
-        // msg = "Expand " + campaignCategory + " directory tree";
-        // logger.debug(msg);
-        // logger.debug("xpath] " + toFind);
-        // found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
-        // found.click();
-
-        // click on Title
-        toFind = "//*[@title='"+ campaign +"']";
-        msg = "Open the campaign " + campaign + " in the directory tree";
-        logger.debug(msg);
-        logger.debug("xpath] " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
-        found.click();
-
         // next task will find the campaign task already opened
         campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN, true);
     }
