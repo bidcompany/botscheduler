@@ -62,8 +62,8 @@ public class SASTaskSchedule extends SASTaskApprove
         found.click();
 
         // click on radio box to send schedule to program
-        //toFind = "//div[@role='radio' and descendant::*[contains(text(), 'scheduling software')]]";
-        toFind = "//div[@role='radio' and descendant::*[contains(text(), 'administrator')]]";
+        toFind = "//div[@role='radio' and descendant::*[contains(text(), 'scheduling software')]]";
+        //toFind = "//div[@role='radio' and descendant::*[contains(text(), 'administrator')]]";
         msg = "Click on Send to Scheduling Software button";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
@@ -71,7 +71,7 @@ public class SASTaskSchedule extends SASTaskApprove
         found.click();
 
         // update history if send to admin
-        campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN, true);
+        //campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN, true);
 
         // click again to send Schedule button
         toFind = "//*[text()='Send' and ancestor::div[@role='dialog']]/ancestor::button";
