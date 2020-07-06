@@ -87,12 +87,12 @@ public class Json2Xml
                 // add taskType
                 if(o.getString("sched").isEmpty())
                 {
-                    o.put("taskType", "Schedule");
+                    o.put("taskType", "ApprovalSchedule");
                 }
                 else
                 {
                     // lets use always publish for this demo
-                    o.put("taskType", "Schedule");
+                    o.put("taskType", "ApprovalSchedule");
                 }
 
                 // change attrib name
