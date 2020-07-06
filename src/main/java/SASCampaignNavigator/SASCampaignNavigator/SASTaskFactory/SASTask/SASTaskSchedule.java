@@ -87,6 +87,22 @@ public class SASTaskSchedule extends SASTaskApprove
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
+    
+        // skip the send to software error
+        toFind = "//button[ancestor::div[@role='alertdialog']]";
+        msg = "Check if there is an alert dialog";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() != 0)
+        {   
+            // catch the button
+            campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
+            logger.warn("Camapaign " + campaign + " has shown an alert dialog");
+            
+            // end approval task
+            return;
+        }
+
     }
 
     protected void editSchedule()
