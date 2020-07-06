@@ -72,10 +72,10 @@ public class SASTaskApprove extends SASTaskPublish
 
         // wait until busy page is invisible, otherwise it will intercept the click
         toFind = "//*[@title='Please wait']";
-        msg = "Wait untill the busy overlay is invisible";
+        msg = "Wait untill the busy overlay is spawn";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));
 
         // wait until busy page is invisible, otherwise it will intercept the click
         toFind = "//*[@title='Please wait']";
