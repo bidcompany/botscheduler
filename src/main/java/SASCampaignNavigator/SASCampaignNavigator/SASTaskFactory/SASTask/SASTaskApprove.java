@@ -70,16 +70,34 @@ public class SASTaskApprove extends SASTaskPublish
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
-        // wait until busy page is invisible, otherwise it will intercept the click
-        toFind = "//*[@title='Please wait']";
-        msg = "Wait untill the busy overlay is spawn";
-        logger.debug(msg);
-        logger.debug("xpath]: " + toFind);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));
+        /*try
+        {
+            // click on Approve fst Confirm Button
+            toFind = "//*[text()='Approve' and ancestor::section]/ancestor::button";
+            msg = "Click on Approve button";
+            logger.debug(msg);
+            logger.debug("xpath]: " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+            found.click();
+        }
+        catch()
+        {
+
+        }
+        finally
+        {
+            // wait until busy page is invisible, otherwise it will intercept the click
+            toFind = "//*[@title='Please wait']";
+            msg = "Wait untill the busy overlay is spawn";
+            logger.debug(msg);
+            logger.debug("xpath]: " + toFind);
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));
+        }
+        */
 
         // wait until busy page is invisible, otherwise it will intercept the click
-        toFind = "//*[@title='Please wait']";
-        msg = "Wait untill the busy overlay is invisible";
+        toFind = "//*[@title='Please wait' and @id='__jsview0--campaignApprovalsPage-busyIndicator' ]";
+        msg = "Wait until the busy overlay is gone";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
