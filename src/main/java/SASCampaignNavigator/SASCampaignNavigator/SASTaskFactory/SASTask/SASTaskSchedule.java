@@ -89,6 +89,70 @@ public class SASTaskSchedule extends SASTaskApprove
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
     }
 
+    protected void editSchedule()
+    {
+        String msg = "not Initialized";
+        String toFind = "not Initialized";
+        WebElement found;
+        WebDriverWait wait = new WebDriverWait(
+            campaignNavigator.webDriver, campaignNavigator.timeout);
+
+        logger.debug("Edit schedule campaign " + campaign + "...");
+
+        // do not edit the schedule if it is empty
+        if(this.campaignSchedule.isEmpty())
+        {
+            logger.debug("Edit schedule rules of campaign " + campaign + " are empty.");
+            logger.debug("Skip edit schedule.");
+            return;
+        }
+
+        // navigate to execution page and click edit schedule
+        // click on List of tabs buttons
+        toFind = "//button[@title='List of tabs']";
+        msg = "Click on List of Tabs button";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));         
+        found.click();
+
+        // click on Execution menu section
+        toFind = "//*[text()='Schedule' and ancestor::li[@role='menuitemradio']]/ancestor::li";
+        msg = "Click on Schedule menu section";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+        found.click();
+
+        // wait until the page has loaded the schedule settings otherwise clicking on send schedule does nothing 
+        toFind = "//*[text()='" + campaign + "'  and ancestor::ul[@role='listbox']]";
+        msg = "Waiting that the schedule settings are loaded";
+        logger.debug(msg);
+        logger.debug("xpath:] " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));
+
+        // click on Edit Schedule
+        toFind = "//*[text()='Edit Schedule']/ancestor::button";
+        msg = "Click on Edit Schedule button";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+        found.click();
+
+        // wait the modal Set Schedule is shown
+        toFind = "//*[text()='OK']/ancestor::button[ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
+        msg = "Wait until it is visible the dialog menu";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+        
+        // split the sched string with <br/> and map each substring with specific operations.
+        // MapScheduleSettings(this);
+
+        // stop
+        found.click();
+    }
+
     public void exec()
     {
         try
@@ -96,8 +160,9 @@ public class SASTaskSchedule extends SASTaskApprove
             // open the campaign
             openCampaign();
 
-            /* we put the code here */
-            
+            // edit the schedule of campaign 
+            editSchedule();
+
             // approve campaign
             //approveCampaign();
 

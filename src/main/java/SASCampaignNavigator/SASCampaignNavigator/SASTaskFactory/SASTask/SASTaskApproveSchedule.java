@@ -25,6 +25,9 @@ public class SASTaskApproveSchedule extends SASTaskSchedule
             openCampaign();
 
             /* we put the code here */
+
+            // edit schedule
+            // here
             
             // approve campaign
             approveCampaign();

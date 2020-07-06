@@ -25,6 +25,7 @@ public abstract class SASTask
     protected String campaign;
     protected String taskType;
     protected String campaignPath;
+    protected String campaignSchedule;
 
     // WebDriver instance from SASCampaignNavigator
     //protected WebDriver webDriver;
@@ -74,6 +75,9 @@ public abstract class SASTask
 
             this.campaignPath = root.getChild("path").getValue();
             logger.debug("set target campaign path: " + campaignPath);
+
+            this.campaignSchedule = root.getChild("sched").getValue();
+            logger.debug("set target schedule rules: " + campaignSchedule);
 
             if (campaign == null)
                 throw new NullPointerException("campaign name is null");
