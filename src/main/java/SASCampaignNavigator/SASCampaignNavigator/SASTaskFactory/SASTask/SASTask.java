@@ -263,6 +263,12 @@ public abstract class SASTask
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
+        // pause
+        toFind = "//*[@title='Please wait']";
+        msg = "Wait untill the busy overlay is invisible";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
 
         // click on Close button for a cleaner ending.
         toFind = "//*[contains(text(), 'Close')]/ancestor::button[ancestor::header[//div[@role='toolbar']]]";
