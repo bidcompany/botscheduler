@@ -82,7 +82,7 @@ public class SASTaskApprove extends SASTaskPublish
         msg = "Click on Approve button";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
         // click again on Approve inside the Confirm dialog
@@ -90,7 +90,7 @@ public class SASTaskApprove extends SASTaskPublish
         msg = "Click again on Approve button";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
         // wait untill busy page is invisible, otherwise it will intercept the click
