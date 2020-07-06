@@ -71,14 +71,14 @@ public class SASTaskApprove extends SASTaskPublish
         found.click();
 
         // wait until busy page is invisible, otherwise it will intercept the click
-        toFind = "//*[@title='Please wait']";
+/*        toFind = "//*[@title='Please wait']";
         msg = "Wait untill the busy overlay is invisible";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
-
+*/
         // click on Approve fst Confirm Button
-        toFind = "//*[text()='Approve' and ancestor::section]/ancestor::button";
+        toFind = "//*[text()='Approve' and ancestor::section]/ancestor::button[not(contains(@class, 'sapMBtnDisabled'))]";
         msg = "Click on Approve button";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
