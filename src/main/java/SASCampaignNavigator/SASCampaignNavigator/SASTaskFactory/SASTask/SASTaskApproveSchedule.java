@@ -21,23 +21,24 @@ public class SASTaskApproveSchedule extends SASTaskSchedule
     {
         try
         {
-            // open the campaign
-            openCampaign();
+             // open the campaign
+             openCampaign();
 
-            /* we put the code here */
-
-            // edit schedule
-            // here
-            
-            // approve campaign
-            approveCampaign();
-
-            // schedule campaign
-            scheduleCampaign();
-
-            // close the campaign
-            closeCampaign();
-
+             /* here we don't do anything */
+             skipDialogs();
+ 
+             // edit the schedule of campaign 
+             editSchedule();
+ 
+             // approve campaign
+             approveCampaign();
+ 
+             // schedule campaign
+             scheduleCampaign();
+ 
+             // close the campaign
+             closeCampaign();
+ 
             // report the task success
             report("SUCCESS");
 

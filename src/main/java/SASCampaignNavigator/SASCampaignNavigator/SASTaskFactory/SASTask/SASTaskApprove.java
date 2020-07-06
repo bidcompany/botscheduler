@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.*;
 import SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator.CampaignNavigator;
 import SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask.SASTask;
 
-public class SASTaskApprove extends SASTask
+public class SASTaskApprove extends SASTaskPublish
 {
     // logger
     private Logger logger = LogManager.getLogger(SASTaskApprove.class);
@@ -101,6 +101,9 @@ public class SASTaskApprove extends SASTask
         {
             // open the campaign
             openCampaign();
+
+            // skip the dialogs
+            skipDialogs();
 
             /* we put the code here */
             approveCampaign();

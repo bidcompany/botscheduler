@@ -117,8 +117,8 @@ public class SASTaskSchedule extends SASTaskApprove
         found.click();
 
         // click on Execution menu section
-        toFind = "//*[text()='Schedule' and ancestor::li[@role='menuitemradio']]/ancestor::li";
-        msg = "Click on Schedule menu section";
+        toFind = "//*[text()='Execution' and ancestor::li[@role='menuitemradio']]/ancestor::li";
+        msg = "Click on Execution menu section";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
@@ -160,11 +160,14 @@ public class SASTaskSchedule extends SASTaskApprove
             // open the campaign
             openCampaign();
 
+            /* here we don't do anything */
+            skipDialogs();
+
             // edit the schedule of campaign 
             editSchedule();
 
             // approve campaign
-            //approveCampaign();
+            // approveCampaign();
 
             // schedule campaign
             scheduleCampaign();

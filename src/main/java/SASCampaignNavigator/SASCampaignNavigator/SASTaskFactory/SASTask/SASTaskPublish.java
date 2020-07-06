@@ -20,7 +20,7 @@ public class SASTaskPublish extends SASTask
         taskType = "Publish";
     }
 
-    private void skipDialogs()
+    protected void skipDialogs()
     {
         String msg = "not Initialized";
         String toFind = "not Initialized";
