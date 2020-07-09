@@ -52,7 +52,7 @@ public class SASSchedRule
         for (int i = 2; i < schedList.size(); i ++)
         {
             String s = schedList.get(i);
-            logger.debug("Look for sched rule for string %s", s); 
+            logger.debug("Look for sched rule for string " +  s); 
 
             if (s.contains(SCHED_STARTS))
             {
@@ -96,18 +96,18 @@ public class SASSchedRule
         try
         {
             // words
-            logger.debug("Word 1: %s", words[1]);   // starts
-            logger.debug("Word 2: %s", words[2]);   // day,
-            logger.debug("Word 3: %s", words[3]);   // month
-            logger.debug("Word 4: %s", words[4]);   // num,
-            logger.debug("Word 5: %s", words[5]);   // year ! add ','
-            logger.debug("Word 6: %s", words[6]);   // hour
-            logger.debug("Word 7: %s", words[7]);   // AM, PM
+            logger.debug("Word 1: " +  words[1]);   // starts
+            logger.debug("Word 2: " +  words[2]);   // day,
+            logger.debug("Word 3: " +  words[3]);   // month
+            logger.debug("Word 4: " +  words[4]);   // num,
+            logger.debug("Word 5: " +  words[5]);   // year ! add ','
+            logger.debug("Word 6: " +  words[6]);   // hour
+            logger.debug("Word 7: " +  words[7]);   // AM, PM
 
             String toWrite = words[3] + " " + words[4] + " " + 
                              words[5] + "," + " " + words[6] + " " + words[7];
 
-            logger.debug("START DATE: %s", toWrite);
+            logger.debug("START DATE: " +  toWrite);
 
             // id="__picker18-inner"
             // filter with the target campaign name so the page is always focused on it 
