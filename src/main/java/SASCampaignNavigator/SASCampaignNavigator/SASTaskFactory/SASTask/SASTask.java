@@ -29,7 +29,7 @@ public abstract class SASTask
 
     // WebDriver instance from SASCampaignNavigator
     //protected WebDriver webDriver;
-    protected CampaignNavigator campaignNavigator; 
+    public CampaignNavigator campaignNavigator; 
 
     // implemented in childern class
     public abstract void exec();

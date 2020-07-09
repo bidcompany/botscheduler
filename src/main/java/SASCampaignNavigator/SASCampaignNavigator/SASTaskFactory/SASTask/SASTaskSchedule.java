@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.*;
 
 import SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator.CampaignNavigator;
 import SASCampaignNavigator.SASCampaignNavigator.Utils.SASHistory;
+import SASCampaignNavigator.SASCampaignNavigator.Utils.SASSchedRule;
 
 public class SASTaskSchedule extends SASTaskApprove
 {
@@ -162,8 +163,9 @@ public class SASTaskSchedule extends SASTaskApprove
         logger.debug("xpath]: " + toFind);
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         
-        // split the sched string with <br/> and map each substring with specific operations.
-        // MapScheduleSettings(this);
+        // Map Schedule settings
+        SASSchedRule schedRule = new SASSchedRule();
+        schedRule.fetchRule(this.campaignSchedule, this);
 
         // stop editing
         found.click();
@@ -176,9 +178,9 @@ public class SASTaskSchedule extends SASTaskApprove
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
-        // wait untill busy page is invisible, otherwise it will intercept the click
+        // wait until busy page is invisible, otherwise it will intercept the click
         toFind = "//*[@title='Please wait']";
-        msg = "Wait untill the busy overlay is invisible";
+        msg = "Wait until the busy overlay is invisible";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
