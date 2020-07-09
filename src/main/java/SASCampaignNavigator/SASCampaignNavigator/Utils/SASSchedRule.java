@@ -113,7 +113,7 @@ public class SASSchedRule
             // filter with the target campaign name so the page is always focused on it 
             WebDriverWait wait = new WebDriverWait(task.campaignNavigator.webDriver, task.campaignNavigator.timeout);
 
-            String toFind="__picker18-inner";
+            String toFind="__picker35-inner";
             String msg = "Find the search box to type the name of the campaign";
             logger.debug(msg);
             logger.debug("id] " + toFind);
