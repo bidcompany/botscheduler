@@ -37,7 +37,7 @@ public class SASSchedRule
         // Recurs(.)*<br\/>
 
         List<String> schedList = Arrays.asList(str.split("<br/>"));
-        logger.debug("Sched lengths is %d", schedList.size());
+        logger.debug("Sched lengths is " + schedList.size());
         
         // Start index
         if(schedList.size() < 2)
