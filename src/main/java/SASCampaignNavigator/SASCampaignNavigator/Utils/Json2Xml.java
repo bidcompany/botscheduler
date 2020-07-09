@@ -92,7 +92,7 @@ public class Json2Xml
                 else
                 {
                     // lets use always publish for this demo
-                    o.put("taskType", "Schedule");
+                    o.put("taskType", "ApprovalSchedule");
                 }
 
                 // change attrib name
