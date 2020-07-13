@@ -122,11 +122,11 @@ public class SASSchedRule
             logger.debug("rule: " + recursEveryRule);
             
             // click hourly checkbox
-            toFind="//input[@type='radio' and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule'] and ancestor::div[@role='radio']//*[text()='Hourly']]";
+            toFind="//*[text()='Hourly' and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]/ancestor::div[@role='radio']";
             msg = "Find checkbox";
             logger.debug(msg + " Hourly");
             logger.debug("xpath] " + toFind);
-            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
             found.click();
 
             // specify every-hours
