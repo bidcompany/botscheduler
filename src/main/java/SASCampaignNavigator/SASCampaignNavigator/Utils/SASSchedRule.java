@@ -355,7 +355,7 @@ public class SASSchedRule
                 words[5] + " " + words[6];
                 
                 logger.debug("End date: " +  toWrite);
-                toFind="//input[@type='text' and @role='combobox' and ancestor::tr//*[contains(text(), 'End date:')] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
+                toFind="//input[@type='text' and @role='combobox' and ancestor::tr//*[contains(text(), 'End date')] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
                 msg = "Find the input field for End Date ";
                 logger.debug(msg);
                 logger.debug("xpath] " + toFind);
@@ -372,7 +372,7 @@ public class SASSchedRule
                 toWrite = words[2] + words[3] + " " + words[4];
                 
                 logger.debug("End date: " +  toWrite);
-                toFind="//input[@type='text' and @role='combobox' and ancestor::tr//*[contains(text(), 'End date:')] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
+                toFind="//input[@type='text' and @role='combobox' and ancestor::tr//*[contains(text(), 'End date')] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
                 msg = "Find the input field for End Date ";
                 logger.debug(msg);
                 logger.debug("xpath] " + toFind);
