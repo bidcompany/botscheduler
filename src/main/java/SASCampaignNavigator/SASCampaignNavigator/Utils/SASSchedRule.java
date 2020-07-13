@@ -141,7 +141,7 @@ public class SASSchedRule
             found.click();
 
             // specify hours
-            toWrite = recursEveryRule.split(" ")[3];
+            toWrite = recursEveryRule.split(" ")[2];
             toFind="//li[@role = 'option' and text()='"+ toWrite +"' and not(ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule'])]";
             msg = "specify hours in tablist:";
             logger.debug(msg + " " + toWrite);
@@ -165,7 +165,7 @@ public class SASSchedRule
             found.click();
 
             // specify every-day
-            toWrite = recursEveryRule.split(" ")[3];
+            toWrite = recursEveryRule.split(" ")[2];
             toFind = "//input[ancestor::tr//*[text()='Recur every:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
             msg = "Specify every-day";
             logger.debug(msg + ": " + toWrite);
@@ -190,7 +190,7 @@ public class SASSchedRule
             found.click();
 
             // specify every-week
-            toWrite = recursEveryRule.split(" ")[3];
+            toWrite = recursEveryRule.split(" ")[2];
             toFind = "//input[ancestor::tr//*[text()='Recur every:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
             msg = "Specify every-week";
             logger.debug(msg + ": " + toWrite);
@@ -203,7 +203,7 @@ public class SASSchedRule
             // TO FIX: MULTIBOX and RESET ALREADY PRESENT DAYS
 
             // click checkbox on-day
-            toWrite = recursEveryRule.split(" ")[6];
+            toWrite = recursEveryRule.split(" ")[5];
             toFind = "//*[text()='"+ toWrite +"']/ancestor::*[@role='checkbox']";
             msg = "Specify on day";
             logger.debug(msg + ": " + toWrite);
@@ -226,7 +226,7 @@ public class SASSchedRule
             found.click();
 
             // specify evert-month
-            toWrite = recursEveryRule.split(" ")[3];
+            toWrite = recursEveryRule.split(" ")[2];
             toFind = "//input[ancestor::tr//*[text()='Recur every:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
             msg = "Specify every-week";
             logger.debug(msg + ": " + toWrite);
@@ -236,7 +236,7 @@ public class SASSchedRule
             found.sendKeys(toWrite);
             
             // specify on-day
-            toWrite = recursEveryRule.split(" ")[7];
+            toWrite = recursEveryRule.split(" ")[6];
             found = task.campaignNavigator.webDriver.findElements(By.xpath(toFind)).get(1);
             logger.debug("Specify on-day: " + toWrite);
             found.clear();
@@ -395,7 +395,7 @@ public class SASSchedRule
             found.click();
 
             // write in first box the num
-            toWrite = endAfterRule.split(" ")[3];        
+            toWrite = endAfterRule.split(" ")[2];        
             logger.debug("End after: " +  toWrite);
             toFind="//input[@type='tel' and ancestor::tr//*[text()='End after:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
             msg = "Find the input field for End after ";
@@ -414,7 +414,7 @@ public class SASSchedRule
             found.click();
 
             // specify event
-            toWrite = endAfterRule.split(" ")[4];
+            toWrite = endAfterRule.split(" ")[3];
             //li[@role = 'option' and text()='Days' and not(ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule'])]
             toFind="//li[@role = 'option' and text()='"+ toWrite +"' and not(ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule'])]";
             msg = "specify event in tablist:";
@@ -430,17 +430,7 @@ public class SASSchedRule
         logger.debug("No End Date: " + recursIndef);
         logger.debug("End Date/time: " + endRule);
         logger.debug("End After rule: " + endAfterRule);
-        
-        
-        // if end after num x
-        // select end after
-        // write input
-        // select menulist
-
-        // if hourly
-        // write same format of start   Sep 8, 2020, 6:00 AM
-        // else write                   Sep 8, 2020
-    
+           
     }
         
 }
