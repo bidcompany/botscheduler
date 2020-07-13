@@ -103,6 +103,7 @@ public class SASSchedRule
         recursPattern(task);
 
         // fetch start pattern
+        startPattern(task);
 
         // fetch end pattern
     }
@@ -198,6 +199,8 @@ public class SASSchedRule
             found.clear();
             found.sendKeys(toWrite);
 
+            // TO FIX: MULTIBOX and RESET ALREADY PRESENT DAYS
+
             // click checkbox on-day
             toWrite = recursEveryRule.split(" ")[6];
             toFind = "//*[text()='"+ toWrite +"']/ancestor::*[@role='checkbox']";
@@ -256,13 +259,17 @@ public class SASSchedRule
         }
     }
 
-    private void schedStart (String str, SASTask task)
+    private void startPattern(SASTask task)
     {
-        // remove commas
-        //str.replace(",", "");
-        
+        // init webdriver stuff
+        WebDriverWait wait = new WebDriverWait(task.campaignNavigator.webDriver, task.campaignNavigator.timeout);
+        String toFind = "";
+        String toWrite = "";
+        String msg = "";
+        WebElement found;  
+
         // split in space
-        String[] words = str.split(" ");
+        String[] words = startRule.split(" ");        
 
         logger.debug("num of words in rule: " + words.length);
         try
@@ -277,25 +284,20 @@ public class SASSchedRule
             logger.debug("Word 6: " +  words[6]);   // am, pm
             logger.debug("Word 7: " +  words[7]);   // edt
 
-            String toWrite = words[2] + words[3] + " " + words[4] + ", " + 
+            // this format is important, otherwise is rejected by CIStudio
+            toWrite = words[2] + words[3] + " " + words[4] + ", " + 
                              words[5] + " " + words[6];
-
             logger.debug("START DATE: " +  toWrite);
-
-            // id="__picker18-inner"
-            // filter with the target campaign name so the page is always focused on it 
-            WebDriverWait wait = new WebDriverWait(task.campaignNavigator.webDriver, task.campaignNavigator.timeout);
-
-            String toFind="//input[@type='text' and ancestor::tr//*[text()='Start date/time:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
-            String msg = "Find the search box to type the name of the campaign";
+            
+            toFind="//input[@type='text' and ancestor::tr//*[text()='Start date/time:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
+            msg = "Find the search box to type the name of the campaign";
             logger.debug(msg);
-            logger.debug("id] " + toFind);
-            WebElement found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            logger.debug("xpath] " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
             logger.debug("Write to input field " + toWrite);
             found.clear();
             found.sendKeys(toWrite);
             found.submit();
-
         }
         catch (Exception e)
         {
@@ -305,131 +307,25 @@ public class SASSchedRule
         }
     }
 
-    private void schedEnd (String str, SASTask task)
+    private void endPattern (SASTask task)
     {
-        // remove commas
-        //str.replace(",", "");
+        // if is Once
+        // skip
+
+        // else
+
+        // if Recurse indefinitely
+        // select No end Date
+
+        // if end after num x
+        // select end after
+        // write input
+        // select menulist
+
+        // if hourly
+        // write same format of start   Sep 8, 2020, 6:00 AM
+        // else write                   Sep 8, 2020
+    
+    }
         
-        // split in space
-        String[] words = str.split(" ");
-
-        logger.debug("num of words in rule: " + words.length);
-        try
-        {
-            // words
-            logger.debug("Word 0: " +  words[0]);   // keyword
-            logger.debug("Word 1: " +  words[1]);   // day
-            logger.debug("Word 2: " +  words[2]);   // month
-            logger.debug("Word 3: " +  words[3]);   // day,
-            logger.debug("Word 4: " +  words[4]);   // year
-            logger.debug("Word 5: " +  words[5]);   // hour
-            logger.debug("Word 6: " +  words[6]);   // am, pm
-            logger.debug("Word 7: " +  words[7]);   // edt
-
-            String toWrite = words[2] + words[3] + " " + words[4] + ", " + 
-                             words[5] + " " + words[6];
-
-            logger.debug("END DATE: " +  toWrite);
-
-            // id="__picker18-inner"
-            // filter with the target campaign name so the page is always focused on it 
-            WebDriverWait wait = new WebDriverWait(task.campaignNavigator.webDriver, task.campaignNavigator.timeout);
-
-            String toFind="//input[@type='text' and not(@readonly = 'readonly') and ancestor::tr//*[contains(text(), 'End date')] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
-            String msg = "Find the search box to type the name of the campaign";
-            logger.debug(msg);
-            logger.debug("id] " + toFind);
-            WebElement found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-            logger.debug("Write to input field " + toWrite);
-            found.clear();
-            found.sendKeys(toWrite);
-            found.submit();
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            logger.debug("An Exception occured, sched Rule is not valid");
-            return;
-        }
-    }
-
-    private void schedRecurs (String str, SASTask task)
-    {
-        String[] words = str.split(" ");
-        logger.debug("num of words in rule: " + words.length);
-        try
-        {
-            // words
-            logger.debug("Word 1: " +  words[1]);   // Recurs
-            
-            if(words[1].equals("indefinitely"))
-            {
-                // select no end
-            }
-            
-            // else there will be an end to select
-            
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            logger.debug("An Exception occured, sched Rule is not valid");
-            return;
-        }
-    }
-
-    private void debugRule (String str)
-    {
-        String[] words = str.split(" ");
-        int i = 0;
-        for (String s : words)
-        {
-            logger.debug("Word " + i + ": " + s);
-        }
-    }
-
-    private void schedRecursEvery (String str, SASTask task)
-    {
-        String[] words = str.split(" ");
-
-        logger.debug("num of words in rule: " + words.length);
-        try
-        {
-            // words
-            logger.debug("Word 0: " +  words[0]);   // Recurs
-            logger.debug("Word 1: " +  words[1]);   // every
-            logger.debug("Word 2: " +  words[2]);   // num
-            logger.debug("Word 3: " +  words[3]);   // week(s)
-            logger.debug("Word 4: " +  words[4]);   // on
-            logger.debug("Word 5: " +  words[5]);   // Day
-            
-            String num = words[2];
-            String time = words[3]; // to clean 
-            String day = words[5];
-
-            logger.debug("Recurse every: " +  num + " " + time + ":" + day);
-
-            // id="__picker18-inner"
-            // filter with the target campaign name so the page is always focused on it 
-            /*WebDriverWait wait = new WebDriverWait(task.campaignNavigator.webDriver, task.campaignNavigator.timeout);
-
-            String toFind="__picker35-inner";
-            String msg = "Find the search box to type the name of the campaign";
-            logger.debug(msg);
-            logger.debug("id] " + toFind);
-            WebElement found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
-            logger.debug("Write to input field " + toWrite);
-            found.clear();
-            found.sendKeys(toWrite);
-            found.submit();
-            */
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            logger.debug("An Exception occured, sched Rule is not valid");
-            return;
-        }
-    }
 }
