@@ -131,7 +131,7 @@ public class SASSchedRule
             found.click();
 
             // click on hours-selector
-            toFind="//*[@role = 'listbox' and ancestor::tr//*[text()='Recur every:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
+            toFind="//*[@role = 'combobox' and ancestor::tr//*[text()='Recur every:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
             msg = "Select hour in tablist";
             logger.debug(msg);
             logger.debug("xpath] " + toFind);
@@ -139,7 +139,7 @@ public class SASSchedRule
             found.click();
 
             // specify hours
-            toWrite = recursEveryRule.split(" ")[2];
+            toWrite = recursEveryRule.split(" ")[3];
             toFind="//li[@role = 'option' and text()='"+ toWrite +"' and not(ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule'])]";
             msg = "specify hours in tablist:";
             logger.debug(msg + " " + toWrite);
@@ -163,7 +163,7 @@ public class SASSchedRule
             found.click();
 
             // specify every-day
-            toWrite = recursEveryRule.split(" ")[2];
+            toWrite = recursEveryRule.split(" ")[3];
             toFind = "//input[ancestor::tr//*[text()='Recur every:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
             msg = "Specify every-day";
             logger.debug(msg + ": " + toWrite);
@@ -188,7 +188,7 @@ public class SASSchedRule
             found.click();
 
             // specify every-week
-            toWrite = recursEveryRule.split(" ")[2];
+            toWrite = recursEveryRule.split(" ")[3];
             toFind = "//input[ancestor::tr//*[text()='Recur every:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
             msg = "Specify every-week";
             logger.debug(msg + ": " + toWrite);
@@ -199,7 +199,7 @@ public class SASSchedRule
             found.sendKeys(toWrite);
 
             // click checkbox on-day
-            toWrite = recursEveryRule.split(" ")[5];
+            toWrite = recursEveryRule.split(" ")[6];
             toFind = "//*[text()='"+ toWrite +"']/ancestor::*[@role='checkbox']";
             msg = "Specify on day";
             logger.debug(msg + ": " + toWrite);
@@ -222,7 +222,7 @@ public class SASSchedRule
             found.click();
 
             // specify evert-month
-            toWrite = recursEveryRule.split(" ")[2];
+            toWrite = recursEveryRule.split(" ")[3];
             toFind = "//input[ancestor::tr//*[text()='Recur every:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
             msg = "Specify every-week";
             logger.debug(msg + ": " + toWrite);
@@ -232,7 +232,7 @@ public class SASSchedRule
             found.sendKeys(toWrite);
             
             // specify on-day
-            toWrite = recursEveryRule.split(" ")[6];
+            toWrite = recursEveryRule.split(" ")[7];
             found = task.campaignNavigator.webDriver.findElements(By.xpath(toFind)).get(1);
             logger.debug("Specify on-day: " + toWrite);
             found.clear();
