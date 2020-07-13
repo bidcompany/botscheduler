@@ -19,7 +19,7 @@ public class SASSchedRule
     final String SCHED_ENDS        = "Ends";
     final String SCHED_ENDS_AFTER  = "Ends after";
     final String SCHED_RECURS_EVRY = "Recurs every";
-    final String SCHED_RECURS      = "Recurs";
+    final String SCHED_RECURS_INDF = "Recurs indefinitely";
 
     // recurs every tokens
     final String RECURS_HOURLY  = "hour(s)";
@@ -34,7 +34,7 @@ public class SASSchedRule
     private String startRule = "";
     private String endRule = "";
     private String endAfterRule = "";
-    private String recursRule = "";
+    private String recursIndef = "";
     private String recursEveryRule = "";
 
     // task has campaignSched not null
@@ -90,11 +90,11 @@ public class SASSchedRule
                 //schedRecursEvery(s, task);
             }
             
-            else if (s.contains(SCHED_RECURS))
+            else if (s.contains(SCHED_RECURS_INDF))
             {
-                // fetch recurs
-                logger.debug("Select Recurs rule");
-                recursRule = s;
+                // fetch recurs indefinetly
+                logger.debug("Select Recurs indefinitely");
+                recursIndef = s;
                 //schedRecurs(s, task);
             }
         }
@@ -106,6 +106,7 @@ public class SASSchedRule
         startPattern(task);
 
         // fetch end pattern
+        endPattern(task);
     }
 
     private void recursPattern(SASTask task)
@@ -309,14 +310,128 @@ public class SASSchedRule
 
     private void endPattern (SASTask task)
     {
-        // if is Once
-        // skip
+        // init webdriver stuff
+        WebDriverWait wait = new WebDriverWait(task.campaignNavigator.webDriver, task.campaignNavigator.timeout);
+        String toFind = "";
+        String toWrite = "";
+        String msg = "";
+        WebElement found;  
 
-        // else
+        
+        // if is Once campaign skip
+        if(recursEveryRule.isEmpty())
+        {
+            logger.debug("Skip fetching end rule for a once campaign");
+            return;
+        }
 
-        // if Recurse indefinitely
-        // select No end Date
+        // if Recurse indefinitely select No end Date
+        if (!recursIndef.isEmpty())
+        {
+            toFind = "//*[text()='No end date']/ancestor::div[@role='radio']";
+            msg = "Select no end date radio button";
+            logger.debug(msg);
+            logger.debug("xpath] " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+            found.click();
+            return;
+        }
+       
+        // if end Rule is not empty, check if hourly (day + time format) else (day format) 
+        if (!endRule.isEmpty())
+        {
+            toFind = "//*[contains(text(), 'End date')]/ancestor::div[@role='radio']";
+            msg = "Select end date(/time) radio button";
+            logger.debug(msg);
+            logger.debug("xpath] " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+            found.click();
+            
+            // format date/time
+            if(recursEveryRule.contains(RECURS_HOURLY))
+            {
+                String[] words = endRule.split(" ");        
+                toWrite = words[2] + words[3] + " " + words[4] + ", " + 
+                words[5] + " " + words[6];
+                
+                logger.debug("End date: " +  toWrite);
+                toFind="//input[@type='text' and @role='combobox' and ancestor::tr//*[contains(text(), 'End date:')] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
+                msg = "Find the input field for End Date ";
+                logger.debug(msg);
+                logger.debug("xpath] " + toFind);
+                found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+                found.clear();
+                found.sendKeys(toWrite);
+                return;
+            }
 
+            // format only date
+            else
+            {
+                String[] words = endRule.split(" ");        
+                toWrite = words[2] + words[3] + " " + words[4];
+                
+                logger.debug("End date: " +  toWrite);
+                toFind="//input[@type='text' and @role='combobox' and ancestor::tr//*[contains(text(), 'End date:')] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
+                msg = "Find the input field for End Date ";
+                logger.debug(msg);
+                logger.debug("xpath] " + toFind);
+                found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+                found.clear();
+                found.sendKeys(toWrite);
+                return;
+            }
+        }
+
+        // End After rule - ex:</br> Ends after 4 Occurrences
+        if(!endAfterRule.isEmpty())
+        {
+            // select radio button
+            toFind = "//*[text()='End after:']/ancestor::div[@role='radio']";
+            msg = "Select end after radio button";
+            logger.debug(msg);
+            logger.debug("xpath] " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+            found.click();
+
+            // write in first box the num
+            toWrite = endAfterRule.split(" ")[3];        
+            logger.debug("End after: " +  toWrite);
+            toFind="//input[@type='tel' and ancestor::tr//*[text()='End after:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
+            msg = "Find the input field for End after ";
+            logger.debug(msg);
+            logger.debug("xpath] " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+            found.clear();
+            found.sendKeys(toWrite);
+        
+            // click on event-selector
+            toFind="//div[@role = 'combobox' and ancestor::tr//*[text()='End after:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
+            msg = "Select type event in tablist";
+            logger.debug(msg);
+            logger.debug("xpath] " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+            found.click();
+
+            // specify event
+            toWrite = endAfterRule.split(" ")[4];
+            //li[@role = 'option' and text()='Days' and not(ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule'])]
+            toFind="//li[@role = 'option' and text()='"+ toWrite +"' and not(ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule'])]";
+            msg = "specify event in tablist:";
+            logger.debug(msg + " " + toWrite);
+            logger.debug("xpath] " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+            found.click();
+
+            return;
+        }
+
+        logger.debug("Error in end rules. Something wrong in the following rules");
+        logger.debug("No End Date: " + recursIndef);
+        logger.debug("End Date/time: " + endRule);
+        logger.debug("End After rule: " + endAfterRule);
+        
+        
         // if end after num x
         // select end after
         // write input
