@@ -139,7 +139,7 @@ public class SASSchedRule
             logger.debug("rule: " + recursEveryRule);
 
             // click daily checkbox
-            toFind="//input[@type='radio' and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule'] and ancestor::div[@role='radio']//*[text()='Daily']]";
+            toFind="//*[text()='Daily' and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]/ancestor::div[@role='radio']";
             msg = "Find checkbox";
             logger.debug(msg + " Daily");
             logger.debug("xpath] " + toFind);
@@ -155,7 +155,7 @@ public class SASSchedRule
             logger.debug("rule: " + recursEveryRule);
 
             // click weekly checkbox
-            toFind="//input[@type='radio' and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule'] and ancestor::div[@role='radio']//*[text()='Weekly']]";
+            toFind="//*[text()='Weekly' and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]/ancestor::div[@role='radio']";
             msg = "Find checkbox";
             logger.debug(msg + " Weekly");
             logger.debug("xpath] " + toFind);
@@ -174,7 +174,7 @@ public class SASSchedRule
             logger.debug("rule: " + recursEveryRule);
 
             // click monthly checkbox
-            toFind="//input[@type='radio' and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule'] and ancestor::div[@role='radio']//*[text()='Monthly']]";
+            toFind="//*[text()='Monthly' and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]/ancestor::div[@role='radio']";
             msg = "Find checkbox";
             logger.debug(msg + " Monthly");
             logger.debug("xpath] " + toFind);
@@ -192,7 +192,7 @@ public class SASSchedRule
             logger.debug("rule: " + recursEveryRule);
 
             // click once checkbox
-            toFind="//input[@type='radio' and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule'] and ancestor::div[@role='radio']//*[text()='Once']]";
+            toFind="//*[text()='Once' and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]/ancestor::div[@role='radio']";
             msg = "Find checkbox";
             logger.debug(msg + " Once");
             logger.debug("xpath] " + toFind);
