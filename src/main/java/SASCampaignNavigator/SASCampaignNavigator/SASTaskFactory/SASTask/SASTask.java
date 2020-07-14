@@ -281,6 +281,13 @@ public abstract class SASTask
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
+        // wait until blocker is hidden
+        toFind = "//div[@id='sap-ui-blocklayer-popup' and contains(@style, 'visibility: hidden')]";
+        msg = "Wait until blocklayer is invisible";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));      
+        
 
         // click on Close button for a cleaner ending.
         toFind = "//*[contains(text(), 'Close')]/ancestor::button[ancestor::header[//div[@role='toolbar']]]";

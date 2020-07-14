@@ -67,6 +67,13 @@ public class SASTaskPublish extends SASTask
             campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
             logger.warn("Camapaign " + campaign + " has shown an alert dialog");
             
+            // wait until blocker is hidden
+            toFind = "//div[@id='sap-ui-blocklayer-popup' and contains(@style, 'visibility: hidden')]";
+            msg = "Wait until blocklayer is invisible";
+            logger.debug(msg);
+            logger.debug("xpath]: " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));      
+            
             // end approval task
             return;
         }
