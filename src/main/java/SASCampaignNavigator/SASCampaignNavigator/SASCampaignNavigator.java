@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -66,8 +67,12 @@ public class SASCampaignNavigator extends CampaignNavigator
 
         // using Chrome
         logger.debug("Start the webdriver");
-        webDriver = new ChromeDriver();
-
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("useAutomationExtension", false);
+        logger.debug("Set useAutomationExtension to false");
+        
+        webDriver = new ChromeDriver(options);
+        
         // Setting the browser size
         Dimension broswerSize = new Dimension(1024, 768);
         webDriver.manage().window().setSize(broswerSize);
