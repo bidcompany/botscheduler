@@ -287,7 +287,6 @@ public abstract class SASTask
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));      
-        
 
         // click on Close button for a cleaner ending.
         toFind = "//*[contains(text(), 'Close')]/ancestor::button[ancestor::header[//div[@role='toolbar']]]";
