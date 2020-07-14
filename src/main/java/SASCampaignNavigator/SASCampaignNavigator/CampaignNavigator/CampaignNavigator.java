@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.jdom2.Document;
 import org.jdom2.input.SAXBuilder;
 
@@ -144,7 +145,10 @@ public class CampaignNavigator
 
         // using Chrome
         logger.debug("Start the driver");
-        webDriver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("useAutomationExtension", false);
+        logger.debug("Set useAutomationExtension to false");
+        webDriver = new ChromeDriver(options);
 
         // Setting the browser size
         Dimension broswerSize = new Dimension(1024, 768);

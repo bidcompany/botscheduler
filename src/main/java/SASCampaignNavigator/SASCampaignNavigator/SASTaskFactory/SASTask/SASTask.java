@@ -154,18 +154,21 @@ public abstract class SASTask
         found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
         found.click();
         
-        // Expand Campaign folder
+        // Expand Campaign folder - ISP there is not this dir
         toFind = "//*[@title='Campaigns']/..//*[@role='button']";
         msg = "Expand Campaign directory tree";
-        logger.debug(msg);
-        logger.debug("xpath] " + toFind);
-        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
-        found.click();  // 1st time
-
-        // if campaign section is already open we need to click 2 times. 
-        if(campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN))
+        if (campaignNavigator.webDriver.findElements(By.xpath(toFind)).size()!=0)
         {
-            found.click();  // 2nd time
+            logger.debug(msg);
+            logger.debug("xpath] " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+            found.click();  // 1st time
+    
+            // if campaign section is already open we need to click 2 times. 
+            if(campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN))
+            {
+                found.click();  // 2nd time
+            }    
         }
         
         // filter with the target campaign name so the page is always focused on it
