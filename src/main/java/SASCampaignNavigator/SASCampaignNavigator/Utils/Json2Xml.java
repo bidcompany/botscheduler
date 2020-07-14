@@ -106,7 +106,11 @@ public class Json2Xml
             JSONObject campaign = new JSONObject();
             campaign.put("campaign", campList.getJSONArray("campList"));
             config.put("timeout", 60);
+            config.put("user", "sasdemo");
+            config.put("password", "Orion123");
+            config.put("url", "http://sas-aap.demo.sas.com/SASCIStudio/");
             config.put("campaignList", campaign);
+    
             json.put("config", config); 
 
             // parse it in a string

@@ -31,6 +31,9 @@ public class CampaignNavigator
     // xml data from the config file
     protected String xmlConfig;
     public int timeout; // it will be used by SASTask
+    protected String user;
+    protected String password;
+    protected String url;
 
     // navigator history
     public CampaignNavigatorHistory history = new CampaignNavigatorHistory();
@@ -73,6 +76,15 @@ public class CampaignNavigator
             String strTimeout = document.getRootElement().getChild("timeout").getValue();
             timeout = Integer.parseInt(strTimeout);
             logger.debug("set timeout of the tasks to " + timeout);
+
+            user = document.getRootElement().getChild("user").getValue();
+            logger.debug("set user of the tasks to " + user);
+
+            password = document.getRootElement().getChild("password").getValue();
+            logger.debug("set password of the tasks to " + password);
+
+            url = document.getRootElement().getChild("url").getValue();
+            logger.debug("set url of the tasks to " + url);
 
             // save the config file as a string
             xmlConfig = XML2String.toString(document);

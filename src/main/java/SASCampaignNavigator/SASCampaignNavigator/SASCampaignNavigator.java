@@ -23,7 +23,7 @@ public class SASCampaignNavigator extends CampaignNavigator
     
     private void SASLogin()
     {
-        String url = "http://sas-aap.demo.sas.com/SASCIStudio/";
+        String url = this.url; //"http://sas-aap.demo.sas.com/SASCIStudio/";
         String toFind;
         webDriver.navigate().to(url);
         logger.debug("Navigate to " + url);
@@ -31,12 +31,12 @@ public class SASCampaignNavigator extends CampaignNavigator
         // digit username
         toFind = "username";
         logger.debug("Find id " + toFind);
-        webDriver.findElement(By.id(toFind)).sendKeys("sasdemo");
+        webDriver.findElement(By.id(toFind)).sendKeys(this.user);
     
         // digit password
         toFind = "password";
         logger.debug("Find id " + toFind);
-        webDriver.findElement(By.id(toFind)).sendKeys("Orion123");
+        webDriver.findElement(By.id(toFind)).sendKeys(this.password);
         logger.debug("Navigate to to " + url);
 
         // submit

@@ -201,6 +201,19 @@ public class SASSchedRule
             found.sendKeys(toWrite);
 
             // TO FIX: MULTIBOX and RESET ALREADY PRESENT DAYS
+            // toFind = "//*[text()='Sunday' or " +
+            //              "text()='Monday' or" +
+            //              "text()='Tuesday' or" +
+            //              "text()='Wednesday' or" +
+            //              "text()='Thursday' or" +
+            //              "text()='Friday' or" +
+            //              "text()='Saturday']/ancestor::*[@role='checkbox' and @aria-checked='true']";
+
+            // //*[text()='Sunday' or ext()='Monday' or text()='Tuesday' or" +
+            // "text()='Wednesday' or" +
+            // "text()='Thursday' or" +
+            // "text()='Friday' or" +
+            // "text()='Saturday']/ancestor::*[@role='checkbox' and @aria-checked='true']";
 
             // click checkbox on-day
             toWrite = recursEveryRule.split(" ")[5];
@@ -430,7 +443,7 @@ public class SASSchedRule
         logger.debug("No End Date: " + recursIndef);
         logger.debug("End Date/time: " + endRule);
         logger.debug("End After rule: " + endAfterRule);
-           
+
     }
         
 }
