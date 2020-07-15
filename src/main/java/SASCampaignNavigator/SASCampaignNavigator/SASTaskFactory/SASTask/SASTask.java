@@ -188,7 +188,9 @@ public abstract class SASTask
 
         // parse the campaign path
         // if it is empty it means it is in the root folder ("Campaigns/name_campaign")
-        if(!campaignPath.isEmpty())
+        //if(!campaignPath.isEmpty())
+        String[] subPath = campaignPath.split(Pattern.quote("\\"));
+        if(subPath.length > 1)
         {
             String[] dirs = campaignPath.split(Pattern.quote("\\")); 
             for (int i = 0; i < dirs.length - 1; i++)
@@ -211,7 +213,6 @@ public abstract class SASTask
                 if(campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN))
                 {
                     found.click();  // 2nd time
-                    campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN, false);
                 }
             }
             // next task will find the campaign task already opened
