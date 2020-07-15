@@ -214,6 +214,8 @@ public abstract class SASTask
                     campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN, false);
                 }
             }
+            // next task will find the campaign task already opened
+            campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN, true);
         }
 
         // click on Title
@@ -225,7 +227,7 @@ public abstract class SASTask
         found.click();
         
         // next task will find the campaign task already opened
-        campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN, true);
+        //campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN, true);
     }
 
     protected void closeCampaign()
@@ -280,19 +282,19 @@ public abstract class SASTask
         logger.debug("xpath]: " + toFind);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
 
-        // 6.6 here it may lead to errors - check before clicking
-        toFind = "//*[text()='Close']/ancestor::button[ancestor::*[@role='alertdialog']]";
-        msg = "Check if still present Close in the publish dialog";
-        logger.debug(msg);
-        logger.debug("xpath]: " + toFind);
+        // RACE CONDITION: // 6.6 here it may lead to errors - check before clicking
+        // toFind = "//*[text()='Close']/ancestor::button[ancestor::*[@role='alertdialog']]";
+        // msg = "Check if still present Close in the publish dialog";
+        // logger.debug(msg);
+        // logger.debug("xpath]: " + toFind);
    
-        if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() != 0)
-        {   
-            // catch the button
-            campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
-            msg = "Click on Close in the publish dialog";
-            logger.debug(msg);        
-        }
+        // if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() != 0)
+        // {   
+        //     // catch the button
+        //     campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
+        //     msg = "Click on Close in the publish dialog";
+        //     logger.debug(msg);        
+        // }
 
         // wait until blocker is hidden
         toFind = "//div[@id='sap-ui-blocklayer-popup' and contains(@style, 'visibility: hidden')]";
