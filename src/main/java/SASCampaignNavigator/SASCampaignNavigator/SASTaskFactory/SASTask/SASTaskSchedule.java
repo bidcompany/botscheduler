@@ -104,6 +104,20 @@ public class SASTaskSchedule extends SASTaskApprove
             return;
         }
 
+        // wait until busy page is invisible, otherwise it will intercept the click
+        toFind = "//*[@title='Please wait']";
+        msg = "Wait until the busy overlay is invisible";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
+    
+         // wait until blocker is hidden
+         toFind = "//div[@id='sap-ui-blocklayer-popup' and contains(@style, 'visibility: hidden')]";
+         msg = "Wait until blocklayer is invisible";
+         logger.debug(msg);
+         logger.debug("xpath]: " + toFind);
+         found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));      
+        
     }
 
     protected void editSchedule()
