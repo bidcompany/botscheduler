@@ -254,7 +254,7 @@ public abstract class SASTask
 
         // pause
         toFind = "//*[@title='Please wait']";
-        msg = "Wait untill the busy overlay is invisible";
+        msg = "Wait until the busy overlay is invisible";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
@@ -268,18 +268,24 @@ public abstract class SASTask
 
         // pause
         toFind = "//*[@title='Please wait']";
-        msg = "Wait untill the busy overlay is invisible";
+        msg = "Wait until the busy overlay is invisible";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
 
-
+        // 6.6 here it may lead to errors - check before clicking
         toFind = "//*[text()='Close']/ancestor::button[ancestor::*[@role='alertdialog']]";
-        msg = "Click on Close in the publish dialog";
+        msg = "Check if still present Close in the publish dialog";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
-        found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
-        found.click();
+   
+        if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() != 0)
+        {   
+            // catch the button
+            campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
+            msg = "Click on Close in the publish dialog";
+            logger.debug(msg);        
+        }
 
         // wait until blocker is hidden
         toFind = "//div[@id='sap-ui-blocklayer-popup' and contains(@style, 'visibility: hidden')]";
