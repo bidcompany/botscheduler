@@ -209,8 +209,8 @@ public abstract class SASTask
                 found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
                 found.click();
                 
-                // if campaign section is already open we need to click 2 times. 
-                if(campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN))
+                // if campaign section is already open we need to click 2 times in the root
+                if(campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN) && i == 0)
                 {
                     found.click();  // 2nd time
                 }
