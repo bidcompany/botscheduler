@@ -170,6 +170,12 @@ public class SASTaskSchedule extends SASTaskApprove
         // stop editing
         found.click();
 
+        // wait until disappear dialog set schedule
+        msg = "Wait untill the dialog menu disappear";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
+
         // save the schedule settings
         toFind = "//button[@title='Save' and ancestor::div[contains(@id, 'jsview')]]";
         msg = "Click on Options menu button";
