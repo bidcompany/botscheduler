@@ -205,7 +205,14 @@ public abstract class SASTask
                 logger.debug(msg);
                 logger.debug("xpath] " + toFind);
                 found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
-                found.click();                
+                found.click();
+                
+                // if campaign section is already open we need to click 2 times. 
+                if(campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN))
+                {
+                    found.click();  // 2nd time
+                    campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN, false);
+                }
             }
         }
 
