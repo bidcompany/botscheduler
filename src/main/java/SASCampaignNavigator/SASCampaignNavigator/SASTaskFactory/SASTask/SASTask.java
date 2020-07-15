@@ -244,7 +244,7 @@ public abstract class SASTask
         logger.debug(msg + toFind);
         
         // publish campaign
-        toFind = "//button[@title='Options' and ancestor::div[contains(@id, 'jsview')]]";
+        toFind = "//button[@title='Options' and not(contains(@class, 'sapMBtnDisabled')) and ancestor::div[contains(@id, 'jsview')]]";
         msg = "Click on Options menu button";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);

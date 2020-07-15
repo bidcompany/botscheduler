@@ -112,12 +112,18 @@ public class SASTaskSchedule extends SASTaskApprove
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
     
          // wait until blocker is hidden
-         toFind = "//div[@id='sap-ui-blocklayer-popup' and contains(@style, 'visibility: hidden')]";
-         msg = "Wait until blocklayer is invisible";
-         logger.debug(msg);
-         logger.debug("xpath]: " + toFind);
-         found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));      
-        
+        toFind = "//div[@id='sap-ui-blocklayer-popup' and contains(@style, 'visibility: hidden')]";
+        msg = "Wait until blocklayer is invisible";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));      
+
+        toFind = "//*[@title='Please wait']";
+        msg = "Wait until the busy overlay is invisible";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
+
     }
 
     protected void editSchedule()
@@ -162,6 +168,33 @@ public class SASTaskSchedule extends SASTaskApprove
         logger.debug("xpath:] " + toFind);
         found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));
 
+        // check if we need to remove the schedule before edit
+        toFind = "//*[text()='Remove Schedule']/ancestor::button";
+        msg = "Check if present Remove Schedule button";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() > 0)
+        {
+            msg = "Click on Remove Schedule button";
+            logger.debug(msg);
+            campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
+            
+            // Confirm the Remove Schedule dialog
+            toFind = "//*[text()='Yes']/ancestor::button[ancestor::div[@role='alertdialog']]";
+            msg = "Click on Yes in the Remove Sent Schedule dialog";
+            logger.debug(msg);
+            logger.debug("xpath]: " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+            found.click();
+           
+            // wait until busy page is invisible, otherwise it will intercept the click
+            toFind = "//*[@title='Please wait']";
+            msg = "Wait until the busy overlay is invisible";
+            logger.debug(msg);
+            logger.debug("xpath]: " + toFind);
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
+        }
+
         // click on Edit Schedule
         toFind = "//*[text()='Edit Schedule']/ancestor::button";
         msg = "Click on Edit Schedule button";
@@ -204,6 +237,7 @@ public class SASTaskSchedule extends SASTaskApprove
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
+
     }
 
     public void exec()
