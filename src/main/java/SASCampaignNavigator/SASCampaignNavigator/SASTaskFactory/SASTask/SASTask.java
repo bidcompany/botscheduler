@@ -212,6 +212,9 @@ public abstract class SASTask
                 // if campaign section is already open we need to click 2 times in the root
                 if(campaignNavigator.history.getValue(SASHistory.CAMPAIGN_SECTION_ALREADY_OPEN) && i == 0)
                 {
+                    msg = "Second click on the root";
+                    logger.debug(msg);
+                    logger.debug(i + "]: " + dir);
                     found.click();  // 2nd time
                 }
             }
