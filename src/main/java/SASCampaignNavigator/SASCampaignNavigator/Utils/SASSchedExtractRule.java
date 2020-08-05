@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import SASCampaignNavigator.SASCampaignNavigator.Utils.SASTranslate;
 
 public class SASSchedExtractRule 
 {
@@ -36,6 +37,7 @@ public class SASSchedExtractRule
             String communicationSetting = delimiter + s;
 
             // translate ita to eng
+            communicationSetting = SASTranslate.toEnglish(communicationSetting);
 
             campaignSched.put(communication, communicationSetting);
             logger.debug("Save for communication [" + communication + "] the schedule setting [" +communicationSetting + "]");
