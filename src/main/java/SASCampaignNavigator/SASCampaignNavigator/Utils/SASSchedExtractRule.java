@@ -39,7 +39,7 @@ public class SASSchedExtractRule
             }
             
             // remove from rule the result of the regex
-            strBuffer.replaceAll(regex, "");
+            strBuffer = strBuffer.replaceAll(regex, "");
             
             // break if remains only last element
             if (strRules.length == 0)
