@@ -38,7 +38,7 @@ public class SASSchedExtractRule
             // translate ita to eng
 
             campaignSched.put(communication, communicationSetting);
-            logger.debug("Save for communication [%s] the schedule setting [%s]", communication, communicationSetting);
+            logger.debug("Save for communication [" + communication + "] the schedule setting [" +communicationSetting + "]");
         }       
     }
 
