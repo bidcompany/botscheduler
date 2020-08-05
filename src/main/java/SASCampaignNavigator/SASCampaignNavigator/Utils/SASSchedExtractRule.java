@@ -16,19 +16,38 @@ public class SASSchedExtractRule
         String delimiter = strSched.split("<br/>")[0] + "<br/>";
         logger.debug("Keyword used as delimiter to parse communication sched settings: " + delimiter);
 
-        // split with regex
-        String regex = delimiter + "(.*?)" + delimiter;
-        logger.debug("Regex rules to extract the rules: " + regex);
-        String [] strRules = strSched.split(regex);
+       // split with regex
+       String regex = delimiter + "(.*?)" + delimiter;
+       logger.debug("Regex rules to extract the rules: " + regex);
+       
+       // buffer of the rule string
+       String strBuffer = strSched;
 
-        logger.debug("Lets check the rules extracted");
-        int i = 1;
-        for (String s : strRules)
+        // infinite loop
+        for(;;)
         {
-            logger.debug(i + "] rule: " + s);
-            i++;
-        }
+            logger.debug("Extract rules from: " + strBuffer);
+            
+            String [] strRules = strBuffer.split(regex);
 
+            logger.debug("Lets check the rules extracted");
+            int i = 1;
+            for (String s : strRules)
+            {
+                logger.debug(i + "] rule: " + s);
+                i++;
+            }
+            
+            // remove from rule the result of the regex
+            strBuffer.replaceAll(regex, "");
+            
+            // break if remains only last element
+            if (strRules.length == 0)
+            {
+                logger.debug("last rule: " + strBuffer);
+                break;
+            }
+        }
     }
 
 }
