@@ -1,7 +1,7 @@
 package SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask;
 
 import java.util.regex.Pattern;
-import java.util.List;
+import java.util.HashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import SASCampaignNavigator.SASCampaignNavigator.CampaignNavigator.CampaignNavigator;
 import SASCampaignNavigator.SASCampaignNavigator.Utils.XML2String;
 import SASCampaignNavigator.SASCampaignNavigator.Utils.SASHistory;
+import SASCampaignNavigator.SASCampaignNavigator.Utils.SASSchedExtractRule;
 
 // Abstract class of a SASTask.
 // the bot will do for all task the following operation: openCampaign, runTask, closeCampaign 
@@ -26,6 +27,8 @@ public abstract class SASTask
     protected String taskType;
     protected String campaignPath;
     protected String campaignSchedule;
+
+    //protected HashMap <String, String> campaignSchedule;
 
     // WebDriver instance from SASCampaignNavigator
     //protected WebDriver webDriver;
@@ -78,6 +81,12 @@ public abstract class SASTask
 
             this.campaignSchedule = root.getChild("sched").getValue();
             logger.debug("set target schedule rules: " + campaignSchedule);
+            
+            // Extract Multiple Communication Schedule rules
+            String strSched = root.getChild("sched").getValue();
+            HashMap <String, String> campaignSchedSettings = new HashMap <String, String>();
+            SASSchedExtractRule schedExtractRule = new SASSchedExtractRule();
+            schedExtractRule.extractRule(campaignSchedSettings, strSched);
 
             if (campaign == null)
                 throw new NullPointerException("campaign name is null");

@@ -47,6 +47,7 @@ public class SASTaskSchedule extends SASTaskApprove
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
+        // TO DO: campaign name is not necessarly
         // wait until the page has loaded the schedule settings otherwise clicking on send schedule does nothing 
         toFind = "//*[text()='" + campaign + "'  and ancestor::ul[@role='listbox']]";
         msg = "Waiting that the schedule settings are loaded";
@@ -161,12 +162,15 @@ public class SASTaskSchedule extends SASTaskApprove
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
+        // TO DO: campaign name is not necessarly
         // wait until the page has loaded the schedule settings otherwise clicking on send schedule does nothing 
         toFind = "//*[text()='" + campaign + "'  and ancestor::ul[@role='listbox']]";
         msg = "Waiting that the schedule settings are loaded";
         logger.debug(msg);
         logger.debug("xpath:] " + toFind);
         found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));
+
+        // TO DO: Cycle here
 
         // check if we need to remove the schedule before edit
         toFind = "//*[text()='Remove Schedule']/ancestor::button";
@@ -237,6 +241,8 @@ public class SASTaskSchedule extends SASTaskApprove
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
+
+        // TO DO: End Cycle here - jump to next
 
     }
 
