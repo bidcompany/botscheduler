@@ -28,7 +28,7 @@ public class SASSchedExtractRule
         {
             logger.debug("Extract rules from: " + strBuffer);
             
-            String [] strRules = strBuffer.split(regex);
+            String [] strRules = strBuffer.split(delimiter);
 
             logger.debug("Lets check the rules extracted");
             int i = 1;
@@ -37,16 +37,16 @@ public class SASSchedExtractRule
                 logger.debug(i + "] rule: " + s);
                 i++;
             }
-            
+            break;
             // remove from rule the result of the regex
-            strBuffer = strBuffer.replaceAll(regex, "");
+            // strBuffer = strBuffer.replaceAll(regex, "");
             
-            // break if remains only last element
-            if (strRules.length == 0)
-            {
-                logger.debug("last rule: " + strBuffer);
-                break;
-            }
+            // // break if remains only last element
+            // if (strRules.length == 0)
+            // {
+            //     logger.debug("last rule: " + strBuffer);
+            //     break;
+            // }
         }
     }
 
