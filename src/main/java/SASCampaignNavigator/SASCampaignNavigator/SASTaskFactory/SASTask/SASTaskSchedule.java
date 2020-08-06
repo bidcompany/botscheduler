@@ -185,9 +185,19 @@ public class SASTaskSchedule extends SASTaskApprove
             logger.debug(msg);
             campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
             
-            // Confirm the Remove Schedule dialog
-            toFind = "//*[text()='Yes']/ancestor::button[ancestor::div[@role='alertdialog']]";
-            msg = "Click on Yes in the Remove Sent Schedule dialog";
+            if(!campaign.equals(communication))
+            {
+                // Removing Schedule of Communication opens different dialog
+                toFind = "//*[text()='Remove Schedule']/ancestor::button[ancestor::footer]";
+                msg = "Click on Remove Schedule button in dialog [Communication Schedule]";
+            }
+            else
+            {
+                // Confirm the Remove Schedule dialog
+                toFind = "//*[text()='Yes']/ancestor::button[ancestor::div[@role='alertdialog']]";            
+                msg = "Click on Yes in the Remove Sent Schedule dialog [Campaign Schedule]";
+            }
+            
             logger.debug(msg);
             logger.debug("xpath]: " + toFind);
             found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
