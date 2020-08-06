@@ -27,15 +27,20 @@ public class SASTaskApproveSchedule extends SASTaskSchedule
              /* here we don't do anything */
              skipDialogs();
  
-             // edit the schedule of campaign 
-             editSchedule();
- 
-             // approve campaign
-             approveCampaign();
- 
-             // schedule campaign
-             scheduleCampaign();
- 
+            // schedule each communication
+            for (String communication : mapCampaignSchedule.keySet())
+            {
+                // edit the schedule of campaign 
+                editSchedule(communication);
+
+            }
+
+            // approve campaigns
+            approveCampaign();
+
+            // schedule campaign
+            scheduleCampaign(mapCampaignSchedule.keySet().iterator().next());
+
              // close the campaign
              closeCampaign();
  

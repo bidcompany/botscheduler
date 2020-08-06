@@ -27,8 +27,7 @@ public abstract class SASTask
     protected String taskType;
     protected String campaignPath;
     protected String campaignSchedule;
-
-    //protected HashMap <String, String> campaignSchedule;
+    protected HashMap <String, String> mapCampaignSchedule;
 
     // WebDriver instance from SASCampaignNavigator
     //protected WebDriver webDriver;
@@ -84,9 +83,10 @@ public abstract class SASTask
             
             // Extract Multiple Communication Schedule rules
             String strSched = root.getChild("sched").getValue();
-            HashMap <String, String> campaignSchedSettings = new HashMap <String, String>();
+            
+            mapCampaignSchedule = new HashMap <String, String>();
             SASSchedExtractRule schedExtractRule = new SASSchedExtractRule();
-            schedExtractRule.extractRule(campaignSchedSettings, strSched);
+            schedExtractRule.extractRule(mapCampaignSchedule, strSched);
 
             if (campaign == null)
                 throw new NullPointerException("campaign name is null");

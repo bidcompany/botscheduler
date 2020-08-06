@@ -34,6 +34,13 @@ public class SASSchedExtractRule
 
             // save with communication string
             String communication = s.split("<br/>")[1];
+            
+            // schedule campaign if at position of communication we have the sched rule
+            if (communication.contains("Starts"))
+            {
+                communication = delimiter.replace("<br/>", "");
+            }
+
             String communicationSetting = delimiter + s;
 
             // translate ita to eng

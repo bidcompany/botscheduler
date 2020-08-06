@@ -21,7 +21,7 @@ public class SASTaskSchedule extends SASTaskApprove
         taskType = "Schedule";
     }
 
-    protected void scheduleCampaign()
+    protected void scheduleCampaign(String communication)
     {
         String msg = "not Initialized";
         String toFind = "not Initialized";
@@ -29,7 +29,7 @@ public class SASTaskSchedule extends SASTaskApprove
         WebDriverWait wait = new WebDriverWait(
             campaignNavigator.webDriver, campaignNavigator.timeout);
 
-        logger.debug("scheduling campaign " + campaign + "...");
+        logger.debug("scheduling campaign " + campaign + " communication " + communication + " ...");
 
         // click on List of tabs buttons
         toFind = "//button[@title='List of tabs']";
@@ -47,13 +47,15 @@ public class SASTaskSchedule extends SASTaskApprove
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
-        // TO DO: campaign name is not necessarly
         // wait until the page has loaded the schedule settings otherwise clicking on send schedule does nothing 
-        toFind = "//*[text()='" + campaign + "'  and ancestor::ul[@role='listbox']]";
+        toFind = "//*[text()='" + communication + "'  and ancestor::ul[@role='listbox']]";
         msg = "Waiting that the schedule settings are loaded";
         logger.debug(msg);
         logger.debug("xpath:] " + toFind);
         found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));
+
+        // click on listbox
+        found.click();
 
         // click on send Schedule button
         toFind = "//*[text()='Send Schedule']/ancestor::button";
@@ -127,7 +129,7 @@ public class SASTaskSchedule extends SASTaskApprove
 
     }
 
-    protected void editSchedule()
+    protected void editSchedule(String communication)
     {
         String msg = "not Initialized";
         String toFind = "not Initialized";
@@ -135,7 +137,7 @@ public class SASTaskSchedule extends SASTaskApprove
         WebDriverWait wait = new WebDriverWait(
             campaignNavigator.webDriver, campaignNavigator.timeout);
 
-        logger.debug("Edit schedule campaign " + campaign + "...");
+        logger.debug("Edit schedule campaign " + campaign + " communication " + communication +  "...");
 
         // do not edit the schedule if it is empty
         if(this.campaignSchedule.isEmpty())
@@ -162,15 +164,15 @@ public class SASTaskSchedule extends SASTaskApprove
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
-        // TO DO: campaign name is not necessarly
         // wait until the page has loaded the schedule settings otherwise clicking on send schedule does nothing 
-        toFind = "//*[text()='" + campaign + "'  and ancestor::ul[@role='listbox']]";
+        toFind = "//*[text()='" + communication + "'  and ancestor::ul[@role='listbox']]";
         msg = "Waiting that the schedule settings are loaded";
         logger.debug(msg);
         logger.debug("xpath:] " + toFind);
         found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));
 
-        // TO DO: Cycle here
+        // click on the listbox
+        found.click();
 
         // check if we need to remove the schedule before edit
         toFind = "//*[text()='Remove Schedule']/ancestor::button";
@@ -216,13 +218,13 @@ public class SASTaskSchedule extends SASTaskApprove
         
         // Map Schedule settings
         SASSchedRule schedRule = new SASSchedRule();
-        schedRule.fetchRule(this.campaignSchedule, this);
+        schedRule.fetchRule(mapCampaignSchedule.get(communication), this);
 
         // stop editing
         found.click();
 
         // wait until disappear dialog set schedule
-        msg = "Wait untill the dialog menu disappear";
+        msg = "Wait until the dialog menu disappear";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
@@ -242,8 +244,6 @@ public class SASTaskSchedule extends SASTaskApprove
         logger.debug("xpath]: " + toFind);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
 
-        // TO DO: End Cycle here - jump to next
-
     }
 
     public void exec()
@@ -256,15 +256,20 @@ public class SASTaskSchedule extends SASTaskApprove
             /* here we don't do anything */
             skipDialogs();
 
-            // edit the schedule of campaign 
-            editSchedule();
+            // schedule each communication
+            for (String communication : this.mapCampaignSchedule.keySet())
+            {
+                // edit the schedule of campaign 
+                editSchedule(communication);
 
-            // approve campaign
-            // approveCampaign();
+            }
+            
+            // approve campaigns
+            approveCampaign();
 
             // schedule campaign
-            scheduleCampaign();
-
+            scheduleCampaign(mapCampaignSchedule.keySet().iterator().next());
+            
             // close the campaign
             closeCampaign();
 
