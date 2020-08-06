@@ -24,19 +24,67 @@ public class SASCampaignNavigator extends CampaignNavigator
     
     private void SASLogin()
     {
-        String url = this.url; //"http://sas-aap.demo.sas.com/SASCIStudio/";
-        String toFind;
+        String msg = "not Initialized";
+        String toFind = "not Initialized";
+        WebElement found;
+        WebDriverWait wait = new WebDriverWait(webDriver, timeout);
+
+        // Navigate to the url
+        String url = this.url;
+        msg = "Navigate to url: " + url;
+        logger.debug(msg);
         webDriver.navigate().to(url);
-        logger.debug("Navigate to " + url);
+        
+        // wait if ISP sign in is present
+        toFind = "//img[@alt='IntesaSanpaolo']"; 
+        msg = "Check if ISP sign in is present";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        if(webDriver.findElements(By.xpath(toFind)).size() > 0)
+        {
+            msg = "Please sign in with ISP credentials.";
+            logger.debug(msg);
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(toFind)));
+            
+            // Focus on the iframe
+            toFind = "sasci_iframe";
+            msg = "Switch to iframe";
+            logger.debug(msg);
+            logger.debug("id]: " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+            webDriver.switchTo().frame(found);
+
+            // Select Business Context
+            toFind = "//*[text()='Intesa']/ancestor::*[@role='option']";
+            msg = "Select the Intesa business context button";
+            logger.debug(msg);
+            logger.debug("xpath]: " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+            found.click();
+
+            // Click Ok 
+            toFind = "//*[text()='OK']/ancestor::button";
+            msg = "Click on the OK button";
+            logger.debug(msg);
+            logger.debug("xpath]: " + toFind);
+            found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+            found.click();
+            return;
+        }
         
         // digit username
         toFind = "username";
-        logger.debug("Find id " + toFind);
-        webDriver.findElement(By.id(toFind)).sendKeys(this.user);
-    
+        msg = "Insert username: " + this.user;
+        logger.debug(msg);
+        logger.debug("id]: " + toFind);
+        found = wait.until(ExpectedConditions.elementToBeClickable(By.id(toFind)));  
+        found.sendKeys(this.user);
+        
         // digit password
         toFind = "password";
-        logger.debug("Find id " + toFind);
+        msg = "Insert password: " + this.password.replaceAll(".", "*");
+        logger.debug(msg);
+        logger.debug("id]: " + toFind);
         webDriver.findElement(By.id(toFind)).sendKeys(this.password);
         logger.debug("Navigate to to " + url);
 
@@ -46,13 +94,11 @@ public class SASCampaignNavigator extends CampaignNavigator
         webDriver.findElement(By.className(toFind)).submit();
 
         // Focus on the iframe
-        WebDriverWait wait = new WebDriverWait(webDriver, timeout);
-        
         toFind = "sasci_iframe";
-        String msg = "Switch to iframe";
+        msg = "Switch to iframe";
         logger.debug(msg);
         logger.debug("id]: " + toFind);
-        WebElement found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
+        found = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(toFind)));  
         webDriver.switchTo().frame(found);
 
     }
