@@ -94,10 +94,14 @@ public class SASTranslate
         // reformat
         if (isWrong)
         {
-            // check pattern inside rules
+            System.out.println("Is Wrong");
+
+            // check pattern inside rules   
             List<String> schedList = Arrays.asList(translated.split("<br/>"));
             for (String s : schedList)
             {
+                System.out.println("#] " + s);
+
                 // convert Starts
                 if (s.contains("Starts") || (s.contains("Ends") && !s.contains("by")))
                 {
@@ -144,6 +148,8 @@ public class SASTranslate
                     }
                     catch (Exception e)
                     {
+                        System.out.println("eccezzione");
+                        e.printStackTrace();
                         return translated;
                     }
                     
@@ -158,7 +164,7 @@ public class SASTranslate
                         hplStr + " " +
                         ENG_ET;
                     
-                    continue;
+                    System.out.println(" -> " + s);
                 }
 
             }
