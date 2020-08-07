@@ -72,9 +72,9 @@ public class SASTaskSchedule extends SASTaskApprove
         logger.debug("xpath]: " + toFind);
         if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() != 0)
         {   
-            campaignNavigator.webDriver.findElements(By.xpath(toFind)).click();
+            campaignNavigator.webDriver.findElement(By.xpath(toFind)).click();
         }
-        
+
         // click on radio box to send schedule to program
         toFind = "//div[@role='radio' and descendant::*[contains(text(), 'scheduling software')]]";
         //toFind = "//div[@role='radio' and descendant::*[contains(text(), 'administrator')]]";
