@@ -272,13 +272,14 @@ public class SASTaskSchedule extends SASTaskApprove
                 // edit the schedule of campaign 
                 editSchedule(communication);
 
+                scheduleCampaign(communication);
             }
             
             // approve campaigns
             //approveCampaign();
 
             // schedule campaign
-            scheduleCampaign(mapCampaignSchedule.keySet().iterator().next());
+            //scheduleCampaign(mapCampaignSchedule.keySet().iterator().next());
             
             // close the campaign
             closeCampaign();
