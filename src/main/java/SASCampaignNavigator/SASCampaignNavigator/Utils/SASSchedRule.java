@@ -316,12 +316,19 @@ public class SASSchedRule
             logger.debug("Write to input field " + toWrite);
             found.clear();
             found.sendKeys(toWrite);
-            found.submit();
+         
+            toFind="//*[text()='OK']/ancestor::button";
+            msg = "click on the ok button";
+            logger.debug(msg);
+            logger.debug("xpath] " + toFind);
+            found = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toFind)));  
+            found.click();
         }
         catch (Exception e)
         {
             e.printStackTrace();
             logger.debug("An Exception occured, sched Rule is not valid");
+            logger.debug(e.toString());
             return;
         }
     }
