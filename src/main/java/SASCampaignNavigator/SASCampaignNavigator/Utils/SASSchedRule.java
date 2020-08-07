@@ -300,8 +300,12 @@ public class SASSchedRule
 
             // this format is important, otherwise is rejected by CIStudio
             // ex: March 18, 2021, 4:17 PM
-            toWrite = words[2] + words[3] + " " + words[4] + ", " + 
-                             words[5] + " " + words[6];
+            toWrite = words[2] + " " + 
+                      words[3] + " " + 
+                      words[4] + ", " + 
+                      words[5] + " " + 
+                      words[6];
+
             logger.debug("START DATE: " +  toWrite);
             
             toFind="//input[@type='text' and ancestor::tr//*[text()='Start date/time:'] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
@@ -365,9 +369,12 @@ public class SASSchedRule
             if(recursEveryRule.contains(RECURS_HOURLY))
             {
                 String[] words = endRule.split(" ");        
-                toWrite = words[2] + words[3] + " " + words[4] + ", " + 
-                words[5] + " " + words[6];
-                
+                toWrite = words[2] + " " + 
+                      words[3] + " " + 
+                      words[4] + ", " + 
+                      words[5] + " " + 
+                      words[6];
+            
                 logger.debug("End date: " +  toWrite);
                 toFind="//input[@type='text' and @role='combobox' and ancestor::tr//*[contains(text(), 'End date')] and ancestor::div[@role = 'dialog' ]//*[text()='Set Schedule']]";
                 msg = "Find the input field for End Date ";

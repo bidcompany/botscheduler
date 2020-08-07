@@ -162,7 +162,7 @@ public class SASTranslate
                     s  = keyStr + " " + 
                         dayStr + " " +
                         monStr + " " +
-                        numStr + " " +
+                        numStr + ", " +
                         yyrStr + " " +
                         horStr + " " +
                         hplStr + " " +
