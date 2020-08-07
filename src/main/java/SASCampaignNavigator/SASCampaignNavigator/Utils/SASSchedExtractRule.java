@@ -44,8 +44,10 @@ public class SASSchedExtractRule
             String communicationSetting = delimiter + s;
 
             // translate ita to eng
+            logger.debug("Original rule:] " + communicationSetting);
             communicationSetting = SASTranslate.toEnglish(communicationSetting);
-
+            logger.debug("Translated rule:] " + communicationSetting);
+            
             campaignSched.put(communication, communicationSetting);
             logger.debug("Save for communication [" + communication + "] the schedule setting [" +communicationSetting + "]");
         }       

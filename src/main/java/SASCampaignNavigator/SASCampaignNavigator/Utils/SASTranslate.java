@@ -111,14 +111,17 @@ public class SASTranslate
                     String estStr = startRule[6];
                     String hplStr = ENG_AM;
 
+                    System.out.println("prima replace: " + horStr);
+
                     // convert hours
                     horStr = horStr.replace(".", ":");
+                    System.out.println("dopo replace: " + horStr);
                     String[] time = horStr.split(":");
                     try 
                     {
                         int hh = Integer.parseInt(time[0]);
-                        int mm = Integer.parseInt(time[1]);
-                        int ss = Integer.parseInt(time[2]);                            
+                        //int mm = Integer.parseInt(time[1]);
+                        //int ss = Integer.parseInt(time[2]);                            
 
                         // 12 -> 12 PM
                         if (hh == 12)
@@ -159,6 +162,7 @@ public class SASTranslate
                         hplStr + " " +
                         ENG_ET;
                     
+                    System.out.println(" --> " + s);
                 }
 
             }

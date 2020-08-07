@@ -32,7 +32,7 @@ public class SASTaskSchedule extends SASTaskApprove
         logger.debug("scheduling campaign " + campaign + " communication " + communication + " ...");
 
         // click on List of tabs buttons
-        toFind = "//button[@title='List of tabs' and not(contains(@class, 'sapMBtnDisabled'))]";
+        toFind = "//button[@title='List of tabs']";
         msg = "Click on List of Tabs button";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
@@ -75,7 +75,7 @@ public class SASTaskSchedule extends SASTaskApprove
         found.click();
 
         // update history if send to admin
-        //campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN, true);
+        campaignNavigator.history.updateHistory(SASHistory.CAMPAIGN_SEND_SCHEDULE_ADMIN, true);
 
         // click again to send Schedule button
         toFind = "//*[text()='Send' and ancestor::div[@role='dialog']]/ancestor::button";
