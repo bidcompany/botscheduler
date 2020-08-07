@@ -156,8 +156,10 @@ public class SASTranslate
                     }
                     
 
-                    // rearrange
-                    s = keyStr + " " + 
+                    // replace
+                    int index = schedList.indexOf(s);
+                    
+                    s  = keyStr + " " + 
                         dayStr + " " +
                         monStr + " " +
                         numStr + " " +
@@ -166,14 +168,15 @@ public class SASTranslate
                         hplStr + " " +
                         ENG_ET;
                     
-                    logger.debug(" --> " + s);
+                    logger.debug(s);
+                    schedList.set(index, s);
                 }
 
             }
 
             // merge strings
             translated = String.join("<br/>", schedList);
-            logger.debug("after join" + translated);
+            logger.debug("after join: " + translated);
         }
         
         return translated;

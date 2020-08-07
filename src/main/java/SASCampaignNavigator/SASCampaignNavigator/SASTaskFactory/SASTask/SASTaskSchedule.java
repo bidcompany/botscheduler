@@ -65,6 +65,16 @@ public class SASTaskSchedule extends SASTaskApprove
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
         found.click();
 
+        // here alert dialog in case of communication
+        toFind = "//*[text()='Yes']/ancestor::button[ancestor::div[@role='alertdialog']]";            
+        msg = "Click on Yes in the confirm Send Schedule dialog [Campaign Schedule]";
+        logger.debug(msg);
+        logger.debug("xpath]: " + toFind);
+        if(campaignNavigator.webDriver.findElements(By.xpath(toFind)).size() != 0)
+        {   
+            campaignNavigator.webDriver.findElements(By.xpath(toFind)).click();
+        }
+        
         // click on radio box to send schedule to program
         toFind = "//div[@role='radio' and descendant::*[contains(text(), 'scheduling software')]]";
         //toFind = "//div[@role='radio' and descendant::*[contains(text(), 'administrator')]]";
