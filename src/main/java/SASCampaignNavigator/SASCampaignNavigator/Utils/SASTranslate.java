@@ -2,6 +2,8 @@ package SASCampaignNavigator.SASCampaignNavigator.Utils;
 
 import java.util.List;
 import java.util.Arrays;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SASTranslate 
 {
@@ -57,6 +59,8 @@ public class SASTranslate
     final static String ENG_ET = "EDT";
     final static String ENG_OC = "o'clock";
 
+    static private Logger logger = LogManager.getLogger(SASTranslate.class);
+
 
     static public String toEnglish(String toTranslate)
     {
@@ -111,17 +115,16 @@ public class SASTranslate
                     String estStr = startRule[6];
                     String hplStr = ENG_AM;
 
-                    System.out.println("prima replace: " + horStr);
+                    logger.debug("prima replace: " + horStr);
 
                     // convert hours
                     horStr = horStr.replace(".", ":");
-                    System.out.println("dopo replace: " + horStr);
+                    logger.debug("dopo replace: " + horStr);
                     String[] time = horStr.split(":");
                     try 
                     {
                         int hh = Integer.parseInt(time[0]);
-                        //int mm = Integer.parseInt(time[1]);
-                        //int ss = Integer.parseInt(time[2]);                            
+                        logger.debug("" + hh);
 
                         // 12 -> 12 PM
                         if (hh == 12)
@@ -148,6 +151,7 @@ public class SASTranslate
                     catch (Exception e)
                     {
                         e.printStackTrace();
+                        logger.debug(e.toString());
                         return translated;
                     }
                     
@@ -162,14 +166,14 @@ public class SASTranslate
                         hplStr + " " +
                         ENG_ET;
                     
-                    System.out.println(" --> " + s);
+                    logger.debug(" --> " + s);
                 }
 
             }
 
             // merge strings
             translated = String.join("<br/>", schedList);
-
+            logger.debug("after join" + translated);
         }
         
         return translated;
