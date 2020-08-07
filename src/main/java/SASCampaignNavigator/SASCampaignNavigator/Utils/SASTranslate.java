@@ -94,14 +94,10 @@ public class SASTranslate
         // reformat
         if (isWrong)
         {
-            System.out.println("Is Wrong");
-
             // check pattern inside rules   
             List<String> schedList = Arrays.asList(translated.split("<br/>"));
             for (String s : schedList)
             {
-                System.out.println("#] " + s);
-
                 // convert Starts
                 if (s.contains("Starts") || (s.contains("Ends") && !s.contains("by")))
                 {
@@ -116,7 +112,7 @@ public class SASTranslate
                     String hplStr = ENG_AM;
 
                     // convert hours
-                    horStr = horStr.replace(":", ".");
+                    horStr = horStr.replace(".", ":");
                     String[] time = horStr.split(":");
                     try 
                     {
@@ -148,7 +144,6 @@ public class SASTranslate
                     }
                     catch (Exception e)
                     {
-                        System.out.println("eccezzione");
                         e.printStackTrace();
                         return translated;
                     }
@@ -164,7 +159,6 @@ public class SASTranslate
                         hplStr + " " +
                         ENG_ET;
                     
-                    System.out.println(" -> " + s);
                 }
 
             }

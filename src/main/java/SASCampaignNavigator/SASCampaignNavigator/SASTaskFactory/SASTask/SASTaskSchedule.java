@@ -32,7 +32,7 @@ public class SASTaskSchedule extends SASTaskApprove
         logger.debug("scheduling campaign " + campaign + " communication " + communication + " ...");
 
         // click on List of tabs buttons
-        toFind = "//button[@title='List of tabs']";
+        toFind = "//button[@title='List of tabs' and not(contains(@class, 'sapMBtnDisabled'))]";
         msg = "Click on List of Tabs button";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
@@ -149,7 +149,7 @@ public class SASTaskSchedule extends SASTaskApprove
 
         // navigate to execution page and click edit schedule
         // click on List of tabs buttons
-        toFind = "//button[@title='List of tabs']";
+        toFind = "//button[@title='List of tabs' and not(contains(@class, 'sapMBtnDisabled'))]";
         msg = "Click on List of Tabs button";
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
@@ -253,6 +253,7 @@ public class SASTaskSchedule extends SASTaskApprove
         logger.debug(msg);
         logger.debug("xpath]: " + toFind);
         found = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(toFind)));  
+
 
         // wait until busy page is invisible, otherwise it will intercept the click
         toFind = "//*[@title='Please wait']";
