@@ -15,17 +15,17 @@ import SASCampaignNavigator.SASCampaignNavigator.SASTaskFactory.SASTask.SASTask;
 public class SASSchedRule 
 {
     // rule tokens
-    final String SCHED_STARTS      = "Starts";
-    final String SCHED_ENDS        = "Ends";
-    final String SCHED_ENDS_AFTER  = "Ends after";
-    final String SCHED_RECURS_EVRY = "Recurs every";
-    final String SCHED_RECURS_INDF = "Recurs indefinitely";
+    public final String SCHED_STARTS      = "Starts";
+    public final String SCHED_ENDS        = "Ends";
+    public final String SCHED_ENDS_AFTER  = "Ends after";
+    public final String SCHED_RECURS_EVRY = "Recurs every";
+    public final String SCHED_RECURS_INDF = "Recurs indefinitely";
 
     // recurs every tokens
-    final String RECURS_HOURLY  = "hour(s)";
-    final String RECURS_DAILY   = "day(s)";
-    final String RECURS_WEEKLY  = "week(s)";
-    final String RECURS_MONTHLY = "month(s)";
+    public final String RECURS_HOURLY  = "hour(s)";
+    public final String RECURS_DAILY   = "day(s)";
+    public final String RECURS_WEEKLY  = "week(s)";
+    public final String RECURS_MONTHLY = "month(s)";
 
     // logger
     private Logger logger = LogManager.getLogger(SASSchedRule.class);
@@ -299,6 +299,7 @@ public class SASSchedRule
             logger.debug("Word 7: " +  words[7]);   // edt
 
             // this format is important, otherwise is rejected by CIStudio
+            // ex: March 18, 2021, 4:17 PM
             toWrite = words[2] + words[3] + " " + words[4] + ", " + 
                              words[5] + " " + words[6];
             logger.debug("START DATE: " +  toWrite);
